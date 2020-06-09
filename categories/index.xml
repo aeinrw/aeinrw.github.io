@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Categories - 分类 - 被劝退的化学狗</title>
+        <link>https://aeinrw.github.io/categories/</link>
+        <description>Categories - 分类 - 被劝退的化学狗</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+            <webMaster>aeinrw@gmail.com (aeinrw)</webMaster><lastBuildDate>Sun, 07 Jun 2020 21:32:05 &#43;0800</lastBuildDate><atom:link href="https://aeinrw.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>技术</title>
+    <link>https://aeinrw.github.io/categories/%E6%8A%80%E6%9C%AF/</link>
+    <pubDate>Sun, 07 Jun 2020 21:32:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/categories/%E6%8A%80%E6%9C%AF/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>随笔</title>
+    <link>https://aeinrw.github.io/categories/%E9%9A%8F%E7%AC%94/</link>
+    <pubDate>Tue, 31 Dec 2019 23:42:38 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/categories/%E9%9A%8F%E7%AC%94/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>

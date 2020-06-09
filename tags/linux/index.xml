@@ -1,0 +1,30 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>linux - 标签 - 被劝退的化学狗</title>
+        <link>https://aeinrw.github.io/tags/linux/</link>
+        <description>linux - 标签 - 被劝退的化学狗</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+            <webMaster>aeinrw@gmail.com (aeinrw)</webMaster><lastBuildDate>Fri, 29 May 2020 16:33:25 &#43;0800</lastBuildDate><atom:link href="https://aeinrw.github.io/tags/linux/" rel="self" type="application/rss+xml" /><item>
+    <title>rsa算法和ssh登录详解</title>
+    <link>https://aeinrw.github.io/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/</link>
+    <pubDate>Fri, 29 May 2020 16:33:25 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/</guid>
+    <description><![CDATA[<h1 id="rsa加密算法和ssh免密登录">RSA加密算法和SSH免密登录</h1>
+<h2 id="1-rsa算法">1 RSA算法</h2>
+<h3 id="11-数学原理">1.1 数学原理</h3>
+<p><strong>费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.</strong></p>
+<p>即$(a^{p}-a)/p$的余数为零, $a^{p}/p$和$a/p$同余, $a^{p} \equiv a (mod\ p)$. 如果a不是p的倍数, 则$a^{p-1}-1$是p的倍数.</p>
+<p><strong>欧拉-费马小定理: 若$a \in Z , n \in Z$, 且a,n互素, 则$a^{\varphi(n)}-1 \equiv 1 (mod\ n)$.</strong></p>
+<p>其中, 若n为质数,$\varphi(n)=n-1$. 若p,q互质, 则$\varphi(pq)=(p-1)(q-1)$.</p>]]></description>
+</item><item>
+    <title>docker学习笔记</title>
+    <link>https://aeinrw.github.io/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Tue, 09 Jul 2019 20:37:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[<h1 id="docker的学习笔记">docker的学习笔记</h1>
+<p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.</p>
+<p>这是我学docker时的笔记, 教学视频看的是<a href="https://www.bilibili.com/video/av47715282?from=search&amp;seid=4956952821224565702" target="_blank" rel="noopener noreffer">docker教学视频链接</a>, 讲的很好, 入门很快.</p>]]></description>
+</item></channel>
+</rss>

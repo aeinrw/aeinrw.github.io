@@ -1,0 +1,92 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>所有文章 - 被劝退的化学狗</title>
+        <link>https://aeinrw.github.io/posts/</link>
+        <description>所有文章 | 被劝退的化学狗</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+            <webMaster>aeinrw@gmail.com (aeinrw)</webMaster><lastBuildDate>Sun, 07 Jun 2020 21:32:05 &#43;0800</lastBuildDate><atom:link href="https://aeinrw.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>go中append()的坑</title>
+    <link>https://aeinrw.github.io/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</link>
+    <pubDate>Sun, 07 Jun 2020 21:32:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</guid>
+    <description><![CDATA[<h1 id="go中切片方法append的坑">go中切片方法<code>append()</code>的坑</h1>
+<h2 id="1-slice的结构">1 slice的结构</h2>
+<p>slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.</p>]]></description>
+</item><item>
+    <title>go中的byte,rune,string</title>
+    <link>https://aeinrw.github.io/go%E4%B8%AD%E7%9A%84byterunestring/</link>
+    <pubDate>Wed, 03 Jun 2020 22:09:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/go%E4%B8%AD%E7%9A%84byterunestring/</guid>
+    <description><![CDATA[<h1 id="runebyte和string"><code>[]rune</code>,<code>[]byte</code>和<code>string</code></h1>
+<p>在go语言中, 字符串<code>string</code>被封装. 在学到接口时, <code>io.Writer</code>和<code>io.Reader</code>的参数都是<code>[]byte</code>, 而不是<code>string</code>. 另外, go也支持utf8, 又引入了<code>rune</code>. 初学时让我很困扰, 这篇文章理清了三者之间的关系.</p>]]></description>
+</item><item>
+    <title>rsa算法和ssh登录详解</title>
+    <link>https://aeinrw.github.io/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/</link>
+    <pubDate>Fri, 29 May 2020 16:33:25 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/</guid>
+    <description><![CDATA[<h1 id="rsa加密算法和ssh免密登录">RSA加密算法和SSH免密登录</h1>
+<h2 id="1-rsa算法">1 RSA算法</h2>
+<h3 id="11-数学原理">1.1 数学原理</h3>
+<p><strong>费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.</strong></p>
+<p>即$(a^{p}-a)/p$的余数为零, $a^{p}/p$和$a/p$同余, $a^{p} \equiv a (mod\ p)$. 如果a不是p的倍数, 则$a^{p-1}-1$是p的倍数.</p>
+<p><strong>欧拉-费马小定理: 若$a \in Z , n \in Z$, 且a,n互素, 则$a^{\varphi(n)}-1 \equiv 1 (mod\ n)$.</strong></p>
+<p>其中, 若n为质数,$\varphi(n)=n-1$. 若p,q互质, 则$\varphi(pq)=(p-1)(q-1)$.</p>]]></description>
+</item><item>
+    <title>git reset命令</title>
+    <link>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</link>
+    <pubDate>Wed, 27 May 2020 22:09:05 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</guid>
+    <description><![CDATA[<h1 id="git-reset-命令">git reset 命令</h1>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">git reset --soft
+git reset --mix
+git reset --hard
+</code></pre></td></tr></table>
+</div>
+</div><p>在初学git时, <code>git reset</code>命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.</p>]]></description>
+</item><item>
+    <title>2019年度总结</title>
+    <link>https://aeinrw.github.io/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
+    <pubDate>Tue, 31 Dec 2019 23:42:38 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
+    <description><![CDATA[<h1 id="2019年度总结">2019年度总结</h1>
+<p><em>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.</em></p>]]></description>
+</item><item>
+    <title>docker学习笔记</title>
+    <link>https://aeinrw.github.io/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+    <pubDate>Tue, 09 Jul 2019 20:37:19 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+    <description><![CDATA[<h1 id="docker的学习笔记">docker的学习笔记</h1>
+<p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.</p>
+<p>这是我学docker时的笔记, 教学视频看的是<a href="https://www.bilibili.com/video/av47715282?from=search&amp;seid=4956952821224565702" target="_blank" rel="noopener noreffer">docker教学视频链接</a>, 讲的很好, 入门很快.</p>]]></description>
+</item><item>
+    <title>各种软件安装和环境配置过程</title>
+    <link>https://aeinrw.github.io/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</link>
+    <pubDate>Sat, 06 Jul 2019 14:48:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</guid>
+    <description><![CDATA[<p>最近在服务器上玩centos,各种玩坏了就重装&hellip;🤯</p>
+<p>安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.</p>]]></description>
+</item><item>
+    <title>Hello World</title>
+    <link>https://aeinrw.github.io/hello-world/</link>
+    <pubDate>Fri, 05 Jul 2019 22:12:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://aeinrw.github.io/hello-world/</guid>
+    <description><![CDATA[<h1 id="你好-世界">你好 世界</h1>
+<p>想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.</p>
+<p>其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.</p>]]></description>
+</item></channel>
+</rss>

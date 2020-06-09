@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>go中的byte,rune,string - 被劝退的化学狗</title><meta name="Description" content="这是我的hugo博客"><meta property="og:title" content="go中的byte,rune,string" />
+<meta property="og:description" content="[]rune,[]byte和string
+在go语言中, 字符串string被封装. 在学到接口时, io.Writer和io.Reader的参数都是[]byte, 而不是string. 另外, go也支持utf8, 又引入了rune. 初学时让我很困扰, 这篇文章理清了三者之间的关系." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://aeinrw.github.io/go%E4%B8%AD%E7%9A%84byterunestring/" />
+<meta property="article:published_time" content="2020-06-03T22:09:05+08:00" />
+<meta property="article:modified_time" content="2020-06-03T22:09:05+08:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="go中的byte,rune,string"/>
+<meta name="twitter:description" content="[]rune,[]byte和string
+在go语言中, 字符串string被封装. 在学到接口时, io.Writer和io.Reader的参数都是[]byte, 而不是string. 另外, go也支持utf8, 又引入了rune. 初学时让我很困扰, 这篇文章理清了三者之间的关系."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://aeinrw.github.io/go%E4%B8%AD%E7%9A%84byterunestring/" /><link rel="prev" href="https://aeinrw.github.io/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/" /><link rel="next" href="https://aeinrw.github.io/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "go中的byte,rune,string",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/aeinrw.github.io\/go%E4%B8%AD%E7%9A%84byterunestring\/"
+        },"genre": "posts","keywords": "golang","wordcount":  1160 ,
+        "url": "https:\/\/aeinrw.github.io\/go%E4%B8%AD%E7%9A%84byterunestring\/","datePublished": "2020-06-03T22:09:05+08:00","dateModified": "2020-06-03T22:09:05+08:00","publisher": {
+            "@type": "Organization",
+            "name": "aeinrw"},"author": {
+                "@type": "Person",
+                "name": "aeinrw"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="被劝退的化学狗"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/avatar.png"
+        data-srcset="/avatar.png, /avatar.png 1.5x, /avatar.png 2x"
+        data-sizes="auto"
+        alt="/avatar.png"
+        title="/avatar.png" />被劝退的化学狗</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/" title="所有文章"> 所有文章 </a><a class="menu-item" href="/tags/" title="标签们"> 标签 </a><a class="menu-item" href="/categories/" title="文章分类"> 分类 </a><a class="menu-item" href="/about/" title="关于我"> 关于 </a><a class="menu-item" href="https://github.com/aeinrw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="被劝退的化学狗"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/avatar.png"
+        data-srcset="/avatar.png, /avatar.png 1.5x, /avatar.png 2x"
+        data-sizes="auto"
+        alt="/avatar.png"
+        title="/avatar.png" />被劝退的化学狗</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="所有文章">所有文章</a><a class="menu-item" href="/tags/" title="标签们">标签</a><a class="menu-item" href="/categories/" title="文章分类">分类</a><a class="menu-item" href="/about/" title="关于我">关于</a><a class="menu-item" href="https://github.com/aeinrw" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">go中的byte,rune,string</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://aeinrw.github.io/" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>aeinrw</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>技术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-06-03">2020-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1160 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="true">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-底层">1 底层</a>
+      <ul>
+        <li><a href="#11-string和byte">1.1 <code>string</code>和<code>[]byte</code></a></li>
+        <li><a href="#12-rune">1.2 <code>[]rune</code></a>
+          <ul>
+            <li><a href="#121-utf8">1.2.1 utf8</a></li>
+            <li><a href="#122-rune">1.2.2 <code>rune</code></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-三者间的转换">2 三者间的转换</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="runebyte和string"><code>[]rune</code>,<code>[]byte</code>和<code>string</code></h1>
+<p>在go语言中, 字符串<code>string</code>被封装. 在学到接口时, <code>io.Writer</code>和<code>io.Reader</code>的参数都是<code>[]byte</code>, 而不是<code>string</code>. 另外, go也支持utf8, 又引入了<code>rune</code>. 初学时让我很困扰, 这篇文章理清了三者之间的关系.</p>
+<h2 id="1-底层">1 底层</h2>
+<h3 id="11-string和byte">1.1 <code>string</code>和<code>[]byte</code></h3>
+<p>string是经过golang封装过的数据结构, 即字符串, 然而在底层, 它是一个<code>byte</code>类型的切片, 即<code>[]byte</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="kt">string</span> <span class="kd">struct</span> <span class="p">{</span>
+    <span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span>
+    <span class="nx">length</span> <span class="kt">int</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这是string的结构体(可能是这样&hellip;), 由一个字节切片和一个整形构成, 整形数据代表了字符串的<strong>字节长度</strong>(并不是Unicode字符长度).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;Hello,世界!&#34;</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>  <span class="c1">//结果为13
+</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">utf8</span><span class="p">.</span><span class="nf">RuneCountInString</span><span class="p">(</span><span class="nx">str</span><span class="p">))</span>  <span class="c1">//结果为9
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在上面的示例中, 每个英文字符和标点符号占据一个字节, 中文字符占据三个字节.<strong>可能多个切片元素才能表示一个字符</strong></p>
+<hr>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="kt">byte</span> <span class="kt">int8</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一个字节8个bit, 在golang中, 一个<code>byte</code>就相当于一个<code>int8</code>数据, 用<code>%c</code>和<code>%d</code>可以分别输出它的ASCII字符和数字大小.</p>
+<h3 id="12-rune">1.2 <code>[]rune</code></h3>
+<p>golang天生支持Unicode, 采用<code>rune</code>类型来表示一个utf8类型</p>
+<h4 id="121-utf8">1.2.1 utf8</h4>
+<p>utf8是不等长的编码, 采用添加附加位的方法来表示不同长度的字符, 最多占用4个字节来表示一个字符, 即32位.</p>
+<p><code>&quot;Hello,世界!&quot;</code>在golang中的string, 是按字节进行储存的, 但是按utf8字符进行读取的. 在底层的字节数组中, 存的内容是 <code>48656C6C6F2CE4B896E7958C21</code>, 没两个十六进制字符代表一个字节, 总共13个字节. 按照utf8字符进行划分可以分为<code>48,65,6C,6C,6F,2C,E4B896,E7958C,21</code>, 总共9个utf8字符.</p>
+<p>对于中文字符, 需要用三个字节进行表示, 以<code>&quot;世&quot;</code>为例, 它的<strong>utf8编码</strong>是<code>E4B896</code>, 转化为二进制为<code>11100100 10111000 10010110</code>. 第一个字节的前4位<code>1110</code>和后两个字节的前两位<code>10</code>为标识位, 当计算机看到<code>1110</code>时, 就知道这是一个三字节的utf8字符. 去掉标识位, 得到<code>0100111000010110</code>, 转化为十进制即为<code>19990</code>, 这是它的<strong>utf8编号</strong>.</p>
+<h4 id="122-rune">1.2.2 <code>rune</code></h4>
+<p>在golang中, 用rune表示一个utf8字符. utf8中, 最多4个字节, 4字节的字符编码格式为<code>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code>, 去掉标识位后共有21位, 表示它的编号, 可用21位的int进行表示, 但golang中没有<code>int21</code>,也没有<code>int24</code>, 所以用<code>int32</code>来表示一个utf字符.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="kt">rune</span> <span class="kt">int32</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>rune</code>中存的字符就已经去掉标识位, 不表示编码而只表示编号了.</p>
+<p>而<code>[]rune</code>很显然就是一个<code>int32</code>的切片, 其中保存了每个utf8字符的编号, 连起来就可以表示一个字符串, <strong>一个切片元素表示一个字符</strong>, 和<code>string</code>不一样.</p>
+<h2 id="2-三者间的转换">2 三者间的转换</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/images/%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%bd%ac%e6%8d%a2.png"
+        data-srcset="/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2.png, /images/%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%bd%ac%e6%8d%a2.png 1.5x, /images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2.png 2x"
+        data-sizes="auto"
+        alt="/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2.png"
+        title="转换" /></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-06-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/golang/">golang</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/" class="prev" rel="prev" title="rsa算法和ssh登录详解"><i class="fas fa-angle-left fa-fw"></i>rsa算法和ssh登录详解</a>
+            <a href="/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/" class="next" rel="next" title="go中append()的坑">go中append()的坑<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.72.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+                </div><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2019 - 2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://aeinrw.github.io/" target="_blank">aeinrw</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
