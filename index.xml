@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>被劝退的化学狗</title>
+    <title>aeinrw</title>
     <link>https://aeinrw.github.io/</link>
-    <description>Recent content on 被劝退的化学狗</description>
+    <description>Recent content on aeinrw</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
@@ -12,15 +12,6 @@
     
 	<atom:link href="https://aeinrw.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>关于我</title>
-      <link>https://aeinrw.github.io/about/</link>
-      <pubDate>Tue, 09 Jun 2020 12:10:35 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/about/</guid>
-      <description>嗨!感谢你发现我! 我是aeinrw. 这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西. 😂😘😍😊😁😜😝😄😀😋🙃</description>
-    </item>
     
     <item>
       <title>go中append()的坑</title>
@@ -104,6 +95,15 @@ git reset --hard
       <guid>https://aeinrw.github.io/hello-world/</guid>
       <description>&lt;p&gt;想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.&lt;/p&gt;
 &lt;p&gt;其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://aeinrw.github.io/about/</link>
+      <pubDate>Fri, 05 Jul 2019 12:10:35 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://aeinrw.github.io/about/</guid>
+      <description>嗨!感谢你发现我! 我是aeinrw. 这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西. 😂😘😍😊😁😜😝😄😀😋🙃</description>
     </item>
     
   </channel>

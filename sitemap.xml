@@ -3,8 +3,8 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://aeinrw.github.io/about/</loc>
-    <lastmod>2020-06-09T12:10:35+08:00</lastmod>
+    <loc>https://aeinrw.github.io/</loc>
+    <lastmod>2020-06-07T21:32:05+08:00</lastmod>
   </url>
   
   <url>
@@ -24,11 +24,6 @@
   
   <url>
     <loc>https://aeinrw.github.io/tags/%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2020-06-07T21:32:05+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://aeinrw.github.io/</loc>
     <lastmod>2020-06-07T21:32:05+08:00</lastmod>
   </url>
   
@@ -95,6 +90,11 @@
   <url>
     <loc>https://aeinrw.github.io/hello-world/</loc>
     <lastmod>2019-07-05T22:12:26+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://aeinrw.github.io/about/</loc>
+    <lastmod>2019-07-05T12:10:35+08:00</lastmod>
   </url>
   
 </urlset>
