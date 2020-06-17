@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on 被劝退的化学狗</title>
-    <link>http://example.org/tags/git/</link>
+    <link>https://aeinrw.github.io/tags/git/</link>
     <description>Recent content in git on 被劝退的化学狗</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
@@ -10,15 +10,15 @@
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
     <lastBuildDate>Wed, 27 May 2020 22:09:05 +0800</lastBuildDate>
     
-	<atom:link href="http://example.org/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://aeinrw.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git reset命令</title>
-      <link>http://example.org/git-reset%E5%91%BD%E4%BB%A4/</link>
+      <link>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 27 May 2020 22:09:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>http://example.org/git-reset%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</guid>
       <description>&lt;pre&gt;&lt;code&gt;git reset --soft
 git reset --mix
 git reset --hard
