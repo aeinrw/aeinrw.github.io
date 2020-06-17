@@ -1,17 +1,27 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>docker - 标签 - 被劝退的化学狗</title>
-        <link>https://aeinrw.github.io/tags/docker/</link>
-        <description>docker - 标签 - 被劝退的化学狗</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
-            <webMaster>aeinrw@gmail.com (aeinrw)</webMaster><lastBuildDate>Tue, 09 Jul 2019 20:37:19 &#43;0800</lastBuildDate><atom:link href="https://aeinrw.github.io/tags/docker/" rel="self" type="application/rss+xml" /><item>
-    <title>docker学习笔记</title>
-    <link>https://aeinrw.github.io/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
-    <pubDate>Tue, 09 Jul 2019 20:37:19 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://aeinrw.github.io/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-    <description><![CDATA[<h1 id="docker的学习笔记">docker的学习笔记</h1>
-<p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.</p>
-<p>这是我学docker时的笔记, 教学视频看的是<a href="https://www.bilibili.com/video/av47715282?from=search&amp;seid=4956952821224565702" target="_blank" rel="noopener noreffer">docker教学视频链接</a>, 讲的很好, 入门很快.</p>]]></description>
-</item></channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on 被劝退的化学狗</title>
+    <link>http://example.org/tags/docker/</link>
+    <description>Recent content in docker on 被劝退的化学狗</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+    <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
+    <lastBuildDate>Tue, 09 Jul 2019 20:37:19 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>docker学习笔记</title>
+      <link>http://example.org/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Tue, 09 Jul 2019 20:37:19 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>http://example.org/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;p&gt;早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.&lt;/p&gt;
+&lt;p&gt;这是我学docker时的笔记, 教学视频看的是&lt;a href=&#34;https://www.bilibili.com/video/av47715282?from=search&amp;amp;seid=4956952821224565702&#34;&gt;docker教学视频链接&lt;/a&gt;, 讲的很好, 入门很快.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
 </rss>

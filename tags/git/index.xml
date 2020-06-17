@@ -1,28 +1,29 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>git - 标签 - 被劝退的化学狗</title>
-        <link>https://aeinrw.github.io/tags/git/</link>
-        <description>git - 标签 - 被劝退的化学狗</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
-            <webMaster>aeinrw@gmail.com (aeinrw)</webMaster><lastBuildDate>Wed, 27 May 2020 22:09:05 &#43;0800</lastBuildDate><atom:link href="https://aeinrw.github.io/tags/git/" rel="self" type="application/rss+xml" /><item>
-    <title>git reset命令</title>
-    <link>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</link>
-    <pubDate>Wed, 27 May 2020 22:09:05 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</guid>
-    <description><![CDATA[<h1 id="git-reset-命令">git reset 命令</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-fallback" data-lang="fallback">git reset --soft
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>git on 被劝退的化学狗</title>
+    <link>http://example.org/tags/git/</link>
+    <description>Recent content in git on 被劝退的化学狗</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+    <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
+    <lastBuildDate>Wed, 27 May 2020 22:09:05 +0800</lastBuildDate>
+    
+	<atom:link href="http://example.org/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>git reset命令</title>
+      <link>http://example.org/git-reset%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 27 May 2020 22:09:05 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>http://example.org/git-reset%E5%91%BD%E4%BB%A4/</guid>
+      <description>&lt;pre&gt;&lt;code&gt;git reset --soft
 git reset --mix
 git reset --hard
-</code></pre></td></tr></table>
-</div>
-</div><p>在初学git时, <code>git reset</code>命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.</p>]]></description>
-</item></channel>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在初学git时, &lt;code&gt;git reset&lt;/code&gt;命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
 </rss>
