@@ -25,7 +25,7 @@
   --content: rgba(0, 0, 0, 0.88);
 
   --hljs-bg: #292734;
-  --code-bg: #f5f5f5;
+  --code-bg: #dddddd;
   --border: #eee;
 }
 .dark {
@@ -41,7 +41,7 @@
   --border: #5f5f5f;
 }
 .list {
-  background: #dddddd;
+  background: #ecebeb;
 }
 .dark.list {
   background: #1a1a1a;
@@ -241,6 +241,7 @@ img {
   justify-content: center;
   height: 320px;
   margin-bottom: var(--header-height);
+  text-align: center;
 }
 .first-entry .entry-header {
   overflow: hidden;
@@ -494,9 +495,6 @@ img {
 }
 .post-tags li {
   display: inline-block;
-}
-.post-tags li + li {
-  margin-left: 3px;
 }
 .post-tags a {
   display: block;

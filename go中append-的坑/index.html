@@ -117,11 +117,11 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
   </footer>
   <div class="post-content"><h1 id="slice的结构">slice的结构</h1>
 <p>slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
-    <span style="color:#a6e22e">data</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">type</span>
-    <span style="color:#a6e22e">len</span> <span style="color:#66d9ef">int</span>
-    <span style="color:#a6e22e">cap</span> <span style="color:#66d9ef">int</span>
-}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">slice</span> <span style="color:#66d9ef">struct</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span>    <span style="color:#a6e22e">data</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">type</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span>    <span style="color:#a6e22e">len</span> <span style="color:#66d9ef">int</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span>    <span style="color:#a6e22e">cap</span> <span style="color:#66d9ef">int</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span>}
 </code></pre></div><p>slice的结构可以理解为一个结构体, <code>data</code>是slice的底层数组的地址, <code>len</code>和<code>cap</code>分别是底层数组中有效数据的长度和数组的实际分配长度. 可通过go自带的<code>len()</code>和<code>cap()</code>进行获取.</p>
 <p><img src="https://i.loli.net/2020/06/19/lbr9IdsLkaQARSU.png" alt="sliceStruct.png"></p>
 <h1 id="append和copy"><code>append()</code>和<code>copy()</code></h1>
@@ -131,64 +131,64 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 <p><code>append()</code></p>
 <p><code>append()</code>用于在切片的末尾添加元素, 如果底层数组的容量足够(<code>len+1&lt;=cap</code>), 则不会进行扩容. 如果容量不够, 切片会进行容量增长, 具体的扩容算法比较复杂.</p>
 <p>切片会开辟一块新的内存空间, 把之前的值按顺序拷贝到新的数组上, 并在末尾添加上append的元素.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">slice</span> = append(<span style="color:#a6e22e">slice</span>,<span style="color:#a6e22e">newData</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#a6e22e">slice</span> = append(<span style="color:#a6e22e">slice</span>,<span style="color:#a6e22e">newData</span>)
 </code></pre></div></li>
 <li>
 <p><code>copy()</code></p>
 <p><code>copy()</code>用于两个同类型切片的复制, 并且是<strong>直接在原数组上进行复制</strong>, 不会开辟新的空间. 常用的用法如下所示.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">newSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">type</span>, len(<span style="color:#a6e22e">oldSlice</span>))
-copy(<span style="color:#a6e22e">newSlice</span>, <span style="color:#a6e22e">oldSlice</span>)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#a6e22e">newSlice</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">type</span>, len(<span style="color:#a6e22e">oldSlice</span>))
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span>copy(<span style="color:#a6e22e">newSlice</span>, <span style="color:#a6e22e">oldSlice</span>)
 </code></pre></div></li>
 </ul>
 <h1 id="append的坑"><code>append()</code>的坑</h1>
 <p>在leetcode刷题的过程中, 踩了<code>append()</code>的坑, 导致调试了一下午.</p>
 <p>导致坑的主要原因就是<code>append()</code>参数中的切片和接受返回值的切片不是同一个.</p>
 <p>首先通过伪代码分析一下<code>append()</code>的执行过程:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> append(<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">newData</span> <span style="color:#66d9ef">type</span>) <span style="color:#a6e22e">slice</span> {
-    <span style="color:#a6e22e">newSlice</span>.<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">newData</span> <span style="color:#75715e">//构造新切片, 添加新的元素
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">newSlice</span>.<span style="color:#a6e22e">len</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">len</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">newSlice</span>
-}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#66d9ef">func</span> append(<span style="color:#a6e22e">s</span> <span style="color:#a6e22e">slice</span>, <span style="color:#a6e22e">newData</span> <span style="color:#66d9ef">type</span>) <span style="color:#a6e22e">slice</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span>    <span style="color:#a6e22e">newSlice</span>.<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">newData</span> <span style="color:#75715e">//构造新切片, 添加新的元素
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">newSlice</span>.<span style="color:#a6e22e">len</span> = <span style="color:#a6e22e">s</span>.<span style="color:#a6e22e">len</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">newSlice</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span>}
 </code></pre></div><p>在<code>append()</code>中构造了一个新的切片, 如果接受返回值的是本身, 就实现了对原切片增加一个元素的效果. 如果接受返回值的是其他变量, 则相当于产生了一个新切片, 但这<strong>两个切片间是有关系的</strong>.</p>
 <p>看下面的演示代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">test1</span>() {
-    <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)     <span style="color:#75715e">//创建一个切片的切片
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>)    <span style="color:#75715e">//创建一个容量为2的切片
-</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0</span>)          <span style="color:#75715e">//往切片中添加两个元素
-</span><span style="color:#75715e"></span>   	<span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0</span>)
-    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-        <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">i</span>)     <span style="color:#75715e">//出现坑的地方
-</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>)
-        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>)
-    }
-}
-
-<span style="color:#75715e">//输出结果为
-</span><span style="color:#75715e"></span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>]]
-[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>]]
-[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>]]
-[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>]]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1</span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">test1</span>() {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2</span>    <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> make([][]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>)     <span style="color:#75715e">//创建一个切片的切片
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>)    <span style="color:#75715e">//创建一个容量为2的切片
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4</span><span style="color:#75715e"></span>    <span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0</span>)          <span style="color:#75715e">//往切片中添加两个元素
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5</span><span style="color:#75715e"></span>   	<span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#ae81ff">0</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6</span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">5</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7</span>        <span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> append(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">i</span>)     <span style="color:#75715e">//出现坑的地方
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9</span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">a</span>)
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10</span>    }
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11</span>}
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13</span><span style="color:#75715e">//输出结果为
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14</span><span style="color:#75715e"></span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>]]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15</span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>]]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16</span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>]]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17</span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>]]
 </code></pre></div><p>这是符合预期的, 但如果修改容量为3, 输出就不一样了.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#f92672">......</span>
-    <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>)    <span style="color:#75715e">//创建一个容量为3的切片
-</span><span style="color:#75715e"></span><span style="color:#f92672">......</span>
-
-<span style="color:#75715e">//输出结果为
-</span><span style="color:#75715e"></span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>]]
-[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>]]
-[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>]]
-[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>]]
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1</span><span style="color:#f92672">......</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2</span>    <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>)    <span style="color:#75715e">//创建一个容量为3的切片
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3</span><span style="color:#75715e"></span><span style="color:#f92672">......</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4</span>
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5</span><span style="color:#75715e">//输出结果为
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6</span><span style="color:#75715e"></span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">1</span>]]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7</span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">2</span>]]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8</span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">3</span>]]
+<span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9</span>[[<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>] [<span style="color:#ae81ff">0</span> <span style="color:#ae81ff">0</span> <span style="color:#ae81ff">4</span>]]
 </code></pre></div><p>修改容量后, 之前加入切片的值也改变了.</p>
 <hr>
 <p>现在分析一下造成这个结果的原因.</p>
 <ul>
 <li>容量为2时, 已经往切片b中加入了两个元素, 此时切片b的底层数组是满的. 如果再进行添加, 会开辟新的内存空间, 并赋值给新切片c, 且在循环过程中每次开辟的空间都不一样, 最后的结果符合预期.</li>
 </ul>
-<p><img src="https://i.loli.net/2020/06/19/sgaUmO53zfq4u6I.png" alt="append1.png"></p>
+<p><img src="https://i.loli.net/2020/06/20/sDOB6idZcGVvLx3.png" alt="append1.png"></p>
 <ul>
 <li>容量为3时, 往切片b中添加元素, 会直接在b的底层数组后面添加, 且返回的值就是b本身, 也就是说在循环过程中, c和b是相同的, 两个切片指向同一个底层数组, b和c的区别在于<code>c.len==3</code>而<code>b.len==2</code>, 而<code>c.data == b.data</code>. 这就导致在后面添加过程中, 会不断修改<code>b.data[2]</code>(注意不是<code>b[2]</code>,b的长度只有2,对于b来说,这个元素没有意义), 导致之前的值都发生了改变.</li>
 </ul>
-<p><img src="https://i.loli.net/2020/06/19/JmSIXx4TCF73cqo.png" alt="append2.png"></p></div>
+<p><img src="https://i.loli.net/2020/06/20/H3OvJBILtXS5FgM.png" alt="append2.png"></p></div>
 
   
 
