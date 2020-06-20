@@ -85,19 +85,18 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
     </script>
     <header class="header">
       <nav class="nav">
-        
         <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
-          <ul class="menu">
-            <li>
-              <a href="/tags/">Tags</a>
-            </li>
-            <li>
-              <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
-            </li>
-            <li>
-              <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
-            </li>
-          </ul>
+        <ul class="menu">
+          <li>
+            <a href="/tags/"><i class="fa fa-tags"></i></a>
+          </li>
+          <li>
+            <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
+          </li>
+          <li>
+            <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
+          </li>
+        </ul>
 
       </nav>
     </header>
@@ -124,7 +123,7 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
     <span style="color:#a6e22e">cap</span> <span style="color:#66d9ef">int</span>
 }
 </code></pre></div><p>slice的结构可以理解为一个结构体, <code>data</code>是slice的底层数组的地址, <code>len</code>和<code>cap</code>分别是底层数组中有效数据的长度和数组的实际分配长度. 可通过go自带的<code>len()</code>和<code>cap()</code>进行获取.</p>
-<p><img src="/images/slice%E7%BB%93%E6%9E%84.png" alt="slice结构"></p>
+<p><img src="https://i.loli.net/2020/06/19/lbr9IdsLkaQARSU.png" alt="sliceStruct.png"></p>
 <h1 id="append和copy"><code>append()</code>和<code>copy()</code></h1>
 <p>这两个函数是go自带的, 用于处理切片.</p>
 <ul>
@@ -185,11 +184,11 @@ copy(<span style="color:#a6e22e">newSlice</span>, <span style="color:#a6e22e">ol
 <ul>
 <li>容量为2时, 已经往切片b中加入了两个元素, 此时切片b的底层数组是满的. 如果再进行添加, 会开辟新的内存空间, 并赋值给新切片c, 且在循环过程中每次开辟的空间都不一样, 最后的结果符合预期.</li>
 </ul>
-<p><img src="/images/append1.png" alt="容量为2"></p>
+<p><img src="https://i.loli.net/2020/06/19/sgaUmO53zfq4u6I.png" alt="append1.png"></p>
 <ul>
 <li>容量为3时, 往切片b中添加元素, 会直接在b的底层数组后面添加, 且返回的值就是b本身, 也就是说在循环过程中, c和b是相同的, 两个切片指向同一个底层数组, b和c的区别在于<code>c.len==3</code>而<code>b.len==2</code>, 而<code>c.data == b.data</code>. 这就导致在后面添加过程中, 会不断修改<code>b.data[2]</code>(注意不是<code>b[2]</code>,b的长度只有2,对于b来说,这个元素没有意义), 导致之前的值都发生了改变.</li>
 </ul>
-<p><img src="/images/append2.png" alt="容量为3"></p></div>
+<p><img src="https://i.loli.net/2020/06/19/JmSIXx4TCF73cqo.png" alt="append2.png"></p></div>
 
   
 

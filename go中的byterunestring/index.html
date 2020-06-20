@@ -84,19 +84,18 @@
     </script>
     <header class="header">
       <nav class="nav">
-        
         <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
-          <ul class="menu">
-            <li>
-              <a href="/tags/">Tags</a>
-            </li>
-            <li>
-              <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
-            </li>
-            <li>
-              <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
-            </li>
-          </ul>
+        <ul class="menu">
+          <li>
+            <a href="/tags/"><i class="fa fa-tags"></i></a>
+          </li>
+          <li>
+            <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
+          </li>
+          <li>
+            <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
+          </li>
+        </ul>
 
       </nav>
     </header>
@@ -143,7 +142,7 @@
 </code></pre></div><p><code>rune</code>中存的字符就已经去掉标识位, 不表示编码而只表示编号了.</p>
 <p>而<code>[]rune</code>很显然就是一个<code>int32</code>的切片, 其中保存了每个utf8字符的编号, 连起来就可以表示一个字符串, <strong>一个切片元素表示一个字符</strong>, 和<code>string</code>不一样.</p>
 <h1 id="三者间的转换">三者间的转换</h1>
-<p><img src="/images/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E6%8D%A2.png" alt="转换"></p></div>
+<p><img src="https://i.loli.net/2020/06/19/2FOWw14oX3Msv8r.png" alt="stringTrans.png"></p></div>
 
   
 
