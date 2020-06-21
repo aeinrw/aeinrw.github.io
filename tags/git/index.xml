@@ -15,10 +15,10 @@
     
     <item>
       <title>git reset命令</title>
-      <link>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</link>
+      <link>https://aeinrw.github.io/posts/git-reset%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 27 May 2020 22:09:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/git-reset%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://aeinrw.github.io/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
       <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;1&lt;/span&gt;git reset --soft
 &lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;2&lt;/span&gt;git reset --mix
 &lt;span style=&#34;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f&#34;&gt;3&lt;/span&gt;git reset --hard

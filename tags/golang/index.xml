@@ -15,20 +15,20 @@
     
     <item>
       <title>go中append()的坑</title>
-      <link>https://aeinrw.github.io/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</link>
+      <link>https://aeinrw.github.io/posts/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 07 Jun 2020 21:32:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</guid>
+      <guid>https://aeinrw.github.io/posts/go%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</guid>
       <description>&lt;h1 id=&#34;slice的结构&#34;&gt;slice的结构&lt;/h1&gt;
 &lt;p&gt;slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>go中的byte,rune,string</title>
-      <link>https://aeinrw.github.io/go%E4%B8%AD%E7%9A%84byterunestring/</link>
+      <link>https://aeinrw.github.io/posts/go%E4%B8%AD%E7%9A%84byterunestring/</link>
       <pubDate>Wed, 03 Jun 2020 22:09:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/go%E4%B8%AD%E7%9A%84byterunestring/</guid>
+      <guid>https://aeinrw.github.io/posts/go%E4%B8%AD%E7%9A%84byterunestring/</guid>
       <description>&lt;p&gt;在go语言中, 字符串&lt;code&gt;string&lt;/code&gt;被封装. 在学到接口时, &lt;code&gt;io.Writer&lt;/code&gt;和&lt;code&gt;io.Reader&lt;/code&gt;的参数都是&lt;code&gt;[]byte&lt;/code&gt;, 而不是&lt;code&gt;string&lt;/code&gt;. 另外, go也支持utf8, 又引入了&lt;code&gt;rune&lt;/code&gt;. 初学时让我很困扰, 这篇文章理清了三者之间的关系.&lt;/p&gt;</description>
     </item>
     

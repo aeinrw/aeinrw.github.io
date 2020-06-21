@@ -15,29 +15,29 @@
     
     <item>
       <title>2019年度总结</title>
-      <link>https://aeinrw.github.io/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
+      <link>https://aeinrw.github.io/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
       <pubDate>Tue, 31 Dec 2019 23:42:38 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://aeinrw.github.io/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
       <description>&lt;p&gt;&lt;em&gt;现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>各种软件安装和环境配置过程</title>
-      <link>https://aeinrw.github.io/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</link>
+      <link>https://aeinrw.github.io/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sat, 06 Jul 2019 14:48:17 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</guid>
+      <guid>https://aeinrw.github.io/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</guid>
       <description>&lt;p&gt;最近在服务器上玩centos,各种玩坏了就重装&amp;hellip;🤯&lt;/p&gt;
 &lt;p&gt;安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hello World</title>
-      <link>https://aeinrw.github.io/hello-world/</link>
+      <link>https://aeinrw.github.io/posts/hello-world/</link>
       <pubDate>Fri, 05 Jul 2019 22:12:26 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/hello-world/</guid>
+      <guid>https://aeinrw.github.io/posts/hello-world/</guid>
       <description>&lt;p&gt;想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.&lt;/p&gt;
 &lt;p&gt;其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.&lt;/p&gt;</description>
     </item>

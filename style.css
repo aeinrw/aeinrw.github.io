@@ -533,6 +533,36 @@ img {
   color: var(--primary);
   border-bottom: 1px solid var(--primary);
 }
+/* timeline
+-------------------------------------------------- */
+.timeline {
+  margin: 20px 0px;
+}
+.timeline h2 {
+  display: block;
+  padding-left: 14px;
+  padding-right: 14px;
+  color: var(--secondary);
+  background: var(--code-bg);
+  border-radius: 4px;
+  margin: 4px;
+  line-height: 1.4;
+}
+.timeline li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 0.25rem 1.5rem;
+}
+.timeline a {
+  display: table-cell;
+}
+.timeline div {
+  text-align: right;
+  color: var(--secondary);
+}
 /* 404
 -------------------------------------------------- */
 .not-found {
