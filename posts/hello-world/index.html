@@ -1,77 +1,75 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
+    <title>Hello World</title>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <title>Hello World</title>
-    
       <meta name="description" content="想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.
 其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.">
       <meta name="author" content="">
-    
+
     <link href="https://aeinrw.github.io/an-old-hope.min.css" rel="stylesheet">
     <link href="https://aeinrw.github.io/style.css" rel="stylesheet">
-    <link href="https://aeinrw.github.io/custom.css" rel="stylesheet">
-    
     <link rel="apple-touch-icon" href="https://aeinrw.github.io/apple-touch-icon.png">
     <link rel="icon" href="https://aeinrw.github.io/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
-    <meta name="generator" content="Hugo 0.72.0" /> 
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"><meta name="generator" content="Hugo 0.72.0" />
+
     
+    
+
     <script>
     function setTheme() {
-    const time = new Date();
+        const time = new Date();
 
-    const prev = localStorage.getItem('date');
-    const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+        const prev = localStorage.getItem('date');
+        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
 
-    const now = time.getTime();
-    let sunrise;
-    let sunset;
+        const now = time.getTime();
+        let sunrise;
+        let sunset;
 
-    function setBodyClass() {
-        if (now > sunrise && now < sunset) return;
-        document.body.classList.add('dark');
-    }
+        function setBodyClass() {
+            if (now > sunrise && now < sunset) return;
+            document.body.classList.add('dark');
+        }
 
-    if (date !== prev) {
-        fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
-        .then(res => res.json())
-        .then(data => {
-            sunrise = data.sunrise.split(':').map(Number);
-            sunset = data.sunset.split(':').map(Number);
-        })
-        .catch(() => {
-            sunrise = [7, 0];
-            sunset = [19, 0];
-        })
-        .finally(() => {
-            sunrise = time.setHours(sunrise[0], sunrise[1], 0);
-            sunset = time.setHours(sunset[0], sunset[1], 0);
+        if (date !== prev) {
+            fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+            .then(res => res.json())
+            .then(data => {
+                sunrise = data.sunrise.split(':').map(Number);
+                sunset = data.sunset.split(':').map(Number);
+            })
+            .catch(() => {
+                sunrise = [7, 0];
+                sunset = [19, 0];
+            })
+            .finally(() => {
+                sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+                sunset = time.setHours(sunset[0], sunset[1], 0);
+                setBodyClass();
+                localStorage.setItem('sunrise', sunrise);
+                localStorage.setItem('sunset', sunset);
+            });
+            localStorage.setItem('date', date);
+        } else {
+            sunrise = Number(localStorage.getItem('sunrise'));
+            sunset = Number(localStorage.getItem('sunset'));
             setBodyClass();
-            localStorage.setItem('sunrise', sunrise);
-            localStorage.setItem('sunset', sunset);
-        });
-        localStorage.setItem('date', date);
-    } else {
-        sunrise = Number(localStorage.getItem('sunrise'));
-        sunset = Number(localStorage.getItem('sunset'));
-        setBodyClass();
+        }
     }
-    }
-    function switchMode() {
-    if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark')
-    } else {
-        document.body.classList.add('dark')
-    }
+    function switchTheme() {
+        if (document.body.classList.contains('dark')) {
+            document.body.classList.remove('dark')
+        } else {
+            document.body.classList.add('dark')
+        }
     }
 </script>
     <body class="
-                single
-            ">
+                single">
 <script>
     setTheme();
 </script>
@@ -79,39 +77,46 @@
     <nav class="nav">
     <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
     <ul class="menu">
+        
         <li>
             <a href="/posts/"><i class="fa fa-list-ul"></i></a>
         </li>
+        
         <li>
             <a href="/tags/"><i class="fa fa-tags"></i></a>
         </li>
+        
         <li>
             <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
         </li>
+        
         <li>
-            <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
+            <a href="javascript:switchTheme%28%29"><i class="fa fa-adjust"></i></a>
         </li>
+        
     </ul>
 
     </nav>
 </header>
+
+
 </head>
 
 
 
 <main class="main">
 
-<article class="post-single">
-  <header class="post-header">
-    <h1 class="post-title">Hello World</h1>
-    <div class="post-meta">July 5, 2019</div>
-  </header>
-  <footer class="post-footer">
-    <ul class="post-tags">
-        <li><a href="https://aeinrw.github.io/tags/%E6%80%BB%E7%BB%93">总结</a></li>
-    </ul>
-  </footer>
-  <div class="post-content"><p>想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.</p>
+  <article class="post-single">
+    <header class="post-header">
+      <h1 class="post-title">Hello World</h1>
+      <div class="post-meta">July 5, 2019</div>
+    </header>
+    <footer class="post-footer">
+      <ul class="post-tags">
+          <li><a href="https://aeinrw.github.io/tags/%E6%80%BB%E7%BB%93">总结</a></li>
+      </ul>
+    </footer>
+    <div class="post-content"><p>想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.</p>
 <p>其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.</p>
 <hr>
 <p>16年高考, 奈何分数擦线, 没能被计算机收下, 来到当时听着还不错的&quot;高分子材料与工程&rdquo;, 其实这个专业是我自己填的&hellip;&hellip;一是收到曾经贵州大学校长郑强的影响, 听过他的几次演讲, 就对高分子这个东西产生了一点兴趣.</p>
@@ -119,22 +124,20 @@
 <p>辅修的一些课, 比如数据结构, 汇编, C++, 我都是半个学期就学完了整本书, 跟着B站的视频, 加上自己的自学, 本专业课划水, 期末复习, 偶尔还能拿个90+. 打着自己的小算盘, 一边辅修一边维持绩点准备保研, 但结果可想而知, 绩点降了挺多的, 现在我的在保研名额的分界线徘徊, 加上大二基本没有参加大创实验, 确实没什么拿出手的成绩和经历. 路越走越窄, 保研应该是没有希望了, 只剩下跨考了.</p>
 <p>希望我不会后悔.</p></div>
 
-  
+    
 
-</article>
-</main><footer class="footer">
-  <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
-</footer>
-<script src="https://aeinrw.github.io/highlight.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-
-</body>
+  </article>
+</main>    <footer class="footer">
+      <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
+      <span>&middot;</span>
+      <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+      <span>&middot;</span>
+      <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+    </footer>
+    <script src="https://aeinrw.github.io/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
 </html>
 

@@ -1,76 +1,74 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
+    <title>2019年度总结</title>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <title>2019年度总结</title>
-    
       <meta name="description" content="现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.">
       <meta name="author" content="">
-    
+
     <link href="https://aeinrw.github.io/an-old-hope.min.css" rel="stylesheet">
     <link href="https://aeinrw.github.io/style.css" rel="stylesheet">
-    <link href="https://aeinrw.github.io/custom.css" rel="stylesheet">
-    
     <link rel="apple-touch-icon" href="https://aeinrw.github.io/apple-touch-icon.png">
     <link rel="icon" href="https://aeinrw.github.io/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
-    <meta name="generator" content="Hugo 0.72.0" /> 
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"><meta name="generator" content="Hugo 0.72.0" />
+
     
+    
+
     <script>
     function setTheme() {
-    const time = new Date();
+        const time = new Date();
 
-    const prev = localStorage.getItem('date');
-    const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+        const prev = localStorage.getItem('date');
+        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
 
-    const now = time.getTime();
-    let sunrise;
-    let sunset;
+        const now = time.getTime();
+        let sunrise;
+        let sunset;
 
-    function setBodyClass() {
-        if (now > sunrise && now < sunset) return;
-        document.body.classList.add('dark');
-    }
+        function setBodyClass() {
+            if (now > sunrise && now < sunset) return;
+            document.body.classList.add('dark');
+        }
 
-    if (date !== prev) {
-        fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
-        .then(res => res.json())
-        .then(data => {
-            sunrise = data.sunrise.split(':').map(Number);
-            sunset = data.sunset.split(':').map(Number);
-        })
-        .catch(() => {
-            sunrise = [7, 0];
-            sunset = [19, 0];
-        })
-        .finally(() => {
-            sunrise = time.setHours(sunrise[0], sunrise[1], 0);
-            sunset = time.setHours(sunset[0], sunset[1], 0);
+        if (date !== prev) {
+            fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+            .then(res => res.json())
+            .then(data => {
+                sunrise = data.sunrise.split(':').map(Number);
+                sunset = data.sunset.split(':').map(Number);
+            })
+            .catch(() => {
+                sunrise = [7, 0];
+                sunset = [19, 0];
+            })
+            .finally(() => {
+                sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+                sunset = time.setHours(sunset[0], sunset[1], 0);
+                setBodyClass();
+                localStorage.setItem('sunrise', sunrise);
+                localStorage.setItem('sunset', sunset);
+            });
+            localStorage.setItem('date', date);
+        } else {
+            sunrise = Number(localStorage.getItem('sunrise'));
+            sunset = Number(localStorage.getItem('sunset'));
             setBodyClass();
-            localStorage.setItem('sunrise', sunrise);
-            localStorage.setItem('sunset', sunset);
-        });
-        localStorage.setItem('date', date);
-    } else {
-        sunrise = Number(localStorage.getItem('sunrise'));
-        sunset = Number(localStorage.getItem('sunset'));
-        setBodyClass();
+        }
     }
-    }
-    function switchMode() {
-    if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark')
-    } else {
-        document.body.classList.add('dark')
-    }
+    function switchTheme() {
+        if (document.body.classList.contains('dark')) {
+            document.body.classList.remove('dark')
+        } else {
+            document.body.classList.add('dark')
+        }
     }
 </script>
     <body class="
-                single
-            ">
+                single">
 <script>
     setTheme();
 </script>
@@ -78,39 +76,46 @@
     <nav class="nav">
     <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
     <ul class="menu">
+        
         <li>
             <a href="/posts/"><i class="fa fa-list-ul"></i></a>
         </li>
+        
         <li>
             <a href="/tags/"><i class="fa fa-tags"></i></a>
         </li>
+        
         <li>
             <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
         </li>
+        
         <li>
-            <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
+            <a href="javascript:switchTheme%28%29"><i class="fa fa-adjust"></i></a>
         </li>
+        
     </ul>
 
     </nav>
 </header>
+
+
 </head>
 
 
 
 <main class="main">
 
-<article class="post-single">
-  <header class="post-header">
-    <h1 class="post-title">2019年度总结</h1>
-    <div class="post-meta">December 31, 2019</div>
-  </header>
-  <footer class="post-footer">
-    <ul class="post-tags">
-        <li><a href="https://aeinrw.github.io/tags/%E6%80%BB%E7%BB%93">总结</a></li>
-    </ul>
-  </footer>
-  <div class="post-content"><p><em>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.</em></p>
+  <article class="post-single">
+    <header class="post-header">
+      <h1 class="post-title">2019年度总结</h1>
+      <div class="post-meta">December 31, 2019</div>
+    </header>
+    <footer class="post-footer">
+      <ul class="post-tags">
+          <li><a href="https://aeinrw.github.io/tags/%E6%80%BB%E7%BB%93">总结</a></li>
+      </ul>
+    </footer>
+    <div class="post-content"><p><em>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.</em></p>
 <h1 id="学习">学习</h1>
 <p>2019年, 对我来说最重要的一件事情就是考研了, 我先梳理一下这一年来的复习历程.</p>
 <ol>
@@ -161,7 +166,7 @@
 <p>最后的12月, 前期出劲太大, 后期反而有点无力了, 做肖8, 看政治. 疯狂总结英语模板, 背英语作文. 最后一天背书背的头都要炸了, 每天起床头都是昏的, <strong>可是总算是熬过去了!</strong></p>
 </li>
 </ol>
-<p>回顾一遍自己的复习历程, 还是蛮有成就感的, 基本上没走什么弯路, 唯一的弯路在6级之后也把我打醒, 现在想想自己也算是做到了面面俱到, 改复习强化的点我都复习到了. 反映在成绩上应该不会太差, <!-- raw HTML omitted -->我估计能考380左右吧.<!-- raw HTML omitted --></p>
+<p>回顾一遍自己的复习历程, 还是蛮有成就感的, 基本上没走什么弯路, 唯一的弯路在6级之后也把我打醒, 现在想想自己也算是做到了面面俱到, 改复习强化的点我都复习到了. 反映在成绩上应该不会太差, <u>我估计能考380左右吧.</u></p>
 <h1 id="生活">生活</h1>
 <p>复习的生活总是平淡无奇的, 但我也觉得挺开心的. 一周还能和王成, 吴军前打打球, 有朋友一起打球, 自己明显放的开一些, 球技也有些提高, 嘿嘿. 星期天就待在寝室里, 学学python, 看看自己感兴趣的领域, 也挺有意思的.</p>
 <h1 id="感悟">感悟</h1>
@@ -178,22 +183,20 @@
 </ol>
 <p>其实想写的还有很多, 对2019我有太多的话想说了, 可让我表达出来, 却还真不知道该怎么说, 等成绩下来我在好好聊聊吧.</p></div>
 
-  
+    
 
-</article>
-</main><footer class="footer">
-  <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
-</footer>
-<script src="https://aeinrw.github.io/highlight.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
-
-
-</body>
+  </article>
+</main>    <footer class="footer">
+      <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
+      <span>&middot;</span>
+      <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+      <span>&middot;</span>
+      <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+    </footer>
+    <script src="https://aeinrw.github.io/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
 </html>
 

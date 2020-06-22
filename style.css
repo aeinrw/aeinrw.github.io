@@ -94,7 +94,9 @@ p {
   margin-top: 0;
   margin-bottom: 0;
 }
-strong,
+strong {
+  font-weight: bold;
+}
 b {
   font-weight: 500;
 }
@@ -141,6 +143,11 @@ textarea:-webkit-autofill {
 img {
   display: block;
   max-width: 100%;
+}
+sup {
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 600;
 }
 /* Header
 -------------------------------------------------- */

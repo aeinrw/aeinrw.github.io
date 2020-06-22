@@ -1,79 +1,75 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
+    <title>aeinrw</title>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <title>aeinrw</title>
-    
       <meta name="description" content="这是我的hugo博客">
       <meta name="author" content="">
-    
+
     <link href="https://aeinrw.github.io/an-old-hope.min.css" rel="stylesheet">
     <link href="https://aeinrw.github.io/style.css" rel="stylesheet">
-    <link href="https://aeinrw.github.io/custom.css" rel="stylesheet">
-    
     <link rel="apple-touch-icon" href="https://aeinrw.github.io/apple-touch-icon.png">
     <link rel="icon" href="https://aeinrw.github.io/favicon.ico">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
-    <meta name="generator" content="Hugo 0.72.0" /> 
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"><meta name="generator" content="Hugo 0.72.0" />
+
     
+    
+
     <script>
     function setTheme() {
-    const time = new Date();
+        const time = new Date();
 
-    const prev = localStorage.getItem('date');
-    const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+        const prev = localStorage.getItem('date');
+        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
 
-    const now = time.getTime();
-    let sunrise;
-    let sunset;
+        const now = time.getTime();
+        let sunrise;
+        let sunset;
 
-    function setBodyClass() {
-        if (now > sunrise && now < sunset) return;
-        document.body.classList.add('dark');
-    }
+        function setBodyClass() {
+            if (now > sunrise && now < sunset) return;
+            document.body.classList.add('dark');
+        }
 
-    if (date !== prev) {
-        fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
-        .then(res => res.json())
-        .then(data => {
-            sunrise = data.sunrise.split(':').map(Number);
-            sunset = data.sunset.split(':').map(Number);
-        })
-        .catch(() => {
-            sunrise = [7, 0];
-            sunset = [19, 0];
-        })
-        .finally(() => {
-            sunrise = time.setHours(sunrise[0], sunrise[1], 0);
-            sunset = time.setHours(sunset[0], sunset[1], 0);
+        if (date !== prev) {
+            fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+            .then(res => res.json())
+            .then(data => {
+                sunrise = data.sunrise.split(':').map(Number);
+                sunset = data.sunset.split(':').map(Number);
+            })
+            .catch(() => {
+                sunrise = [7, 0];
+                sunset = [19, 0];
+            })
+            .finally(() => {
+                sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+                sunset = time.setHours(sunset[0], sunset[1], 0);
+                setBodyClass();
+                localStorage.setItem('sunrise', sunrise);
+                localStorage.setItem('sunset', sunset);
+            });
+            localStorage.setItem('date', date);
+        } else {
+            sunrise = Number(localStorage.getItem('sunrise'));
+            sunset = Number(localStorage.getItem('sunset'));
             setBodyClass();
-            localStorage.setItem('sunrise', sunrise);
-            localStorage.setItem('sunset', sunset);
-        });
-        localStorage.setItem('date', date);
-    } else {
-        sunrise = Number(localStorage.getItem('sunrise'));
-        sunset = Number(localStorage.getItem('sunset'));
-        setBodyClass();
+        }
     }
-    }
-    function switchMode() {
-    if (document.body.classList.contains('dark')) {
-        document.body.classList.remove('dark')
-    } else {
-        document.body.classList.add('dark')
-    }
+    function switchTheme() {
+        if (document.body.classList.contains('dark')) {
+            document.body.classList.remove('dark')
+        } else {
+            document.body.classList.add('dark')
+        }
     }
 </script>
     <body class="
                 list
-                
-                home
-                
-            ">
+                home">
 <script>
     setTheme();
 </script>
@@ -81,22 +77,29 @@
     <nav class="nav">
     <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
     <ul class="menu">
+        
         <li>
             <a href="/posts/"><i class="fa fa-list-ul"></i></a>
         </li>
+        
         <li>
             <a href="/tags/"><i class="fa fa-tags"></i></a>
         </li>
+        
         <li>
             <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
         </li>
+        
         <li>
-            <a href="javascript:switchMode()"><i class="fa fa-adjust"></i></a>
+            <a href="javascript:switchTheme%28%29"><i class="fa fa-adjust"></i></a>
         </li>
+        
     </ul>
 
     </nav>
 </header>
+
+
 </head>
 
 
@@ -104,95 +107,97 @@
 <main class="main">
 
 
-
-
   
   
-    <article class=post-entry>
-      <header class="entry-header">
-        <h2>2019年度总结</h2>
-      </header>
-      <section class="entry-content">
-        <p>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.
+    
+    
+    
+      <article class=post-entry>
+        <header class="entry-header">
+          <h2>2019年度总结</h2>
+        </header>
+        <section class="entry-content">
+          <p>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.
 </p>
-      </section>
-      <footer class="entry-footer">
-        <time>December 31, 2019</time>
-      </footer>
-      <a class="entry-link" href="https://aeinrw.github.io/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"></a>
-    </article>
-
+        </section>
+        <footer class="entry-footer">
+          <time>December 31, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://aeinrw.github.io/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"></a>
+      </article>
   
-  
-    <article class=post-entry>
-      <header class="entry-header">
-        <h2>docker学习笔记</h2>
-      </header>
-      <section class="entry-content">
-        <p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.
+    
+    
+    
+      <article class=post-entry>
+        <header class="entry-header">
+          <h2>docker学习笔记</h2>
+        </header>
+        <section class="entry-content">
+          <p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.
 这是我学docker时的笔记, 教学视频看的是docker教学视频链接, 讲的很好, 入门很快.
 </p>
-      </section>
-      <footer class="entry-footer">
-        <time>July 09, 2019</time>
-      </footer>
-      <a class="entry-link" href="https://aeinrw.github.io/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
-    </article>
-
+        </section>
+        <footer class="entry-footer">
+          <time>July 09, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://aeinrw.github.io/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+      </article>
   
-  
-    <article class=post-entry>
-      <header class="entry-header">
-        <h2>各种软件安装和环境配置过程</h2>
-      </header>
-      <section class="entry-content">
-        <p>最近在服务器上玩centos,各种玩坏了就重装…🤯
+    
+    
+    
+      <article class=post-entry>
+        <header class="entry-header">
+          <h2>各种软件安装和环境配置过程</h2>
+        </header>
+        <section class="entry-content">
+          <p>最近在服务器上玩centos,各种玩坏了就重装…🤯
 安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.
 </p>
-      </section>
-      <footer class="entry-footer">
-        <time>July 06, 2019</time>
-      </footer>
-      <a class="entry-link" href="https://aeinrw.github.io/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/"></a>
-    </article>
-
+        </section>
+        <footer class="entry-footer">
+          <time>July 06, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://aeinrw.github.io/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/"></a>
+      </article>
   
-  
-    <article class=post-entry>
-      <header class="entry-header">
-        <h2>Hello World</h2>
-      </header>
-      <section class="entry-content">
-        <p>想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.
+    
+    
+    
+      <article class=post-entry>
+        <header class="entry-header">
+          <h2>Hello World</h2>
+        </header>
+        <section class="entry-content">
+          <p>想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.
 其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.
 </p>
-      </section>
-      <footer class="entry-footer">
-        <time>July 05, 2019</time>
-      </footer>
-      <a class="entry-link" href="https://aeinrw.github.io/posts/hello-world/"></a>
-    </article>
-
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="/">← Prev Page</a>
-  </nav>
-</footer>
-
-
-
-</main><footer class="footer">
-  <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
-</footer>
-<script src="https://aeinrw.github.io/highlight.min.js"></script>
-<script>
-  hljs.initHighlightingOnLoad();
-</script>
+        </section>
+        <footer class="entry-footer">
+          <time>July 05, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://aeinrw.github.io/posts/hello-world/"></a>
+      </article>
+  
+  <footer class="page-footer">
+    <nav class="pagination">
+      <a class="prev" href="/">← Prev Page</a>
+    </nav>
+  </footer>
+  
 
 
-</body>
+</main>    <footer class="footer">
+      <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
+      <span>&middot;</span>
+      <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+      <span>&middot;</span>
+      <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+    </footer>
+    <script src="https://aeinrw.github.io/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
 </html>
