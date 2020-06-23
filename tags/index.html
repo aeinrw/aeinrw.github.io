@@ -20,59 +20,37 @@
 
     <script>
     function setTheme() {
-        const time = new Date();
+        const now = (new Date()).getHours();
+        const prev = Number(localStorage.getItem('oldHour'));
 
-        const prev = localStorage.getItem('date');
-        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
-
-        const now = time.getTime();
-        let sunrise;
-        let sunset;
-
-        function setBodyClass() {
-            if (now > sunrise && now < sunset) return;
-            document.body.classList.add('dark');
-        }
-
-        if (date !== prev) {
-            fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
-            .then(res => res.json())
-            .then(data => {
-                sunrise = data.sunrise.split(':').map(Number);
-                sunset = data.sunset.split(':').map(Number);
-            })
-            .catch(() => {
-                sunrise = [7, 0];
-                sunset = [19, 0];
-            })
-            .finally(() => {
-                sunrise = time.setHours(sunrise[0], sunrise[1], 0);
-                sunset = time.setHours(sunset[0], sunset[1], 0);
-                setBodyClass();
-                localStorage.setItem('sunrise', sunrise);
-                localStorage.setItem('sunset', sunset);
-            });
-            localStorage.setItem('date', date);
+        if (prev !== now) {
+            localStorage.setItem('oldHour',now);
+            if (now>7 && now<18) {
+                localStorage.setItem("isDark","false");
+                document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem("isDark","true");
+                document.body.classList.add('dark');
+            }
         } else {
-            sunrise = Number(localStorage.getItem('sunrise'));
-            sunset = Number(localStorage.getItem('sunset'));
-            setBodyClass();
+            if (localStorage.getItem('isDark') == "true") {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
         }
     }
     function switchTheme() {
-        if (document.body.classList.contains('dark')) {
-            document.body.classList.remove('dark')
+        if (localStorage.getItem('isDark') == "true") {
+            localStorage.setItem('isDark',"false");
+            document.body.classList.remove('dark');
         } else {
-            document.body.classList.add('dark')
+            localStorage.setItem('isDark',"true");
+            document.body.classList.add('dark');
         }
     }
 </script>
-    <body class="
-                list">
-<script>
-    setTheme();
-</script>
-<header class="header">
+    <header class="header">
     <nav class="nav">
     <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
     <ul class="menu">
@@ -99,7 +77,12 @@
 </header>
 
 
-</head>
+    </head>
+    <body class="
+                  list">
+      <script>
+        setTheme();
+      </script>
 
 
 
@@ -116,35 +99,35 @@
       
         
         <li>
-            <a href="/tags/%E5%8E%9F%E7%90%86/">原理<sup> 3</sup></a>
+            <a href="/tags/%E5%8E%9F%E7%90%86/" style="background: var(--theme);">原理<sup> 3</sup></a>
         </li>
         
         <li>
-            <a href="/tags/%E6%80%BB%E7%BB%93/">总结<sup> 3</sup></a>
+            <a href="/tags/%E6%80%BB%E7%BB%93/" style="background: var(--theme);">总结<sup> 3</sup></a>
         </li>
         
         <li>
-            <a href="/tags/golang/">golang<sup> 2</sup></a>
+            <a href="/tags/golang/" style="background: var(--theme);">golang<sup> 2</sup></a>
         </li>
         
         <li>
-            <a href="/tags/linux/">linux<sup> 2</sup></a>
+            <a href="/tags/linux/" style="background: var(--theme);">linux<sup> 2</sup></a>
         </li>
         
         <li>
-            <a href="/tags/docker/">docker<sup> 1</sup></a>
+            <a href="/tags/docker/" style="background: var(--theme);">docker<sup> 1</sup></a>
         </li>
         
         <li>
-            <a href="/tags/git/">git<sup> 1</sup></a>
+            <a href="/tags/git/" style="background: var(--theme);">git<sup> 1</sup></a>
         </li>
         
         <li>
-            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">密码学<sup> 1</sup></a>
+            <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="background: var(--theme);">密码学<sup> 1</sup></a>
         </li>
         
         <li>
-            <a href="/tags/%E8%B8%A9%E5%9D%91/">踩坑<sup> 1</sup></a>
+            <a href="/tags/%E8%B8%A9%E5%9D%91/" style="background: var(--theme);">踩坑<sup> 1</sup></a>
         </li>
     </ul>
   </footer>

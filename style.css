@@ -29,7 +29,7 @@
   --border: #eee;
 }
 .dark {
-  --theme: #2c2c2c;
+  --theme: #414141;
   --entry: #414141;
   --primary: rgba(255, 255, 255, 0.8);
   --secondary: rgba(255, 255, 255, 0.56);
@@ -147,7 +147,7 @@ img {
 sup {
   color: var(--primary);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 400;
 }
 /* Header
 -------------------------------------------------- */
@@ -549,8 +549,8 @@ sup {
   display: block;
   padding-left: 14px;
   padding-right: 14px;
-  color: var(--secondary);
-  background: var(--code-bg);
+  color: var(--primary);
+  background: var(--entry);
   border-radius: 4px;
   margin: 4px;
   line-height: 1.4;
@@ -565,6 +565,7 @@ sup {
 }
 .timeline a {
   display: table-cell;
+  color: var(--secondary);
 }
 .timeline div {
   text-align: right;
