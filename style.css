@@ -10,15 +10,15 @@
 -------------------------------------------------- */
 :root {
   --gap: 20px;
-  --content-gap: 40px;
+  --content-gap: 10px;
   --nav-width: 1024px;
   --main-width: 640px;
   --header-height: 60px;
   --footer-height: 60px;
   --radius: 8px;
 
-  --theme: #fff;
-  --entry: #fff;
+  --theme: #ffffff;
+  --entry: #ffffff;
   --primary: rgba(0, 0, 0, 0.88);
   --secondary: rgba(0, 0, 0, 0.56);
   --tertiary: rgba(0, 0, 0, 0.16);
@@ -37,8 +37,8 @@
   --content: rgba(255, 255, 255, 0.64);
 
   --hljs-bg: #383838;
-  --code-bg: #414141;
-  --border: #5f5f5f;
+  --code-bg: #5f5f5f;
+  --border: #4f4f4f;
 }
 .list {
   background: #ecebeb;
@@ -327,8 +327,8 @@ sup {
   color: var(--content);
 }
 .post-content h1 {
-  margin-top: 40px;
-  margin-bottom: 32px;
+  margin-top: var(--content-gap);
+  margin-bottom: 16px;
 }
 .post-content h2 {
   margin-top: 32px;
@@ -407,16 +407,23 @@ sup {
   margin-top: 10px;
 }
 .post-content table {
-  margin-bottom: 32px;
+  width: 100%;
+  max-width: 100%;
+  margin: .625rem 0;
+  border-spacing: 0;
+  background: #fff;
+  border-collapse: collapse;
 }
-.post-content table th,
-.post-content table:not(.highlighttable) td {
-  min-width: 10px;
-  padding: 12px 4px 12px 20px;
+.post-content table thead {
+  background: var(--code-bg);
 }
 .post-content table th {
-  font-size: 14px;
-  text-align: left;
+  padding: .3rem 1rem;
+  border: 1px solid #e8e8e8;
+}
+.post-content table:not(.highlighttable) td {
+  padding: .3rem 1rem;
+  border: 1px solid #e8e8e8;
 }
 .post-content table:not(.highlighttable) td code:only-child {
   margin-left: 0;
@@ -497,8 +504,8 @@ sup {
   max-width: 100%;
 }
 .post-footer {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 .post-tags li {
   display: inline-block;
@@ -512,7 +519,7 @@ sup {
   line-height: 34px;
   background: var(--code-bg);
   border-radius: 4px;
-  margin: 4px;
+  margin: 4px 8px 4px 0px;
 }
 .post-tags a:hover {
   background: var(--border);
@@ -552,7 +559,7 @@ sup {
   color: var(--primary);
   background: var(--entry);
   border-radius: 4px;
-  margin: 4px;
+  margin: 4px 0px 4px 0px;
   line-height: 1.4;
 }
 .timeline li {
@@ -583,4 +590,8 @@ sup {
   height: 80%;
   font-size: 160px;
   font-weight: 700;
+}
+
+.ln {
+  padding-right: 9px;
 }

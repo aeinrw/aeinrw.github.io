@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <title>golang的接口类型</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="golang的interface 简介 简单地说, golang中地interface就是一组方法的组合. 任意对象, 只要一点不差的实现了这些方法,">
+      <meta name="author" content="">
+
+    <link href="https://aeinrw.github.io/an-old-hope.min.css" rel="stylesheet">
+    <link href="https://aeinrw.github.io/style.css" rel="stylesheet">
+    <link rel="apple-touch-icon" href="https://aeinrw.github.io/apple-touch-icon.png">
+    <link rel="icon" href="https://aeinrw.github.io/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css"><meta name="generator" content="Hugo 0.72.0" />
+
+    
+    
+
+    <script>
+    function setTheme() {
+        const now = (new Date()).getHours();
+        const prev = Number(localStorage.getItem('oldHour'));
+
+        if (prev !== now) {
+            localStorage.setItem('oldHour',now);
+            if (now>7 && now<18) {
+                localStorage.setItem("isDark","false");
+                document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem("isDark","true");
+                document.body.classList.add('dark');
+            }
+        } else {
+            if (localStorage.getItem('isDark') == "true") {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        }
+    }
+    function switchTheme() {
+        if (localStorage.getItem('isDark') == "true") {
+            localStorage.setItem('isDark',"false");
+            document.body.classList.remove('dark');
+        } else {
+            localStorage.setItem('isDark',"true");
+            document.body.classList.add('dark');
+        }
+    }
+</script>
+    <header class="header">
+    <nav class="nav">
+    <h1 class="logo"><a href="https://aeinrw.github.io/">aeinrw</a></h1>
+    <ul class="menu">
+        
+        <li>
+            <a href="/posts/"><i class="fa fa-list-ul"></i></a>
+        </li>
+        
+        <li>
+            <a href="/tags/"><i class="fa fa-tags"></i></a>
+        </li>
+        
+        <li>
+            <a href="http://github.com/aeinrw"><i class="fa fa-github"></i></a>
+        </li>
+        
+        <li>
+            <a href="javascript:switchTheme%28%29"><i class="fa fa-adjust"></i></a>
+        </li>
+        
+    </ul>
+
+    </nav>
+</header>
+
+
+    </head>
+    <body class="
+                  single">
+      <script>
+        setTheme();
+      </script>
+
+
+
+<main class="main">
+
+  <article class="post-single">
+    <header class="post-header">
+      <h1 class="post-title">golang的接口类型</h1>
+      <div class="post-meta">June 24, 2020</div>
+    </header>
+    <footer class="post-footer">
+      <ul class="post-tags">
+          <li><a href="https://aeinrw.github.io/tags/golang">golang</a></li>
+      </ul>
+    </footer>
+    <div class="post-content"><h1 id="golang的interface">golang的<code>interface</code></h1>
+<h2 id="简介">简介</h2>
+<p>简单地说, golang中地<code>interface</code>就是一组<strong>方法的组合</strong>. 任意对象, 只要一点不差的实现了这些方法, 那就相当于实现了这个接口.</p>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">type</span> <span class="nx">InterfaceName</span> <span class="kd">interface</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="nf">method_1</span><span class="p">()</span>
+<span class="ln">3</span>    <span class="nf">method_2</span><span class="p">()</span>
+<span class="ln">4</span>    <span class="o">...</span>
+<span class="ln">5</span><span class="p">}</span>
+</code></pre></div><p>在golang中, 编译时会自动检测对象是否符合接口的条件, 而不需要进行显示的声明( 在java中,需要用<code>implement</code>关键字进行显示的声明 ), 达到了解耦合的作用.</p>
+<p><code>interface</code>只要给出函数的声明就可以, 包括<u>函数名,参数以及返回值</u>, 而不需要给出具体实现. 具体的函数实现由传进来的不同对象进行不同的实现.</p>
+<h2 id="类型与接口的关系">类型与接口的关系</h2>
+<ol>
+<li>
+<p>一个类型可以实现多个接口</p>
+</li>
+<li>
+<p>多个类型可以实现相同的接口</p>
+</li>
+</ol>
+<h2 id="空接口interface">空接口<code>interface{}</code></h2>
+<p>空接口时接口类型的特殊形式, 空接口没有任何方法, 所以<strong>任何类型都满足空接口的需求</strong>. 空接口可以保存任何值, 也可以从空接口中取出原有的值.</p>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">var</span> <span class="nx">any</span> <span class="kd">interface</span><span class="p">{}</span>
+<span class="ln">2</span>
+<span class="ln">3</span><span class="c1">// 存值
+</span><span class="ln">4</span><span class="c1"></span><span class="nx">any</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="ln">5</span><span class="nx">any</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+<span class="ln">6</span><span class="nx">any</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="ln">7</span>
+<span class="ln">8</span><span class="c1">// 取值
+</span><span class="ln">9</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">any</span><span class="p">)</span> <span class="c1">//输出为true
+</span></code></pre></div><h1 id="ioreader和iowriter接口"><code>io.Reader</code>和<code>io.Writer</code>接口</h1>
+<p>在<code>io</code>包中, 定义了两个非常常用的接口, 很多的结构和对象都是围绕这个系列的结构进行展开的.</p>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">type</span> <span class="nx">Reader</span> <span class="kd">interface</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="nf">Read</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<span class="ln">3</span><span class="p">}</span>
+<span class="ln">4</span><span class="kd">type</span> <span class="nx">Writer</span> <span class="kd">interface</span> <span class="p">{</span>
+<span class="ln">5</span>    <span class="nf">Write</span><span class="p">(</span><span class="nx">p</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+<span class="ln">6</span><span class="p">}</span>
+</code></pre></div><p>如果某个结构体实现了<code>Read</code>和<code>Write</code>方法, 并且有着相同的参数和返回值, 那么这个结构体就可以看作是一个可以进行输入输出的接口.</p>
+<ul>
+<li>
+<p><code>Read</code>方法用于读取对象自身需要输出的值, <strong>从哪里读取不需要关心</strong>, 读取的值在字节切片<code>p</code>中, 需要预先传入这个字节切片, 原先的值会被覆盖. 返回值中的<code>n</code>为读取的字节的数量, <code>err</code>为错读取过程中的错位, 默认为<code>nil</code>.</p>
+</li>
+<li>
+<p><code>Write</code>方法用于向对象进行输入, <strong>往哪里写不需要关心</strong>, 需要写入的数据需要转化成<code>[]byte</code>类型传入<code>p</code>中.</p>
+</li>
+</ul>
+<h2 id="常见的实现">常见的实现</h2>
+<p><img src="https://i.loli.net/2020/06/24/jbgkhXY6A1iDGHa.png" alt="ioInterface.png"></p>
+<ol>
+<li>
+<p><code>strings.Reader</code>: 从字符串中读取</p>
+</li>
+<li>
+<p><code>bytes.Reader</code>: 从<code>[]byte</code>中读取</p>
+</li>
+<li>
+<p><code>bytes.Buffer</code>: 从<code>[]byte</code>中读取和写入,缓冲区</p>
+</li>
+<li>
+<p><code>bufio.Reader/Writer</code>: 缓冲流的读取和写入</p>
+</li>
+<li>
+<p><code>net.Conn</code>: 网络的输入输出</p>
+</li>
+<li>
+<p><code>os.Stdin</code>,<code>os.Stdout</code>: 标准输入输出</p>
+</li>
+<li>
+<p><code>os.File</code>: 对文件的读取和写入</p>
+</li>
+</ol>
+<h2 id="举例">举例</h2>
+<h3 id="字符串">字符串</h3>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln"> 1</span><span class="kd">func</span> <span class="nf">readFrom</span><span class="p">(</span><span class="nx">reader</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Reader</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln"> 2</span>    <span class="nx">p</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="ln"> 3</span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+<span class="ln"> 4</span>    <span class="nx">n</span><span class="p">,</span><span class="nx">_</span> <span class="o">:=</span> <span class="nx">reader</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+<span class="ln"> 5</span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">,</span><span class="nx">n</span><span class="p">)</span>
+<span class="ln"> 6</span><span class="p">}</span>
+<span class="ln"> 7</span>
+<span class="ln"> 8</span><span class="nf">readFrom</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="s">&#34;abcdefghijklmn&#34;</span><span class="p">))</span>
+<span class="ln"> 9</span><span class="c1">// [0 0 0 0 0 0 0 0 0 0]
+</span><span class="ln">10</span><span class="c1">// [97 98 99 100 101 102 103 104 105 106] 10
+</span></code></pre></div><h3 id="格式化输出">格式化输出</h3>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">func</span> <span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</code></pre></div><p><code>fmt.Fprintf</code>可以把字符串按照固定格式输出到<code>w</code>中, 在其中会调用<code>w.Write()</code>方法进行数据的写入.</p>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">func</span> <span class="nf">Printf</span><span class="p">(</span><span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+<span class="ln">2</span>    <span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="nx">format</span><span class="p">,</span><span class="nx">a</span><span class="p">)</span>
+<span class="ln">3</span><span class="p">}</span>
+</code></pre></div><p><code>fmt.Printf</code>就是调用了前者方法, 只不过传入的参数为<code>os.Stdout</code>, 也就是把字符串输出到控制台.</p>
+</div>
+
+    
+
+  </article>
+</main>    <footer class="footer">
+      <span>&copy; 2020 <a href="https://aeinrw.github.io/">aeinrw</a></span>
+      <span>&middot;</span>
+      <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+      <span>&middot;</span>
+      <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+    </footer>
+    <script src="https://aeinrw.github.io/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </body>
+</html>
+
