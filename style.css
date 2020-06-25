@@ -149,6 +149,14 @@ sup {
   font-size: 15px;
   font-weight: 400;
 }
+.main hr {
+  height: 3px;
+  margin-top: 56px;
+  margin-bottom: 56px;
+  background: var(--tertiary);
+  border-top: 0;
+  border-bottom: 0;
+}
 /* Header
 -------------------------------------------------- */
 #avatar {
@@ -494,8 +502,8 @@ sup {
 }
 .post-content hr {
   height: 1px;
-  margin-top: 56px;
-  margin-bottom: 56px;
+  margin-top: var(--gap);
+  margin-bottom: var(--gap);
   background: var(--tertiary);
   border-top: 0;
   border-bottom: 0;
@@ -597,3 +605,13 @@ sup {
 .ln {
   padding-right: 9px;
 }
+
+.leancloud_visitors  {
+  color: var(--content);
+}
+
+.v {
+  margin-top: var(--gap);
+}
+
+
