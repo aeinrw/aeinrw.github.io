@@ -199,7 +199,7 @@ sup {
   margin-left: var(--gap);
 }
 .menu a {
-  font-size: 24px;
+  font-size: 20px;
 }
 /* .delimiter {
   border-left: 1.5px solid #161209;
@@ -568,15 +568,17 @@ sup {
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
-  margin: 0.25rem 1.5rem;
+  margin: 0.25rem 0.5rem;
 }
 .timeline a {
   display: table-cell;
   color: var(--secondary);
+  font-size: 17px;
 }
 .timeline div {
   text-align: right;
   color: var(--secondary);
+  font-size: 17px;
 }
 /* 404
 -------------------------------------------------- */
