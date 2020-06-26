@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>踩坑 on aeinrw</title>
-    <link>https://aeinrw.github.io/tags/%E8%B8%A9%E5%9D%91/</link>
+    <link>https://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91/</link>
     <description>Recent content in 踩坑 on aeinrw</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
@@ -10,15 +10,15 @@
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
     <lastBuildDate>Sun, 07 Jun 2020 21:32:05 +0800</lastBuildDate>
     
-	<atom:link href="https://aeinrw.github.io/tags/%E8%B8%A9%E5%9D%91/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>golang中append()的坑</title>
-      <link>https://aeinrw.github.io/posts/golang%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</link>
+      <link>https://blog.aeinrw.com/posts/golang%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 07 Jun 2020 21:32:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/posts/golang%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</guid>
+      <guid>https://blog.aeinrw.com/posts/golang%E4%B8%ADappend-%E7%9A%84%E5%9D%91/</guid>
       <description>&lt;h1 id=&#34;slice的结构&#34;&gt;slice的结构&lt;/h1&gt;
 &lt;p&gt;slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.&lt;/p&gt;</description>
     </item>

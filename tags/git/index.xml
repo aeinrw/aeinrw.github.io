@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on aeinrw</title>
-    <link>https://aeinrw.github.io/tags/git/</link>
+    <link>https://blog.aeinrw.com/tags/git/</link>
     <description>Recent content in git on aeinrw</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
@@ -10,15 +10,15 @@
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
     <lastBuildDate>Wed, 27 May 2020 22:09:05 +0800</lastBuildDate>
     
-	<atom:link href="https://aeinrw.github.io/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.aeinrw.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git reset命令</title>
-      <link>https://aeinrw.github.io/posts/git-reset%E5%91%BD%E4%BB%A4/</link>
+      <link>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 27 May 2020 22:09:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://aeinrw.github.io/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
+      <guid>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
       <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;git reset --soft
 &lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;git reset --mix
 &lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;git reset --hard
