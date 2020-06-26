@@ -103,6 +103,7 @@ b {
 ul {
   margin: 0;
   padding: 0;
+  margin-top: 20px;
 }
 a {
   color: var(--primary);
@@ -150,10 +151,10 @@ sup {
   font-weight: 400;
 }
 .main hr {
-  height: 3px;
-  margin-top: 56px;
-  margin-bottom: 56px;
-  background: var(--tertiary);
+  height: 1px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: var(--primary);
   border-top: 0;
   border-bottom: 0;
 }
@@ -501,8 +502,8 @@ sup {
 }
 .post-content hr {
   height: 1px;
-  margin-top: var(--gap);
-  margin-bottom: var(--gap);
+  margin-top: 20px;
+  margin-bottom: 20px;
   background: var(--tertiary);
   border-top: 0;
   border-bottom: 0;
@@ -613,4 +614,39 @@ sup {
   margin-top: var(--gap);
 }
 
+.post-content h1::before,h2::before,h3::before,h4::before,h5::before,h6::before {
+  /* position: absolute;
+  right: 100% ; */
+  color: var(--secondary);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.post-content h1::before {
+  content: 'H1.';
+
+}
+
+.post-content h2::before {
+  content: 'H2.';
+
+}
+
+.post-content h3::before {
+  content: 'H3.';
+
+}
+
+.post-content h4::before {
+  content: 'H4.';
+
+}
+
+.post-content h5::before {
+  content: 'H5.';
+}
+
+.post-content h6::before {
+  content: 'H6.';
+}
 
