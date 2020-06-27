@@ -19,10 +19,10 @@
       <pubDate>Wed, 27 May 2020 22:09:05 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
-      <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;git reset --soft
-&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;git reset --mix
-&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;git reset --hard
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在初学git时, &lt;code&gt;git reset&lt;/code&gt;命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.&lt;/p&gt;</description>
+      <description>&lt;pre&gt;&lt;code&gt;git reset --soft
+git reset --mix
+git reset --hard
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在初学git时, &lt;code&gt;git reset&lt;/code&gt;命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.&lt;/p&gt;</description>
     </item>
     
   </channel>

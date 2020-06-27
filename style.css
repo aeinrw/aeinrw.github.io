@@ -153,7 +153,7 @@ sup {
   height: 1px;
   margin-top: 30px;
   margin-bottom: 30px;
-  background: var(--primary);
+  background: var(--tertiary);
   border-top: 0;
   border-bottom: 0;
 }
@@ -181,14 +181,6 @@ sup {
   line-height: var(--header-height);
 }
 .logo,
-/* .menu1 {
-  margin-left: var(--gap);
-  margin-right: var(--gap);
-  display: flex;
-  list-style: none;
-  word-break: keep-all;
-  overflow-x: auto;
-} */
 .menu {
   margin-left: var(--gap);
   margin-right: var(--gap);
@@ -335,14 +327,8 @@ sup {
 .post-content {
   color: var(--content);
 }
-.post-content h1 {
-  margin-top: var(--content-gap);
-  margin-bottom: 16px;
-}
-.post-content h2 {
-  margin-top: 32px;
-  margin-bottom: 24px;
-}
+.post-content h1,
+.post-content h2,
 .post-content h3,
 .post-content h4,
 .post-content h5,
@@ -351,22 +337,22 @@ sup {
   margin-bottom: 16px;
 }
 .post-content h1 {
-  font-size: 40px;
+  font-size: 33px;
 }
 .post-content h2 {
-  font-size: 32px;
+  font-size: 30px;
 }
 .post-content h3 {
-  font-size: 24px;
+  font-size: 27px;
 }
 .post-content h4 {
-  font-size: 16px;
+  font-size: 24px;
 }
 .post-content h5 {
-  font-size: 14px;
+  font-size: 21px;
 }
 .post-content h6 {
-  font-size: 12px;
+  font-size: 18px;
 }
 .post-content a {
   box-shadow: 0 1px 0 var(--primary);
@@ -444,7 +430,6 @@ sup {
   margin-bottom: 20px;
   background: var(--hljs-bg) !important;
   border-radius: var(--radius);
-  overflow-x: auto;
 }
 .post-content ul pre {
   margin-left: calc(var(--gap) * -2);
@@ -454,6 +439,7 @@ sup {
   margin-right: 0;
   margin-bottom: 0;
   margin-top: 0;
+
 }
 /* table */
 .post-content .highlighttable {
@@ -487,6 +473,7 @@ sup {
   background: var(--code-bg);
   border-radius: 2px;
 }
+
 .post-content pre code {
   display: block;
   margin-left: 0;
@@ -624,34 +611,45 @@ sup {
 }
 
 .post-content h1::before {
-  content: 'H1.';
+  content: 'h1.';
 
 }
 
 .post-content h2::before {
-  content: 'H2.';
+  content: 'h2.';
 
 }
 
 .post-content h3::before {
-  content: 'H3.';
+  content: 'h3.';
 
 }
 
 .post-content h4::before {
-  content: 'H4.';
+  content: 'h4.';
 
 }
 
 .post-content h5::before {
-  content: 'H5.';
+  content: 'h5.';
 }
 
 .post-content h6::before {
-  content: 'H6.';
+  content: 'h6.';
 }
 
 .menuicon {
   font-size: 20px;
 }
 
+::-webkit-scrollbar {
+  width: .5rem;
+  height: .5rem;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--code-bg);
+  border-radius: 5px;
+}
