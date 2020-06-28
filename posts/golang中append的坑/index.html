@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-  <head>
+<html lang="zh-CN"><head>
     <title>golang中append()的坑</title>
 
     <meta charset="utf-8">
@@ -11,86 +9,79 @@
 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.">
     <meta name="author" content="">
 
-    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/apple-touch-icon.png">
-    <link rel="icon" href="https://blog.aeinrw.com/favicon.ico">
+
+    <link rel="apple-touch-icon" href="http://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="http://blog.aeinrw.com/image/favicon.ico">
+
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_9mqde5pukjg.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-    <link rel="stylesheet" href="https://blog.aeinrw.com/an-old-hope.min.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/style.css"><meta name="generator" content="Hugo 0.72.0" />
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/an-old-hope.min.css">
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/style.css">
+
+
+    <meta name="generator" content="Hugo 0.72.0" />
 
     <script>
-    function setTheme() {
-        const now = (new Date()).getHours();
-        const prev = Number(localStorage.getItem('oldHour'));
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
 
-        if (prev !== now) {
-            localStorage.setItem('oldHour', now);
-            if (now > 7 && now < 18) {
-                localStorage.setItem("isDark", "false");
-                document.body.classList.remove('dark');
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
             } else {
-                localStorage.setItem("isDark", "true");
-                document.body.classList.add('dark');
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
             }
-        } else {
+        }
+        function switchTheme() {
             if (localStorage.getItem('isDark') == "true") {
-                document.body.classList.add('dark');
-            } else {
+                localStorage.setItem('isDark', "false");
                 document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
             }
         }
-    }
-    function switchTheme() {
-        if (localStorage.getItem('isDark') == "true") {
-            localStorage.setItem('isDark', "false");
-            document.body.classList.remove('dark');
-        } else {
-            localStorage.setItem('isDark', "true");
-            document.body.classList.add('dark');
-        }
-    }
+    </script>
+</head><body class="single"><script>
+    setTheme();
 </script>
-    <header class="header desktop">
+<header class="header">
     <nav class="nav">
-        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <h1 class="logo"><a href="http://blog.aeinrw.com/">aeinrw</a></h1>
         <ul class="menu">
-            
             <li>
                 <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
             </li>
-            
         </ul>
-
     </nav>
-</header>
+</header><main class="main">
 
-
-  </head>
-
-  <body class="
-                  single">
-    <script>
-      setTheme();
-    </script>
-<main class="main">
-
-  <article class="post-single">
+<article class="post-single">
     <header class="post-header">
-      <h1 class="post-title">golang中append()的坑</h1>
-      <div class="post-meta">June 7, 2020</div>
-      <ul class="post-tags">
-        <li><a href="https://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91">踩坑</a></li>
-        <li><a href="https://blog.aeinrw.com/tags/%E5%8E%9F%E7%90%86">原理</a></li>
-        <li><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
-      </ul>
+        <h1 class="post-title">golang中append()的坑</h1>
+        <div class="post-meta">June 07, 2020</div>
+        <ul class="post-tags">
+            <li><a href="http://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91">踩坑</a></li>
+            <li><a href="http://blog.aeinrw.com/tags/%E5%8E%9F%E7%90%86">原理</a></li>
+            <li><a href="http://blog.aeinrw.com/tags/golang">golang</a></li>
+        </ul>
     </header>
     <div class="post-content"><h1 id="slice的结构">slice的结构</h1>
 <p>slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.</p>
@@ -101,7 +92,7 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 <span class="ln">5</span><span class="p">}</span>
 </code></pre></div><p>slice的结构可以理解为一个结构体, <code>data</code>是slice的底层数组的地址, <code>len</code>和<code>cap</code>分别是底层数组中有效数据的长度和数组的实际分配长度. 可通过go自带的<code>len()</code>和<code>cap()</code>进行获取.</p>
 <p><img src="https://i.loli.net/2020/06/19/lbr9IdsLkaQARSU.png" alt="sliceStruct.png"></p>
-<h1 id="append和copy"><code>append()</code>和<code>copy()</code></h1>
+<h1 id="append和copy">append()和copy()</h1>
 <p>这两个函数是go自带的, 用于处理切片.</p>
 <ul>
 <li>
@@ -112,12 +103,12 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 </code></pre></div></li>
 <li>
 <p><code>copy()</code></p>
-<p><code>copy()</code>用于两个同类型切片的复制, 并且是<strong>直接在原数组上进行复制</strong>, 不会开辟新的空间. 常用的用法如下所示.</p>
+</li>
+</ul>
+<p><code>copy()</code>用于两个同类型切片的复制, 并且是直接在原数组上进行复制, 不会开辟新的空间. 常用的用法如下所示.</p>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="nx">newSlice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">type</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">oldSlice</span><span class="p">))</span>
 <span class="ln">2</span><span class="nb">copy</span><span class="p">(</span><span class="nx">newSlice</span><span class="p">,</span> <span class="nx">oldSlice</span><span class="p">)</span>
-</code></pre></div></li>
-</ul>
-<h1 id="append的坑"><code>append()</code>的坑</h1>
+</code></pre></div><h1 id="append的坑"><code>append()</code>的坑</h1>
 <p>在leetcode刷题的过程中, 踩了<code>append()</code>的坑, 导致调试了一下午.</p>
 <p>导致坑的主要原因就是<code>append()</code>参数中的切片和接受返回值的切片不是同一个.</p>
 <p>首先通过伪代码分析一下<code>append()</code>的执行过程:</p>
@@ -156,7 +147,6 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 <span class="ln">8</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">3</span><span class="p">]]</span>
 <span class="ln">9</span><span class="p">[[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">4</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">4</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">4</span><span class="p">]</span> <span class="p">[</span><span class="mi">0</span> <span class="mi">0</span> <span class="mi">4</span><span class="p">]]</span>
 </code></pre></div><p>修改容量后, 之前加入切片的值也改变了.</p>
-<hr>
 <p>现在分析一下造成这个结果的原因.</p>
 <ul>
 <li>容量为2时, 已经往切片b中加入了两个元素, 此时切片b的底层数组是满的. 如果再进行添加, 会开辟新的内存空间, 并赋值给新切片c, 且在循环过程中每次开辟的空间都不一样, 最后的结果符合预期.</li>
@@ -168,8 +158,7 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 <p><img src="https://i.loli.net/2020/06/20/H3OvJBILtXS5FgM.png" alt="append2.png"></p></div>
     <hr>
     
-    
-<span id="/posts/golang%E4%B8%ADappend-%E7%9A%84%E5%9D%91/" class="leancloud_visitors" data-flag-title="golang中append()的坑">
+<span id="/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/" class="leancloud_visitors" data-flag-title="golang中append()的坑">
     <span class="post-meta-item-text">总访问量 </span>
     <span class="leancloud-visitors-count">1000000</span>
 </span>
@@ -188,42 +177,49 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
         visitor:  true 
     });
 </script>
-    
-    
 
-  </article>
-</main><footer class="footer">
-  
-  <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
-  
-  
-  <br>
-  <span>&copy; 2020 <a href="https://blog.aeinrw.com/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+
+    
+</article>
+
+
+        </main><footer class="footer">
+    
+    
+    
+    
+    <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+    
+    
+    <br>
+    <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
 
 </footer>
-<script src="https://blog.aeinrw.com/highlight.min.js"></script>
+<script src="http://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
-  hljs.initHighlightingOnLoad();
-</script>
-</body>
+    hljs.initHighlightingOnLoad();
+</script></body>
 
 </html>

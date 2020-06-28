@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-  <head>
+<html lang="zh-CN"><head>
     <title>golang的接口类型</title>
 
     <meta charset="utf-8">
@@ -10,84 +8,77 @@
     <meta name="description" content="golang的interface 简介 简单地说, golang中地interface就是一组方法的组合. 任意对象, 只要一点不差的实现了这些方法,">
     <meta name="author" content="">
 
-    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/apple-touch-icon.png">
-    <link rel="icon" href="https://blog.aeinrw.com/favicon.ico">
+
+    <link rel="apple-touch-icon" href="http://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="http://blog.aeinrw.com/image/favicon.ico">
+
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_9mqde5pukjg.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-    <link rel="stylesheet" href="https://blog.aeinrw.com/an-old-hope.min.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/style.css"><meta name="generator" content="Hugo 0.72.0" />
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/an-old-hope.min.css">
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/style.css">
+
+
+    <meta name="generator" content="Hugo 0.72.0" />
 
     <script>
-    function setTheme() {
-        const now = (new Date()).getHours();
-        const prev = Number(localStorage.getItem('oldHour'));
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
 
-        if (prev !== now) {
-            localStorage.setItem('oldHour', now);
-            if (now > 7 && now < 18) {
-                localStorage.setItem("isDark", "false");
-                document.body.classList.remove('dark');
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
             } else {
-                localStorage.setItem("isDark", "true");
-                document.body.classList.add('dark');
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
             }
-        } else {
+        }
+        function switchTheme() {
             if (localStorage.getItem('isDark') == "true") {
-                document.body.classList.add('dark');
-            } else {
+                localStorage.setItem('isDark', "false");
                 document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
             }
         }
-    }
-    function switchTheme() {
-        if (localStorage.getItem('isDark') == "true") {
-            localStorage.setItem('isDark', "false");
-            document.body.classList.remove('dark');
-        } else {
-            localStorage.setItem('isDark', "true");
-            document.body.classList.add('dark');
-        }
-    }
+    </script>
+</head><body class="single"><script>
+    setTheme();
 </script>
-    <header class="header desktop">
+<header class="header">
     <nav class="nav">
-        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <h1 class="logo"><a href="http://blog.aeinrw.com/">aeinrw</a></h1>
         <ul class="menu">
-            
             <li>
                 <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
             </li>
-            
         </ul>
-
     </nav>
-</header>
+</header><main class="main">
 
-
-  </head>
-
-  <body class="
-                  single">
-    <script>
-      setTheme();
-    </script>
-<main class="main">
-
-  <article class="post-single">
+<article class="post-single">
     <header class="post-header">
-      <h1 class="post-title">golang的接口类型</h1>
-      <div class="post-meta">June 24, 2020</div>
-      <ul class="post-tags">
-        <li><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
-      </ul>
+        <h1 class="post-title">golang的接口类型</h1>
+        <div class="post-meta">June 24, 2020</div>
+        <ul class="post-tags">
+            <li><a href="http://blog.aeinrw.com/tags/golang">golang</a></li>
+        </ul>
     </header>
     <div class="post-content"><h1 id="golang的interface">golang的<code>interface</code></h1>
 <h2 id="简介">简介</h2>
@@ -112,12 +103,12 @@
 <p>空接口时接口类型的特殊形式, 空接口没有任何方法, 所以<strong>任何类型都满足空接口的需求</strong>. 空接口可以保存任何值, 也可以从空接口中取出原有的值.</p>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">var</span> <span class="nx">any</span> <span class="kd">interface</span><span class="p">{}</span>
 <span class="ln">2</span>
-<span class="ln">3</span><span class="c1">// 存值
+<span class="ln">3</span><span class="c1">//存值
 </span><span class="ln">4</span><span class="c1"></span><span class="nx">any</span> <span class="p">=</span> <span class="mi">1</span>
 <span class="ln">5</span><span class="nx">any</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
 <span class="ln">6</span><span class="nx">any</span> <span class="p">=</span> <span class="kc">true</span>
 <span class="ln">7</span>
-<span class="ln">8</span><span class="c1">// 取值
+<span class="ln">8</span><span class="c1">//取值
 </span><span class="ln">9</span><span class="c1"></span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">any</span><span class="p">)</span> <span class="c1">//输出为true
 </span></code></pre></div><h1 id="ioreader和iowriter接口"><code>io.Reader</code>和<code>io.Writer</code>接口</h1>
 <p>在<code>io</code>包中, 定义了两个非常常用的接口, 很多的结构和对象都是围绕这个系列的结构进行展开的.</p>
@@ -143,10 +134,10 @@
 <p><code>strings.Reader</code>: 从字符串中读取</p>
 </li>
 <li>
-<p><code>bytes.Reader</code>: 从<code>[]byte</code>中读取</p>
+<p><code>bytes.Reader</code>: 从[]byte中读取</p>
 </li>
 <li>
-<p><code>bytes.Buffer</code>: 从<code>[]byte</code>中读取和写入,缓冲区</p>
+<p><code>bytes.Buffer</code>: 从[]byte中读取和写入,缓冲区</p>
 </li>
 <li>
 <p><code>bufio.Reader/Writer</code>: 缓冲流的读取和写入</p>
@@ -155,7 +146,7 @@
 <p><code>net.Conn</code>: 网络的输入输出</p>
 </li>
 <li>
-<p><code>os.Stdin</code>,<code>os.Stdout</code>: 标准输入输出</p>
+<p><code>os.Stdin,os.Stdout</code>: 标准输入输出</p>
 </li>
 <li>
 <p><code>os.File</code>: 对文件的读取和写入</p>
@@ -173,7 +164,7 @@
 <span class="ln"> 8</span><span class="nf">readFrom</span><span class="p">(</span><span class="nx">strings</span><span class="p">.</span><span class="nf">NewReader</span><span class="p">(</span><span class="s">&#34;abcdefghijklmn&#34;</span><span class="p">))</span>
 <span class="ln"> 9</span><span class="c1">// [0 0 0 0 0 0 0 0 0 0]
 </span><span class="ln">10</span><span class="c1">// [97 98 99 100 101 102 103 104 105 106] 10
-</span></code></pre></div><h3 id="格式化输出">格式化输出</h3>
+</span></code></pre></div><h3 id="格式化输入">格式化输入</h3>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">func</span> <span class="nf">Fprintf</span><span class="p">(</span><span class="nx">w</span> <span class="nx">io</span><span class="p">.</span><span class="nx">Writer</span><span class="p">,</span> <span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
 </code></pre></div><p><code>fmt.Fprintf</code>可以把字符串按照固定格式输出到<code>w</code>中, 在其中会调用<code>w.Write()</code>方法进行数据的写入.</p>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">func</span> <span class="nf">Printf</span><span class="p">(</span><span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
@@ -182,7 +173,6 @@
 </code></pre></div><p><code>fmt.Printf</code>就是调用了前者方法, 只不过传入的参数为<code>os.Stdout</code>, 也就是把字符串输出到控制台.</p>
 </div>
     <hr>
-    
     
 <span id="/posts/golang%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B/" class="leancloud_visitors" data-flag-title="golang的接口类型">
     <span class="post-meta-item-text">总访问量 </span>
@@ -203,42 +193,49 @@
         visitor:  true 
     });
 </script>
-    
-    
 
-  </article>
-</main><footer class="footer">
-  
-  <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
-  
-  
-  <br>
-  <span>&copy; 2020 <a href="https://blog.aeinrw.com/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+
+    
+</article>
+
+
+        </main><footer class="footer">
+    
+    
+    
+    
+    <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+    
+    
+    <br>
+    <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
 
 </footer>
-<script src="https://blog.aeinrw.com/highlight.min.js"></script>
+<script src="http://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
-  hljs.initHighlightingOnLoad();
-</script>
-</body>
+    hljs.initHighlightingOnLoad();
+</script></body>
 
 </html>

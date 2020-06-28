@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-  <head>
+<html lang="zh-CN"><head>
     <title>golang中的byte,rune,string</title>
 
     <meta charset="utf-8">
@@ -10,91 +8,84 @@
     <meta name="description" content="在go语言中, 字符串string被封装. 在学到接口时, io.Writer和io.Reader的参数都是[]byte, 而不是string. 另外, go也支持utf8, 又引入了rune. 初学时让我很困扰, 这篇文章理清了三者之间的关系.">
     <meta name="author" content="">
 
-    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/apple-touch-icon.png">
-    <link rel="icon" href="https://blog.aeinrw.com/favicon.ico">
+
+    <link rel="apple-touch-icon" href="http://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="http://blog.aeinrw.com/image/favicon.ico">
+
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_9mqde5pukjg.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-    <link rel="stylesheet" href="https://blog.aeinrw.com/an-old-hope.min.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/style.css"><meta name="generator" content="Hugo 0.72.0" />
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/an-old-hope.min.css">
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/style.css">
+
+
+    <meta name="generator" content="Hugo 0.72.0" />
 
     <script>
-    function setTheme() {
-        const now = (new Date()).getHours();
-        const prev = Number(localStorage.getItem('oldHour'));
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
 
-        if (prev !== now) {
-            localStorage.setItem('oldHour', now);
-            if (now > 7 && now < 18) {
-                localStorage.setItem("isDark", "false");
-                document.body.classList.remove('dark');
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
             } else {
-                localStorage.setItem("isDark", "true");
-                document.body.classList.add('dark');
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
             }
-        } else {
+        }
+        function switchTheme() {
             if (localStorage.getItem('isDark') == "true") {
-                document.body.classList.add('dark');
-            } else {
+                localStorage.setItem('isDark', "false");
                 document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
             }
         }
-    }
-    function switchTheme() {
-        if (localStorage.getItem('isDark') == "true") {
-            localStorage.setItem('isDark', "false");
-            document.body.classList.remove('dark');
-        } else {
-            localStorage.setItem('isDark', "true");
-            document.body.classList.add('dark');
-        }
-    }
+    </script>
+</head><body class="single"><script>
+    setTheme();
 </script>
-    <header class="header desktop">
+<header class="header">
     <nav class="nav">
-        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <h1 class="logo"><a href="http://blog.aeinrw.com/">aeinrw</a></h1>
         <ul class="menu">
-            
             <li>
                 <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
             </li>
-            
         </ul>
-
     </nav>
-</header>
+</header><main class="main">
 
-
-  </head>
-
-  <body class="
-                  single">
-    <script>
-      setTheme();
-    </script>
-<main class="main">
-
-  <article class="post-single">
+<article class="post-single">
     <header class="post-header">
-      <h1 class="post-title">golang中的byte,rune,string</h1>
-      <div class="post-meta">June 3, 2020</div>
-      <ul class="post-tags">
-        <li><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
-        <li><a href="https://blog.aeinrw.com/tags/%E6%80%BB%E7%BB%93">总结</a></li>
-      </ul>
+        <h1 class="post-title">golang中的byte,rune,string</h1>
+        <div class="post-meta">June 03, 2020</div>
+        <ul class="post-tags">
+            <li><a href="http://blog.aeinrw.com/tags/%E6%80%BB%E7%BB%93">总结</a></li>
+            <li><a href="http://blog.aeinrw.com/tags/golang">golang</a></li>
+        </ul>
     </header>
     <div class="post-content"><p>在go语言中, 字符串<code>string</code>被封装. 在学到接口时, <code>io.Writer</code>和<code>io.Reader</code>的参数都是<code>[]byte</code>, 而不是<code>string</code>. 另外, go也支持utf8, 又引入了<code>rune</code>. 初学时让我很困扰, 这篇文章理清了三者之间的关系.</p>
 <h1 id="底层">底层</h1>
 <h2 id="string和byte"><code>string</code>和<code>[]byte</code></h2>
 <p>string是经过golang封装过的数据结构, 即字符串, 然而在底层, 它是一个<code>byte</code>类型的切片, 即<code>[]byte</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln">1</span><span class="kd">type</span> <span class="kt">string</span> <span class="kd">struct</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">type</span> <span class="kt">string</span> <span class="kd">struct</span> <span class="p">{</span>
 <span class="ln">2</span>    <span class="nx">data</span> <span class="p">[]</span><span class="kt">byte</span>
 <span class="ln">3</span>    <span class="nx">length</span> <span class="kt">int</span>
 <span class="ln">4</span><span class="p">}</span>
@@ -123,8 +114,7 @@
 <p><img src="https://i.loli.net/2020/06/19/2FOWw14oX3Msv8r.png" alt="stringTrans.png"></p></div>
     <hr>
     
-    
-<span id="/posts/golang%E4%B8%AD%E7%9A%84byterunestring/" class="leancloud_visitors" data-flag-title="golang中的byte,rune,string">
+<span id="/posts/go%E4%B8%AD%E7%9A%84byterunestring/" class="leancloud_visitors" data-flag-title="golang中的byte,rune,string">
     <span class="post-meta-item-text">总访问量 </span>
     <span class="leancloud-visitors-count">1000000</span>
 </span>
@@ -143,42 +133,49 @@
         visitor:  true 
     });
 </script>
-    
-    
 
-  </article>
-</main><footer class="footer">
-  
-  <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
-  
-  
-  <br>
-  <span>&copy; 2020 <a href="https://blog.aeinrw.com/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+
+    
+</article>
+
+
+        </main><footer class="footer">
+    
+    
+    
+    
+    <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+    
+    
+    <br>
+    <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
 
 </footer>
-<script src="https://blog.aeinrw.com/highlight.min.js"></script>
+<script src="http://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
-  hljs.initHighlightingOnLoad();
-</script>
-</body>
+    hljs.initHighlightingOnLoad();
+</script></body>
 
 </html>

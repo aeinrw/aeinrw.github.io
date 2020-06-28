@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>git on aeinrw</title>
-    <link>https://blog.aeinrw.com/tags/git/</link>
+    <link>http://blog.aeinrw.com/tags/git/</link>
     <description>Recent content in git on aeinrw</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Wed, 27 May 2020 22:09:05 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2020 22:09:05 +0000</lastBuildDate>
     
-	<atom:link href="https://blog.aeinrw.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.aeinrw.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>git reset命令</title>
-      <link>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</link>
-      <pubDate>Wed, 27 May 2020 22:09:05 +0800</pubDate>
+      <link>http://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Wed, 27 May 2020 22:09:05 +0000</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
+      <guid>http://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
       <description>&lt;pre&gt;&lt;code&gt;git reset --soft
 git reset --mix
 git reset --hard

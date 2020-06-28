@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-
-  <head>
+<html lang="zh-CN"><head>
     <title>docker</title>
 
     <meta charset="utf-8">
@@ -10,132 +8,123 @@
     <meta name="description" content="这是我的hugo博客">
     <meta name="author" content="">
 
-    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/apple-touch-icon.png">
-    <link rel="icon" href="https://blog.aeinrw.com/favicon.ico">
+
+    <link rel="apple-touch-icon" href="http://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="http://blog.aeinrw.com/image/favicon.ico">
+
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_9mqde5pukjg.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
-    <link rel="stylesheet" href="https://blog.aeinrw.com/an-old-hope.min.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/style.css"><meta name="generator" content="Hugo 0.72.0" />
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/an-old-hope.min.css">
+    <link rel="stylesheet" href="http://blog.aeinrw.com/css/style.css">
+
+
+    <meta name="generator" content="Hugo 0.72.0" />
 
     <script>
-    function setTheme() {
-        const now = (new Date()).getHours();
-        const prev = Number(localStorage.getItem('oldHour'));
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
 
-        if (prev !== now) {
-            localStorage.setItem('oldHour', now);
-            if (now > 7 && now < 18) {
-                localStorage.setItem("isDark", "false");
-                document.body.classList.remove('dark');
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
             } else {
-                localStorage.setItem("isDark", "true");
-                document.body.classList.add('dark');
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
             }
-        } else {
+        }
+        function switchTheme() {
             if (localStorage.getItem('isDark') == "true") {
-                document.body.classList.add('dark');
-            } else {
+                localStorage.setItem('isDark', "false");
                 document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
             }
         }
-    }
-    function switchTheme() {
-        if (localStorage.getItem('isDark') == "true") {
-            localStorage.setItem('isDark', "false");
-            document.body.classList.remove('dark');
-        } else {
-            localStorage.setItem('isDark', "true");
-            document.body.classList.add('dark');
-        }
-    }
+    </script>
+</head><body class="list"><script>
+    setTheme();
 </script>
-    <header class="header desktop">
+<header class="header">
     <nav class="nav">
-        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <h1 class="logo"><a href="http://blog.aeinrw.com/">aeinrw</a></h1>
         <ul class="menu">
-            
             <li>
                 <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
             </li>
-            
             <li>
                 <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
             </li>
-            
         </ul>
-
     </nav>
-</header>
-
-
-  </head>
-
-  <body class="
-                  list">
-    <script>
-      setTheme();
-    </script>
-<main class="main">
-
-  <header class="page-header">
-    <h1>docker</h1>
-  </header>
-
-  
-  
-  <article class=post-entry>
+</header><main class="main">
+<article class="post-entry">
     <header class="entry-header">
-      <h2>docker学习笔记</h2>
+        <h2>docker学习笔记</h2>
     </header>
     <section class="entry-content">
-      <p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.
+        <p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.
 这是我学docker时的笔记, 教学视频看的是docker教学视频链接, 讲的很好, 入门很快.
 </p>
     </section>
     <footer class="entry-footer">
-      <time>July 09, 2019</time>
+        <time>July 09, 2019</time>
     </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
-  </article>
-  
+    <a class="entry-link" href="http://blog.aeinrw.com/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+</article>
 
 
-</main><footer class="footer">
-  
-  <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
-  
-  
-  <span><i class="iconfont icon-anjianfengexian"></i></span>
-  
-  <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
-  
-  
-  <br>
-  <span>&copy; 2020 <a href="https://blog.aeinrw.com/">aeinrw</a></span>
-  <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+
+        </main><footer class="footer">
+    
+    
+    
+    
+    <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+    
+    
+    <br>
+    <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+    <span>&middot;</span>
+    <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
 
 </footer>
-<script src="https://blog.aeinrw.com/highlight.min.js"></script>
+<script src="http://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
-  hljs.initHighlightingOnLoad();
-</script>
-</body>
+    hljs.initHighlightingOnLoad();
+</script></body>
 
 </html>

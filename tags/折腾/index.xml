@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>折腾 on aeinrw</title>
+    <link>http://blog.aeinrw.com/tags/%E6%8A%98%E8%85%BE/</link>
+    <description>Recent content in 折腾 on aeinrw</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+    <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
+    <lastBuildDate>Sat, 06 Jul 2019 14:48:17 +0000</lastBuildDate>
+    
+	<atom:link href="http://blog.aeinrw.com/tags/%E6%8A%98%E8%85%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>各种软件安装和环境配置过程</title>
+      <link>http://blog.aeinrw.com/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</link>
+      <pubDate>Sat, 06 Jul 2019 14:48:17 +0000</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>http://blog.aeinrw.com/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</guid>
+      <description>&lt;p&gt;最近在服务器上玩centos,各种玩坏了就重装&amp;hellip;🤯&lt;/p&gt;
+&lt;p&gt;安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
