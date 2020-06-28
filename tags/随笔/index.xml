@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>随笔 on aeinrw</title>
-    <link>http://blog.aeinrw.com/tags/%E9%9A%8F%E7%AC%94/</link>
+    <link>https://blog.aeinrw.com/tags/%E9%9A%8F%E7%AC%94/</link>
     <description>Recent content in 随笔 on aeinrw</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
@@ -10,24 +10,24 @@
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
     <lastBuildDate>Tue, 31 Dec 2019 23:42:38 +0000</lastBuildDate>
     
-	<atom:link href="http://blog.aeinrw.com/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.aeinrw.com/tags/%E9%9A%8F%E7%AC%94/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2019年度总结</title>
-      <link>http://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
+      <link>https://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
       <pubDate>Tue, 31 Dec 2019 23:42:38 +0000</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>http://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
+      <guid>https://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
       <description>&lt;p&gt;&lt;em&gt;现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.&lt;/em&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hello World</title>
-      <link>http://blog.aeinrw.com/posts/hello-world/</link>
+      <link>https://blog.aeinrw.com/posts/hello-world/</link>
       <pubDate>Fri, 05 Jul 2019 22:12:26 +0000</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>http://blog.aeinrw.com/posts/hello-world/</guid>
+      <guid>https://blog.aeinrw.com/posts/hello-world/</guid>
       <description>&lt;h1 id=&#34;你好-世界&#34;&gt;你好 世界&lt;/h1&gt;
 &lt;p&gt;想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.&lt;/p&gt;
 &lt;p&gt;其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.&lt;/p&gt;</description>
