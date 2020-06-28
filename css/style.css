@@ -406,7 +406,7 @@ sup {
   max-width: 100%;
   margin: .625rem 0;
   border-spacing: 0;
-  background: #fff;
+  background: var(--theme);
   border-collapse: collapse;
 }
 .post-content table thead {

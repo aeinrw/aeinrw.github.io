@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Wed, 24 Jun 2020 20:29:15 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2020 22:16:04 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.aeinrw.com/index.xml" rel="self" type="application/rss+xml" />
     
@@ -20,6 +20,15 @@
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/about/</guid>
       <description>嗨!感谢你发现我! 我是aeinrw. 这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西. 😂😘😍😊😁</description>
+    </item>
+    
+    <item>
+      <title>人生第一次删站</title>
+      <link>https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/</link>
+      <pubDate>Sun, 28 Jun 2020 22:16:04 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/</guid>
+      <description>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原</description>
     </item>
     
     <item>
