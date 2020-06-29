@@ -85,20 +85,20 @@
 <h1 id="起因">起因</h1>
 <p>hugo在每次进行发布时, 需要执行<code>hugo</code>命令在public文件夹生成静态文件, 但不会删除之前的已有的文件, 只会覆盖. 生成后, 还需手动cd到public文件夹中进行<code>git add</code>,<code>git commit</code>,<code>git push</code>.</p>
 <p>操作非常繁琐, 索性我就写了一段shell脚本进行执行.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span><span class="nb">cd</span> public
-<span class="ln">2</span>Remove-Item ./* -exclude CNAME -recurse
-<span class="ln">3</span><span class="nb">cd</span> ..
-<span class="ln">4</span>hugo
-<span class="ln">5</span><span class="nb">cd</span> public
-<span class="ln">6</span>git add .
-<span class="ln">7</span>git commit -m <span class="s2">&#34;update&#34;</span>
-<span class="ln">8</span>git push
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="ln">1</span><span class="nb">cd </span><span class="n">public</span>
+<span class="ln">2</span><span class="nb">Remove-Item</span> <span class="p">./*</span> <span class="n">-exclude</span> <span class="n">CNAME</span> <span class="n">-recurse</span>
+<span class="ln">3</span><span class="nb">cd </span><span class="p">..</span>
+<span class="ln">4</span><span class="n">hugo</span>
+<span class="ln">5</span><span class="nb">cd </span><span class="n">public</span>
+<span class="ln">6</span><span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="ln">7</span><span class="n">git</span> <span class="n">commit</span> <span class="n">-m</span> <span class="s2">&#34;update&#34;</span>
+<span class="ln">8</span><span class="n">git</span> <span class="n">push</span>
 </code></pre></div><p>坏就坏在第二行用的是相对地址, 我最后一次执行这段脚本时, 我因为其他原因移动了public文件夹, 所以主文件夹中没有public. 执行完第一行, 系统报出错误, 但是并没有停止执行, 此时的文件夹还是主文件夹, 就这样删除了主文件中的所有文件&hellip;&hellip;</p>
 <h1 id="解决方法">解决方法</h1>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>Remove-Item C:/File/Blog/public/* -exclude CNAME -recurse
-<span class="ln">2</span>hugo
-<span class="ln">3</span><span class="nb">cd</span> public
-<span class="ln">4</span>...
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="ln">1</span><span class="nb">Remove-Item</span> <span class="n">C:</span><span class="p">/</span><span class="n">File</span><span class="p">/</span><span class="n">Blog</span><span class="p">/</span><span class="n">public</span><span class="p">/*</span> <span class="n">-exclude</span> <span class="n">CNAME</span> <span class="n">-recurse</span>
+<span class="ln">2</span><span class="n">hugo</span>
+<span class="ln">3</span><span class="nb">cd </span><span class="n">public</span>
+<span class="ln">4</span><span class="p">...</span>
 </code></pre></div><p>换用绝对路径就没事了.</p>
 <p>害,血的教训🤷‍♂️🤷‍♂️🤷‍♂️</p>
 </div>
