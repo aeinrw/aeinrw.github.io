@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="git reset --soft
-git reset --mix
-git reset --hard
+    <meta name="description" content="1git reset --soft
+2git reset --mix
+3git reset --hard
 在初学git时, git reset命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.">
     <meta name="author" content="">
 
@@ -85,10 +85,10 @@ git reset --hard
             <li><a href="https://blog.aeinrw.com/tags/%E5%8E%9F%E7%90%86">原理</a></li>
         </ul>
     </header>
-    <div class="post-content"><pre><code>git reset --soft
-git reset --mix
-git reset --hard
-</code></pre><p>在初学git时, <code>git reset</code>命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.</p>
+    <div class="post-content"><div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="ln">1</span><span class="n">git</span> <span class="n">reset</span> <span class="p">-</span><span class="n">-soft</span>
+<span class="ln">2</span><span class="n">git</span> <span class="n">reset</span> <span class="p">-</span><span class="n">-mix</span>
+<span class="ln">3</span><span class="n">git</span> <span class="n">reset</span> <span class="p">-</span><span class="n">-hard</span>
+</code></pre></div><p>在初学git时, <code>git reset</code>命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.</p>
 <h1 id="命令详解">命令详解</h1>
 <h2 id="git-reset---soft">git reset &ndash;soft</h2>
 <p>本来的HEAD指针指向版本库的最新commit, 如果使用<code>git reset --soft xxxx</code>命令, HEAD指针会指向响应的commit, 对暂存区和工作区不会产生影响, 只是改变HEAD指针的指向.</p>
@@ -151,6 +151,10 @@ git reset --hard
 
 
     
+    <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
 </article>
 
 
@@ -187,10 +191,6 @@ git reset --hard
     <span>&middot;</span>
     <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
 
-</footer>
-<script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
-</script></body>
+</footer></body>
 
 </html>

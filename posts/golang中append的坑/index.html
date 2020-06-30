@@ -104,12 +104,12 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 </code></pre></div></li>
 <li>
 <p><code>copy()</code></p>
-</li>
-</ul>
 <p><code>copy()</code>用于两个同类型切片的复制, 并且是直接在原数组上进行复制, 不会开辟新的空间. 常用的用法如下所示.</p>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="nx">newSlice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kd">type</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">oldSlice</span><span class="p">))</span>
 <span class="ln">2</span><span class="nb">copy</span><span class="p">(</span><span class="nx">newSlice</span><span class="p">,</span> <span class="nx">oldSlice</span><span class="p">)</span>
-</code></pre></div><h1 id="append的坑"><code>append()</code>的坑</h1>
+</code></pre></div></li>
+</ul>
+<h1 id="append的坑"><code>append()</code>的坑</h1>
 <p>在leetcode刷题的过程中, 踩了<code>append()</code>的坑, 导致调试了一下午.</p>
 <p>导致坑的主要原因就是<code>append()</code>参数中的切片和接受返回值的切片不是同一个.</p>
 <p>首先通过伪代码分析一下<code>append()</code>的执行过程:</p>
@@ -181,6 +181,10 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 
 
     
+    <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
 </article>
 
 
@@ -217,10 +221,6 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
     <span>&middot;</span>
     <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
 
-</footer>
-<script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
-<script>
-    hljs.initHighlightingOnLoad();
-</script></body>
+</footer></body>
 
 </html>
