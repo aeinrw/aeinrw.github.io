@@ -8,7 +8,7 @@
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Sun, 28 Jun 2020 22:16:04 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jul 2020 21:01:22 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.aeinrw.com/index.xml" rel="self" type="application/rss+xml" />
     
@@ -20,6 +20,15 @@
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/about/</guid>
       <description>嗨!感谢你发现我! 我是aeinrw. 这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西. 😂😘😍😊😁</description>
+    </item>
+    
+    <item>
+      <title>golang标准库(一): container/list</title>
+      <link>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</link>
+      <pubDate>Wed, 01 Jul 2020 21:01:22 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</guid>
+      <description>在golang的标准库中, 封装了双向链表list, 在其源码中没有多余的依赖, 很容易读懂. 结构体定义 1//链表元素 2type Element struct { 3 next, prev *Element 4 list *List 5 Value interface{}</description>
     </item>
     
     <item>
@@ -52,10 +61,10 @@
     
     <item>
       <title>golang中的byte,rune,string</title>
-      <link>https://blog.aeinrw.com/posts/go%E4%B8%AD%E7%9A%84byterunestring/</link>
+      <link>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</link>
       <pubDate>Wed, 03 Jun 2020 21:09:05 +0000</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/go%E4%B8%AD%E7%9A%84byterunestring/</guid>
+      <guid>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</guid>
       <description>&lt;p&gt;在go语言中, 字符串&lt;code&gt;string&lt;/code&gt;被封装. 在学到接口时, &lt;code&gt;io.Writer&lt;/code&gt;和&lt;code&gt;io.Reader&lt;/code&gt;的参数都是&lt;code&gt;[]byte&lt;/code&gt;, 而不是&lt;code&gt;string&lt;/code&gt;. 另外, go也支持utf8, 又引入了&lt;code&gt;rune&lt;/code&gt;. 初学时让我很困扰, 这篇文章理清了三者之间的关系.&lt;/p&gt;</description>
     </item>
     

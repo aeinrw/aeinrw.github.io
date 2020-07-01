@@ -9,17 +9,42 @@
   
   <url>
     <loc>https://blog.aeinrw.com/</loc>
-    <lastmod>2020-06-28T22:16:04+08:00</lastmod>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/categories/</loc>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/tags/golang/</loc>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/categories/golang%E6%A0%87%E5%87%86%E5%BA%93/</loc>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</loc>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.aeinrw.com/posts/</loc>
-    <lastmod>2020-06-28T22:16:04+08:00</lastmod>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.aeinrw.com/tags/</loc>
-    <lastmod>2020-06-28T22:16:04+08:00</lastmod>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/tags/%E6%A0%87%E5%87%86%E5%BA%93/</loc>
+    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
   </url>
   
   <url>
@@ -30,11 +55,6 @@
   <url>
     <loc>https://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91/</loc>
     <lastmod>2020-06-28T22:16:04+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.aeinrw.com/tags/golang/</loc>
-    <lastmod>2020-06-24T20:29:15+08:00</lastmod>
   </url>
   
   <url>
@@ -53,7 +73,7 @@
   </url>
   
   <url>
-    <loc>https://blog.aeinrw.com/posts/go%E4%B8%AD%E7%9A%84byterunestring/</loc>
+    <loc>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</loc>
     <lastmod>2020-06-03T21:09:05+00:00</lastmod>
   </url>
   

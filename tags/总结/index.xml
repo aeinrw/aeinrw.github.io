@@ -15,10 +15,10 @@
     
     <item>
       <title>golang中的byte,rune,string</title>
-      <link>https://blog.aeinrw.com/posts/go%E4%B8%AD%E7%9A%84byterunestring/</link>
+      <link>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</link>
       <pubDate>Wed, 03 Jun 2020 21:09:05 +0000</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/go%E4%B8%AD%E7%9A%84byterunestring/</guid>
+      <guid>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</guid>
       <description>&lt;p&gt;在go语言中, 字符串&lt;code&gt;string&lt;/code&gt;被封装. 在学到接口时, &lt;code&gt;io.Writer&lt;/code&gt;和&lt;code&gt;io.Reader&lt;/code&gt;的参数都是&lt;code&gt;[]byte&lt;/code&gt;, 而不是&lt;code&gt;string&lt;/code&gt;. 另外, go也支持utf8, 又引入了&lt;code&gt;rune&lt;/code&gt;. 初学时让我很困扰, 这篇文章理清了三者之间的关系.&lt;/p&gt;</description>
     </item>
     
