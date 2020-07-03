@@ -13,8 +13,8 @@
   --content-gap: 10px;
   --nav-width: 1024px;
   --main-width: 640px;
-  --header-height: 60px;
-  --footer-height: 60px;
+  --header-height: 68px;
+  --footer-height: 89px;
   --radius: 8px;
 
   --theme: #ffffff;
@@ -178,7 +178,7 @@ sup {
 }
 .nav a {
   display: block;
-  line-height: var(--header-height);
+  line-height: 60px;
 }
 .logo,
 .menu {
@@ -196,7 +196,8 @@ sup {
   overflow-x: auto;
 }
 .menu li + li {
-  margin-left: var(--gap);
+
+  margin-left: calc(var(--gap)/2);
 }
 .menu a:before {
   font-size: 20px;
@@ -208,7 +209,7 @@ sup {
 -------------------------------------------------- */
 .main {
   position: relative;
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  min-height: calc(100vh - var(--header-height) - var(--footer-height) - 5px);
   max-width: calc(var(--main-width) + var(--gap) * 2);
   margin-left: auto;
   margin-right: auto;
@@ -414,11 +415,11 @@ sup {
 }
 .post-content table th {
   padding: .3rem 1rem;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border);
 }
 .post-content table:not(.highlighttable) td {
   padding: .3rem 1rem;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border);
 }
 .post-content table:not(.highlighttable) td code:only-child {
   margin-left: 0;
@@ -536,7 +537,7 @@ sup {
   max-width: calc(var(--main-width) + var(--gap) * 2);
   margin-left: auto;
   margin-right: auto;
-  padding: calc((var(--footer-height) - var(--gap)) / 2) var(--gap);
+  padding: var(--gap);
   color: var(--secondary);
   font-size: 12px;
   text-align: center;
