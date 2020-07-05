@@ -1,137 +1,704 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>aeinrw</title>
     <link>https://blog.aeinrw.com/</link>
-    <description>Recent content on aeinrw</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
-    <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Wed, 01 Jul 2020 21:01:22 +0800</lastBuildDate>
-    
-	<atom:link href="https://blog.aeinrw.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+      <atom:link href="https://blog.aeinrw.com/index.xml" rel="self" type="application/rss+xml" />
+    <description>aeinrw</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Jul 2020 21:01:22 +0800</lastBuildDate>
     <item>
       <title>关于我</title>
       <link>https://blog.aeinrw.com/about/</link>
       <pubDate>Fri, 05 Jul 2019 12:10:35 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/about/</guid>
-      <description>嗨!感谢你发现我! 我是aeinrw. 这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西. 😂😘😍😊😁</description>
+      <description>&lt;p&gt;嗨!感谢你发现我!&lt;/p&gt;
+&lt;p&gt;我是aeinrw.&lt;/p&gt;
+&lt;p&gt;这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西.&lt;/p&gt;
+&lt;p&gt;😂😘😍😊😁&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>golang标准库(一): container/list</title>
       <link>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</link>
       <pubDate>Wed, 01 Jul 2020 21:01:22 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</guid>
-      <description>在golang的标准库中, 封装了双向链表list, 在其源码中没有多余的依赖, 很容易读懂. 结构体定义 1//链表元素 2type Element struct { 3 next, prev *Element 4 list *List 5 Value interface{}</description>
+      <description>&lt;p&gt;在golang的标准库中, 封装了双向链表&lt;code&gt;list&lt;/code&gt;, 在其源码中没有多余的依赖, 很容易读懂.&lt;/p&gt;
+&lt;h1 id=&#34;结构体定义&#34;&gt;结构体定义&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//链表元素
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;prev&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;list&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;Value&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//链表
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;root&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;链表元素&lt;code&gt;Element&lt;/code&gt;只有一个可导出元素&lt;code&gt;Value&lt;/code&gt;, 是个空接口, 可以存放任意值. 其余元素为私有的, 供内部使用.&lt;/p&gt;
+&lt;p&gt;链表&lt;code&gt;List&lt;/code&gt;由根节点&lt;code&gt;root&lt;/code&gt;和链表长度&lt;code&gt;len&lt;/code&gt;组成, 根节点就相当于是头节点, 值为&lt;code&gt;nil&lt;/code&gt;, 方便元素的插入和删除, 不计入链表长度中.&lt;/p&gt;
+&lt;h1 id=&#34;方法&#34;&gt;方法&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;New&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Init&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Front&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Back&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PushFront&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{})&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PushFrontList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;other&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PushBack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{})&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;PushBackList&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;other&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;InsertBefore&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mark&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;InsertAfter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mark&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;MoveToFront&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;MoveToBack&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;MoveBefore&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mark&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;MoveAfter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;mark&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;List&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Remove&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Element&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;链表通过&lt;code&gt;list.New()&lt;/code&gt;进行生成, 返回链表指针, 函数内部调用了&lt;code&gt;Init()&lt;/code&gt;, 返回了&lt;code&gt;new(List).Init()&lt;/code&gt;. 而结构体方法&lt;code&gt;Init()&lt;/code&gt;初始化了链表, 使头节点&lt;code&gt;root&lt;/code&gt;的&lt;code&gt;next&lt;/code&gt;和&lt;code&gt;prev&lt;/code&gt;指向自身, 并赋&lt;code&gt;len&lt;/code&gt;为0.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;l.Front()&lt;/code&gt;和&lt;code&gt;l.Back()&lt;/code&gt;返回链表的首节点(不是头节点)和尾节点.&lt;/p&gt;
+&lt;p&gt;通过&lt;code&gt;l.PushFront()&lt;/code&gt;和&lt;code&gt;l.PushBack()&lt;/code&gt;向链表的头和尾插入新节点, 可以当作栈和队列使用.&lt;/p&gt;
+&lt;p&gt;其他方法都见名知意.&lt;/p&gt;
+&lt;h1 id=&#34;遍历方法&#34;&gt;遍历方法&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Front&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;nil&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;因为头节点的&lt;code&gt;Value&lt;/code&gt;为&lt;code&gt;nil&lt;/code&gt;, 可以通过它进行循环结束的判断.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Front&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Next&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这种写法是源码中的写法, 如果链表中存在&lt;code&gt;nil&lt;/code&gt;元素, 可以通过这种写法进行遍历.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
     </item>
     
     <item>
       <title>人生第一次删站</title>
       <link>https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/</link>
       <pubDate>Sun, 28 Jun 2020 22:16:04 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/</guid>
-      <description>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原</description>
+      <description>&lt;p&gt;2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原状.&lt;/p&gt;
+&lt;h1 id=&#34;起因&#34;&gt;起因&lt;/h1&gt;
+&lt;p&gt;hugo在每次进行发布时, 需要执行&lt;code&gt;hugo&lt;/code&gt;命令在public文件夹生成静态文件, 但不会删除之前的已有的文件, 只会覆盖. 生成后, 还需手动cd到public文件夹中进行&lt;code&gt;git add&lt;/code&gt;,&lt;code&gt;git commit&lt;/code&gt;,&lt;code&gt;git push&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;操作非常繁琐, 索性我就写了一段shell脚本进行执行.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;public&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Remove-Item&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;./*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-exclude&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CNAME&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-recurse&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;..&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hugo&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;public&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;add&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;commit&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-m&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;update&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;push&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;坏就坏在第二行用的是相对地址, 我最后一次执行这段脚本时, 我因为其他原因移动了public文件夹, 所以主文件夹中没有public. 执行完第一行, 系统报出错误, 但是并没有停止执行, 此时的文件夹还是主文件夹, 就这样删除了主文件中的所有文件&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;h1 id=&#34;解决方法&#34;&gt;解决方法&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Remove-Item&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;C:&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Blog&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;/*&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-exclude&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CNAME&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-recurse&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;hugo&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;public&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;换用绝对路径就没事了.&lt;/p&gt;
+&lt;p&gt;害,血的教训🤷‍♂️🤷‍♂️🤷‍♂️&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>golang的接口类型</title>
       <link>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B/</link>
       <pubDate>Wed, 24 Jun 2020 20:29:15 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B/</guid>
-      <description>golang的interface 简介 简单地说, golang中地interface就是一组方法的组合. 任意对象, 只要一点不差的实现了这些方法,</description>
+      <description>&lt;h1 id=&#34;golang的interface&#34;&gt;golang的&lt;code&gt;interface&lt;/code&gt;&lt;/h1&gt;
+&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
+&lt;p&gt;简单地说, golang中地&lt;code&gt;interface&lt;/code&gt;就是一组&lt;strong&gt;方法的组合&lt;/strong&gt;. 任意对象, 只要一点不差的实现了这些方法, 那就相当于实现了这个接口.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;InterfaceName&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nf&#34;&gt;method_1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    &lt;span class=&#34;nf&#34;&gt;method_2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在golang中, 编译时会自动检测对象是否符合接口的条件, 而不需要进行显示的声明( 在java中,需要用&lt;code&gt;implement&lt;/code&gt;关键字进行显示的声明 ), 达到了解耦合的作用.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;interface&lt;/code&gt;只要给出函数的声明就可以, 包括&lt;u&gt;函数名,参数以及返回值&lt;/u&gt;, 而不需要给出具体实现. 具体的函数实现由传进来的不同对象进行不同的实现.&lt;/p&gt;
+&lt;h2 id=&#34;类型与接口的关系&#34;&gt;类型与接口的关系&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;一个类型可以实现多个接口&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;多个类型可以实现相同的接口&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;空接口interface&#34;&gt;空接口&lt;code&gt;interface{}&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;空接口时接口类型的特殊形式, 空接口没有任何方法, 所以&lt;strong&gt;任何类型都满足空接口的需求&lt;/strong&gt;. 空接口可以保存任何值, 也可以从空接口中取出原有的值.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;any&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//存值
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;any&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;any&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;hello&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;any&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//取值
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;any&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//输出为true
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;ioreader和iowriter接口&#34;&gt;&lt;code&gt;io.Reader&lt;/code&gt;和&lt;code&gt;io.Writer&lt;/code&gt;接口&lt;/h1&gt;
+&lt;p&gt;在&lt;code&gt;io&lt;/code&gt;包中, 定义了两个非常常用的接口, 很多的结构和对象都是围绕这个系列的结构进行展开的.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Reader&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Writer&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;    &lt;span class=&#34;nf&#34;&gt;Write&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果某个结构体实现了&lt;code&gt;Read&lt;/code&gt;和&lt;code&gt;Write&lt;/code&gt;方法, 并且有着相同的参数和返回值, 那么这个结构体就可以看作是一个可以进行输入输出的接口.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Read&lt;/code&gt;方法用于读取对象自身需要输出的值, &lt;strong&gt;从哪里读取不需要关心&lt;/strong&gt;, 读取的值在字节切片&lt;code&gt;p&lt;/code&gt;中, 需要预先传入这个字节切片, 原先的值会被覆盖. 返回值中的&lt;code&gt;n&lt;/code&gt;为读取的字节的数量, &lt;code&gt;err&lt;/code&gt;为错读取过程中的错位, 默认为&lt;code&gt;nil&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Write&lt;/code&gt;方法用于向对象进行输入, &lt;strong&gt;往哪里写不需要关心&lt;/strong&gt;, 需要写入的数据需要转化成&lt;code&gt;[]byte&lt;/code&gt;类型传入&lt;code&gt;p&lt;/code&gt;中.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;常见的实现&#34;&gt;常见的实现&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/06/24/jbgkhXY6A1iDGHa.png&#34; alt=&#34;ioInterface.png&#34;&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;strings.Reader&lt;/code&gt;: 从字符串中读取&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;bytes.Reader&lt;/code&gt;: 从[]byte中读取&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;bytes.Buffer&lt;/code&gt;: 从[]byte中读取和写入,缓冲区&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;bufio.Reader/Writer&lt;/code&gt;: 缓冲流的读取和写入&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;net.Conn&lt;/code&gt;: 网络的输入输出&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;os.Stdin,os.Stdout&lt;/code&gt;: 标准输入输出&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;os.File&lt;/code&gt;: 对文件的读取和写入&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;举例&#34;&gt;举例&lt;/h2&gt;
+&lt;h3 id=&#34;字符串&#34;&gt;字符串&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;readFrom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;reader&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;io&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Reader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;reader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;readFrom&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;strings&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;NewReader&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;abcdefghijklmn&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// [0 0 0 0 0 0 0 0 0 0]
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// [97 98 99 100 101 102 103 104 105 106] 10
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;格式化输入&#34;&gt;格式化输入&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Fprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;w&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;io&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Writer&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{})&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;fmt.Fprintf&lt;/code&gt;可以把字符串按照固定格式输出到&lt;code&gt;w&lt;/code&gt;中, 在其中会调用&lt;code&gt;w.Write()&lt;/code&gt;方法进行数据的写入.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;Printf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;...&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;interface&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{})&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nf&#34;&gt;Fprintf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Stdout&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;fmt.Printf&lt;/code&gt;就是调用了前者方法, 只不过传入的参数为&lt;code&gt;os.Stdout&lt;/code&gt;, 也就是把字符串输出到控制台.&lt;/p&gt;
+</description>
     </item>
     
     <item>
       <title>golang中append()的坑</title>
       <link>https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 07 Jun 2020 20:40:39 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/</guid>
       <description>&lt;h1 id=&#34;slice的结构&#34;&gt;slice的结构&lt;/h1&gt;
-&lt;p&gt;slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.&lt;/p&gt;</description>
+&lt;p&gt;slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;cap&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;slice的结构可以理解为一个结构体, &lt;code&gt;data&lt;/code&gt;是slice的底层数组的地址, &lt;code&gt;len&lt;/code&gt;和&lt;code&gt;cap&lt;/code&gt;分别是底层数组中有效数据的长度和数组的实际分配长度. 可通过go自带的&lt;code&gt;len()&lt;/code&gt;和&lt;code&gt;cap()&lt;/code&gt;进行获取.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/06/19/lbr9IdsLkaQARSU.png&#34; alt=&#34;sliceStruct.png&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;append和copy&#34;&gt;append()和copy()&lt;/h1&gt;
+&lt;p&gt;这两个函数是go自带的, 用于处理切片.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;append()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;append()&lt;/code&gt;用于在切片的末尾添加元素, 如果底层数组的容量足够(&lt;code&gt;len+1&amp;lt;=cap&lt;/code&gt;), 则不会进行扩容. 如果容量不够, 切片会进行容量增长, 具体的扩容算法比较复杂.&lt;/p&gt;
+&lt;p&gt;切片会开辟一块新的内存空间, 把之前的值按顺序拷贝到新的数组上, 并在末尾添加上append的元素.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;newData&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;copy()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;copy()&lt;/code&gt;用于两个同类型切片的复制, 并且是直接在原数组上进行复制, 不会开辟新的空间. 常用的用法如下所示.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;newSlice&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([]&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;oldSlice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;copy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;newSlice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;oldSlice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;append的坑&#34;&gt;&lt;code&gt;append()&lt;/code&gt;的坑&lt;/h1&gt;
+&lt;p&gt;在leetcode刷题的过程中, 踩了&lt;code&gt;append()&lt;/code&gt;的坑, 导致调试了一下午.&lt;/p&gt;
+&lt;p&gt;导致坑的主要原因就是&lt;code&gt;append()&lt;/code&gt;参数中的切片和接受返回值的切片不是同一个.&lt;/p&gt;
+&lt;p&gt;首先通过伪代码分析一下&lt;code&gt;append()&lt;/code&gt;的执行过程:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;newData&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;slice&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;newSlice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;newData&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//构造新切片, 添加新的元素
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;newSlice&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;newSlice&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在&lt;code&gt;append()&lt;/code&gt;中构造了一个新的切片, 如果接受返回值的是本身, 就实现了对原切片增加一个元素的效果. 如果接受返回值的是其他变量, 则相当于产生了一个新切片, 但这&lt;strong&gt;两个切片间是有关系的&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;看下面的演示代码&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;test1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([][]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;//创建一个切片的切片
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//创建一个容量为2的切片
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;          &lt;span class=&#34;c1&#34;&gt;//往切片中添加两个元素
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;   	&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;        &lt;span class=&#34;nx&#34;&gt;c&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     &lt;span class=&#34;c1&#34;&gt;//出现坑的地方
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;        &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;append&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;        &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//输出结果为
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这是符合预期的, 但如果修改容量为3, 输出就不一样了.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;......&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;make&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;//创建一个容量为3的切片
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;......&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;//输出结果为
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;修改容量后, 之前加入切片的值也改变了.&lt;/p&gt;
+&lt;p&gt;现在分析一下造成这个结果的原因.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;容量为2时, 已经往切片b中加入了两个元素, 此时切片b的底层数组是满的. 如果再进行添加, 会开辟新的内存空间, 并赋值给新切片c, 且在循环过程中每次开辟的空间都不一样, 最后的结果符合预期.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/06/20/sDOB6idZcGVvLx3.png&#34; alt=&#34;append1.png&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;容量为3时, 往切片b中添加元素, 会直接在b的底层数组后面添加, 且返回的值就是b本身, 也就是说在循环过程中, c和b是相同的, 两个切片指向同一个底层数组, b和c的区别在于&lt;code&gt;c.len==3&lt;/code&gt;而&lt;code&gt;b.len==2&lt;/code&gt;, 而&lt;code&gt;c.data == b.data&lt;/code&gt;. 这就导致在后面添加过程中, 会不断修改&lt;code&gt;b.data[2]&lt;/code&gt;(注意不是&lt;code&gt;b[2]&lt;/code&gt;,b的长度只有2,对于b来说,这个元素没有意义), 导致之前的值都发生了改变.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/06/20/H3OvJBILtXS5FgM.png&#34; alt=&#34;append2.png&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>golang中的byte,rune,string</title>
       <link>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</link>
       <pubDate>Wed, 03 Jun 2020 21:09:05 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/golang%E4%B8%AD%E7%9A%84byterunestring/</guid>
-      <description>&lt;p&gt;在go语言中, 字符串&lt;code&gt;string&lt;/code&gt;被封装. 在学到接口时, &lt;code&gt;io.Writer&lt;/code&gt;和&lt;code&gt;io.Reader&lt;/code&gt;的参数都是&lt;code&gt;[]byte&lt;/code&gt;, 而不是&lt;code&gt;string&lt;/code&gt;. 另外, go也支持utf8, 又引入了&lt;code&gt;rune&lt;/code&gt;. 初学时让我很困扰, 这篇文章理清了三者之间的关系.&lt;/p&gt;</description>
+      <description>&lt;p&gt;在go语言中, 字符串&lt;code&gt;string&lt;/code&gt;被封装. 在学到接口时, &lt;code&gt;io.Writer&lt;/code&gt;和&lt;code&gt;io.Reader&lt;/code&gt;的参数都是&lt;code&gt;[]byte&lt;/code&gt;, 而不是&lt;code&gt;string&lt;/code&gt;. 另外, go也支持utf8, 又引入了&lt;code&gt;rune&lt;/code&gt;. 初学时让我很困扰, 这篇文章理清了三者之间的关系.&lt;/p&gt;
+&lt;h1 id=&#34;底层&#34;&gt;底层&lt;/h1&gt;
+&lt;h2 id=&#34;string和byte&#34;&gt;&lt;code&gt;string&lt;/code&gt;和&lt;code&gt;[]byte&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;string是经过golang封装过的数据结构, 即字符串, 然而在底层, 它是一个&lt;code&gt;byte&lt;/code&gt;类型的切片, 即&lt;code&gt;[]byte&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;string&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这是string的结构体(可能是这样&amp;hellip;), 由一个字节切片和一个整形构成, 整形数据代表了字符串的&lt;strong&gt;字节长度&lt;/strong&gt;(并不是Unicode字符长度).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#34;Hello,世界!&amp;#34;&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//结果为13
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;Println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;utf8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;RuneCountInString&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;//结果为9
+&lt;/span&gt;&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在上面的示例中, 每个英文字符和标点符号占据一个字节, 中文字符占据三个字节.&lt;strong&gt;可能多个切片元素才能表示一个字符&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;byte&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int8&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;一个字节8个bit, 在golang中, 一个&lt;code&gt;byte&lt;/code&gt;就相当于一个&lt;code&gt;int8&lt;/code&gt;数据, 用&lt;code&gt;%c&lt;/code&gt;和&lt;code&gt;%d&lt;/code&gt;可以分别输出它的ASCII字符和数字大小.&lt;/p&gt;
+&lt;h2 id=&#34;rune&#34;&gt;&lt;code&gt;[]rune&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;golang天生支持Unicode, 采用&lt;code&gt;rune&lt;/code&gt;类型来表示一个utf8类型&lt;/p&gt;
+&lt;h3 id=&#34;utf8&#34;&gt;utf8&lt;/h3&gt;
+&lt;p&gt;utf8是不等长的编码, 采用添加附加位的方法来表示不同长度的字符, 最多占用4个字节来表示一个字符, 即32位.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;quot;Hello,世界!&amp;quot;&lt;/code&gt;在golang中的string, 是按字节进行储存的, 但是按utf8字符进行读取的. 在底层的字节数组中, 存的内容是 &lt;code&gt;48656C6C6F2CE4B896E7958C21&lt;/code&gt;, 没两个十六进制字符代表一个字节, 总共13个字节. 按照utf8字符进行划分可以分为&lt;code&gt;48,65,6C,6C,6F,2C,E4B896,E7958C,21&lt;/code&gt;, 总共9个utf8字符.&lt;/p&gt;
+&lt;p&gt;对于中文字符, 需要用三个字节进行表示, 以&lt;code&gt;&amp;quot;世&amp;quot;&lt;/code&gt;为例, 它的&lt;strong&gt;utf8编码&lt;/strong&gt;是&lt;code&gt;E4B896&lt;/code&gt;, 转化为二进制为&lt;code&gt;11100100 10111000 10010110&lt;/code&gt;. 第一个字节的前4位&lt;code&gt;1110&lt;/code&gt;和后两个字节的前两位&lt;code&gt;10&lt;/code&gt;为标识位, 当计算机看到&lt;code&gt;1110&lt;/code&gt;时, 就知道这是一个三字节的utf8字符. 去掉标识位, 得到&lt;code&gt;0100111000010110&lt;/code&gt;, 转化为十进制即为&lt;code&gt;19990&lt;/code&gt;, 这是它的&lt;strong&gt;utf8编号&lt;/strong&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;rune-1&#34;&gt;&lt;code&gt;rune&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;在golang中, 用rune表示一个utf8字符. utf8中, 最多4个字节, 4字节的字符编码格式为&lt;code&gt;11110xxx 10xxxxxx 10xxxxxx 10xxxxxx&lt;/code&gt;, 去掉标识位后共有21位, 表示它的编号, 可用21位的int进行表示, 但golang中没有&lt;code&gt;int21&lt;/code&gt;,也没有&lt;code&gt;int24&lt;/code&gt;, 所以用&lt;code&gt;int32&lt;/code&gt;来表示一个utf字符.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-golang&#34; data-lang=&#34;golang&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;rune&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int32&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;rune&lt;/code&gt;中存的字符就已经去掉标识位, 不表示编码而只表示编号了.&lt;/p&gt;
+&lt;p&gt;而&lt;code&gt;[]rune&lt;/code&gt;很显然就是一个&lt;code&gt;int32&lt;/code&gt;的切片, 其中保存了每个utf8字符的编号, 连起来就可以表示一个字符串, &lt;strong&gt;一个切片元素表示一个字符&lt;/strong&gt;, 和&lt;code&gt;string&lt;/code&gt;不一样.&lt;/p&gt;
+&lt;h1 id=&#34;三者间的转换&#34;&gt;三者间的转换&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/06/19/2FOWw14oX3Msv8r.png&#34; alt=&#34;stringTrans.png&#34;&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>RSA算法和ssh登录详解</title>
       <link>https://blog.aeinrw.com/posts/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/</link>
       <pubDate>Fri, 29 May 2020 16:33:25 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/</guid>
       <description>&lt;h1 id=&#34;rsa算法&#34;&gt;RSA算法&lt;/h1&gt;
 &lt;h2 id=&#34;数学原理&#34;&gt;数学原理&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;即$(a^{p}-a)/p$的余数为零, $a^{p}/p$和$a/p$同余, $a^{p} \equiv a (mod\ p)$. 如果a不是p的倍数, 则$a^{p-1}-1$是p的倍数.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;欧拉-费马小定理: 若$a \in Z , n \in Z$, 且a,n互素, 则$a^{\varphi(n)}-1 \equiv 1 (mod\ n)$.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;其中, 若n为质数,$\varphi(n)=n-1$. 若p,q互质, 则$\varphi(pq)=(p-1)(q-1)$.&lt;/p&gt;</description>
+&lt;p&gt;其中, 若n为质数,$\varphi(n)=n-1$. 若p,q互质, 则$\varphi(pq)=(p-1)(q-1)$.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;假设Alice要给Bob发送信息, 需要对信息进行加密, 首先需要确定公私钥.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Alice首先选取两个大质数p,q, $N=pq$, 由欧拉函数的性质, $\varphi(N)=(p-1)(q-1)$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;选取一个数e, 使得$1&amp;lt;e&amp;lt;\varphi(N)$, 且e与$\varphi(N)$互质. 得到&lt;strong&gt;公钥(N,e)&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;根据选取的e, 找另一个数d, 使得$ed \equiv 1 (mod\ \varphi(N))$, 即$ed/\varphi(N)$余1. 得到&lt;strong&gt;私钥(N,d)&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$\exists d \iff e\perp\varphi(N)$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;加密及解密&#34;&gt;加密及解密&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Alice首先确定N, 公钥e, 私钥d. 并把(N,e)传送到Bob端.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bob收到公钥(N,e)后, 把发送的数据通过某种方法转化为数字m, $m&amp;lt;N$. 如果太大, 可以进行切片分批发送.&lt;/p&gt;
+&lt;p&gt;对m进行加密, 取$m^{e}/N$的余数c, &lt;strong&gt;c就是密文&lt;/strong&gt;, $c \equiv m^{e}(mod\ N)$. Bob把c传输给Alice.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Alice收到密文c后, 取$c^{d}/N$的余数, 这个余数一定就是m, $m \equiv c^{d}(mod\ N)$. 这样就实现了解密.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;$c = m^{e} + N的倍数$&lt;/p&gt;
+&lt;p&gt;$c^{d} = (m^{e} + N的倍数)^{d}$&lt;/p&gt;
+&lt;p&gt;$c^{d} = m^{ed} + N的倍数$&lt;/p&gt;
+&lt;p&gt;$c^{d} = m^{1+\varphi(N)的倍数}+N的倍数$&lt;/p&gt;
+&lt;p&gt;$c^{d} = m(m^{\varphi(N)的倍数})+N的倍数$&lt;/p&gt;
+&lt;p&gt;$c^{d} = m(1+N的倍数)+N的倍数$ 欧拉-费马小定理&lt;/p&gt;
+&lt;p&gt;$c^{d} = m + N的倍数$&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;安全性&#34;&gt;安全性&lt;/h2&gt;
+&lt;p&gt;&lt;u&gt;公钥e, 密文c和N&lt;/u&gt;是可以截取到的, 而私钥d是自身保留的, 如果没有私钥d, 只通过N和e来解密是非常困难的.&lt;/p&gt;
+&lt;p&gt;假设黑客拥有e, c, N. 如果需要求d, 通过d的构造方法可知, 需要知道$\varphi(N)$, 从而需要知道p和q. 这就涉及到质因数分解, 对于一个非常大的数N, 分解是非常困难的.&lt;/p&gt;
+&lt;h1 id=&#34;ssh免密登录过程&#34;&gt;SSH免密登录过程&lt;/h1&gt;
+&lt;p&gt;在登录Linux的过程中, 可以通过SSH来免密登录, 其中的加密算法就是RSA算法.&lt;/p&gt;
+&lt;p&gt;客户端(Client)就相当于Alice, 而Linux服务端(Server)相当于Bob. 客户端生成公钥(N,e)和私钥(N,d), 把公钥发送到服务端进行保存.&lt;/p&gt;
+&lt;p&gt;登录的过程:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Client发送登录请求, 其中包括用户名和IP地址.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Server收到后, 查找用户对应的公钥(N,e), 随机生成一段字符串m, 并通过公钥进行加密得到密文c. 把密文c发送给Client.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Client收到密文c后, 通过私钥(N,d)进行解密, 得到原始字符串m, 再把m发送给Server.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Server比对收到的m, 如果相同, 则同意登录, Client实现了免密登录.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
       <title>git reset命令</title>
       <link>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</link>
       <pubDate>Wed, 27 May 2020 22:09:05 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/</guid>
       <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reset&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;-soft&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reset&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;-mix&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;git&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;reset&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;-hard&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在初学git时, &lt;code&gt;git reset&lt;/code&gt;命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.&lt;/p&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在初学git时, &lt;code&gt;git reset&lt;/code&gt;命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.&lt;/p&gt;
+&lt;h1 id=&#34;命令详解&#34;&gt;命令详解&lt;/h1&gt;
+&lt;h2 id=&#34;git-reset---soft&#34;&gt;git reset &amp;ndash;soft&lt;/h2&gt;
+&lt;p&gt;本来的HEAD指针指向版本库的最新commit, 如果使用&lt;code&gt;git reset --soft xxxx&lt;/code&gt;命令, HEAD指针会指向响应的commit, 对暂存区和工作区不会产生影响, 只是改变HEAD指针的指向.&lt;/p&gt;
+&lt;h2 id=&#34;git-reset---mix&#34;&gt;git reset &amp;ndash;mix&lt;/h2&gt;
+&lt;p&gt;添加&lt;code&gt;--mix&lt;/code&gt;选项后, 除了HEAD指针会改变指向外, 暂存区也会改变. 暂存区被新指向的commit覆盖, 之前的暂存会消失, 但不影响工作区.&lt;/p&gt;
+&lt;h2 id=&#34;git-reset---hard&#34;&gt;git reset &amp;ndash;hard&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;--hard&lt;/code&gt;选项会根据指向的commit覆盖工作区, 工作区的为保存修改会被覆盖, 这个命令是个危险的命令.&lt;/p&gt;
+&lt;h1 id=&#34;区别&#34;&gt;区别&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;选项&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;HEAD&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;暂存区&lt;/th&gt;
+&lt;th align=&#34;center&#34;&gt;工作区&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&amp;ndash;soft&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;不变&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;不变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&amp;ndash;mix&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;不变&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;&amp;ndash;hard&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description>
     </item>
     
     <item>
       <title>2019年度总结</title>
       <link>https://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</link>
       <pubDate>Tue, 31 Dec 2019 23:42:38 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</guid>
-      <description>&lt;p&gt;&lt;em&gt;现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.&lt;/em&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;em&gt;现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&#34;学习&#34;&gt;学习&lt;/h1&gt;
+&lt;p&gt;2019年, 对我来说最重要的一件事情就是考研了, 我先梳理一下这一年来的复习历程.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;2017年开始计划跨考计算机, 并报名辅修.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2018年年底决定跨考.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2019初寒假在家看高数和数字电路, 看了很多学长学姐的经验贴, 再结合自己的想法. 为开学正式复习打好了基础, 少走了一些弯路.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;大三下一开学, 只要没有课就待在图书馆, 上半年的复习还是挺悠闲的, 星期天还能放个假. 直到6月之前, 都是一直在复习.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;英语没怎么看, 也就把那本恋练有词的课听完了, 现在想想这是我考研走的最大的弯路! 每天7点半起床, 吃完饭就去图书馆看朱伟讲单词, 单词课又臭又长, 开两倍速都要看2个多小时. 基本上没什么效率.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;数学一开始就跟汤家凤,在加上底子不错,前期花了大量的时间,整个上半年基本上就是在搞数学了,汤家凤的同步班,强化班看完,1800做完.为暑假和下半年的复习节省了不少时间.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;408上半年只把数据结构过了一遍, 但过的非常细致, 自己连书上的代码都重新敲了一遍. 机组和操作系统也正在上课, 同步着学, 幸好早起把定点数和浮点数搞明白了, 暑假省了很多时间.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;6月份基本上就没复习了, 期末考试, 皖维实习, 生产仿真画图, 还有6级考试, 是一年来最忙的一段时间了. 很遗憾, 上半年的英语复习没什么卵用, 6级还是没过&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;暑假两个月可以说是最关键的两个月了, 花一个星期把之前复习的捡起来. 然后专心搞408和英语, 每天估计也有11个小时的复习时间.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数学又买了一本李林的880, 暑假做完了.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;408在暑假把4本都过了一遍, 而网络等于是自己自学的.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;英语把早些年的真题写一遍, 翻译一遍, 总结一遍, 单词量明显上去了. 果不其然, 真题就是最好的英语复习资料, 之后做题的感觉明显不一样.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下半年开学, 花了两个月看徐涛的政治网课, 看视频花的时间有点多, 都是从数学上挤下来的. 前期数学已经弄得差不多了, 开学就一直是成套的做时间, 十几年的真题, 合工大的试卷, 李林的试卷, 基本上就没花什么时间了. 408也是不断地做题目, 真题, 王道模拟题, 天勤模拟题, 差不多30套题目, 把408也总算搞完了.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最后的12月, 前期出劲太大, 后期反而有点无力了, 做肖8, 看政治. 疯狂总结英语模板, 背英语作文. 最后一天背书背的头都要炸了, 每天起床头都是昏的, &lt;strong&gt;可是总算是熬过去了!&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;回顾一遍自己的复习历程, 还是蛮有成就感的, 基本上没走什么弯路, 唯一的弯路在6级之后也把我打醒, 现在想想自己也算是做到了面面俱到, 改复习强化的点我都复习到了. 反映在成绩上应该不会太差, &lt;u&gt;我估计能考380左右吧.&lt;/u&gt;&lt;/p&gt;
+&lt;h1 id=&#34;生活&#34;&gt;生活&lt;/h1&gt;
+&lt;p&gt;复习的生活总是平淡无奇的, 但我也觉得挺开心的. 一周还能和王成, 吴军前打打球, 有朋友一起打球, 自己明显放的开一些, 球技也有些提高, 嘿嘿. 星期天就待在寝室里, 学学python, 看看自己感兴趣的领域, 也挺有意思的.&lt;/p&gt;
+&lt;h1 id=&#34;感悟&#34;&gt;感悟&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;以兴趣为指导的学习才是最好的学习方式.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我终于找到了自己的目标, 在不算晚的时间内努力弥补.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;思修诚不欺我, &lt;strong&gt;奋斗本身就是一种幸福&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其实想写的还有很多, 对2019我有太多的话想说了, 可让我表达出来, 却还真不知道该怎么说, 等成绩下来我在好好聊聊吧.&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>docker学习笔记</title>
       <link>https://blog.aeinrw.com/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Tue, 09 Jul 2019 20:37:19 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;p&gt;早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.&lt;/p&gt;
-&lt;p&gt;这是我学docker时的笔记, 教学视频看的是&lt;a href=&#34;https://www.bilibili.com/video/av47715282?from=search&amp;amp;seid=4956952821224565702&#34;&gt;docker教学视频链接&lt;/a&gt;, 讲的很好, 入门很快.&lt;/p&gt;</description>
+&lt;p&gt;这是我学docker时的笔记, 教学视频看的是&lt;a href=&#34;https://www.bilibili.com/video/av47715282?from=search&amp;amp;seid=4956952821224565702&#34;&gt;docker教学视频链接&lt;/a&gt;, 讲的很好, 入门很快.&lt;/p&gt;
+&lt;p&gt;以下是一些docker命令的总结.&lt;/p&gt;
+&lt;h1 id=&#34;镜像命令&#34;&gt;镜像命令&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;列出本地主机上的镜像&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker images&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-a&lt;/strong&gt; : 列出本地所有的镜像(含中间镜像层)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-q&lt;/strong&gt; : 只显示镜像ID&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;digest&lt;/strong&gt; : 显示镜像的摘要信息&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;no-trunc&lt;/strong&gt; : 显示镜像的完整信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;搜索镜像&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker search 镜像名字&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ndash;no-trunc&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;-s&lt;/strong&gt; : 列出star不小于指定值的镜像&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;docker search -s 30 tomcat&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;&amp;ndash;automated&lt;/strong&gt; : 只列出automate bulid类型的镜像&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;下载镜像&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker pull 镜像名字:[TAG]&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;不写版本号则默认最新版本&lt;em&gt;latest&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除镜像&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker rmi 镜像名字或ID&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;docker rmi -f 镜像ID&lt;/code&gt; : 删除单个镜像&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker rmi -f 镜像名字1:TAG 镜像名字2:TAG&lt;/code&gt; : 删除多个镜像&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker rmi -f $(docker images -qa)&lt;/code&gt; : 删除全部镜像&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;容器命令&#34;&gt;容器命令&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;新建并启动容器&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker run [OPTION] IMAGE [COMMAND][ARG&amp;hellip;]&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;name=&amp;quot;容器新名字&amp;rdquo;&lt;/strong&gt; : 为容器指定一个名称&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-d&lt;/strong&gt; : 后台运行容器,并返回容器ID,即启动&lt;em&gt;守护式容器&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-i&lt;/strong&gt; : 以交互模式运行容器,通常与 &lt;strong&gt;-t&lt;/strong&gt; 同时使用&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-t&lt;/strong&gt; : 为容器重新分配一个伪输入终端&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-P&lt;/strong&gt; : 随机端口映射&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-p&lt;/strong&gt; : 指定端口映射&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;列出当前所有正在运行的容器&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;docker ps [OPTION]&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-a&lt;/strong&gt; : 列出当前所有正在运行的容器+历史上运行过的&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-l&lt;/strong&gt; : 显示最近创建的容器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-n&lt;/strong&gt; : 显示最近n个创建的容器&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-q&lt;/strong&gt; : 只显示容器ID&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;no-trunc&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;退出容器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;exit&lt;/strong&gt; : 容器停止退出&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ctrl+P+Q&lt;/strong&gt; : 容器不停止推出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;启动容器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;docker start 容器ID或容器名&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;docker restart 容器ID或容器名&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;停止容器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;docker stop 容器ID或容器名&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;docker kill 容器ID或容器名&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;删除已停止的容器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;docker rm 容器ID&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;docker rm -f $(docker ps -a -q)&lt;/code&gt; : 一次性删除多个容器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description>
     </item>
     
     <item>
       <title>各种软件安装和环境配置过程</title>
       <link>https://blog.aeinrw.com/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</link>
       <pubDate>Sat, 06 Jul 2019 14:48:17 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</guid>
       <description>&lt;p&gt;最近在服务器上玩centos,各种玩坏了就重装&amp;hellip;🤯&lt;/p&gt;
-&lt;p&gt;安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.&lt;/p&gt;</description>
+&lt;p&gt;安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.&lt;/p&gt;
+&lt;p&gt;可能以后学会了docker就不用这么这么折腾了把🙃.&lt;/p&gt;
+&lt;p&gt;其中的过程基本上我都实验过,应该都是亲测可行的,如果有坑会提出来.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;对于以下链接的原作者,非常感谢你们详细的教程,在此谢过了😁!!&lt;/strong&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h1 id=&#34;软件安装&#34;&gt;软件安装&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;centos上安装owncloud服务&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/ff296f905f58&#34;&gt;https://www.jianshu.com/p/ff296f905f58&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;centos上安装mysql8.0&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/qq_38591756/article/details/82958333&#34;&gt;https://blog.csdn.net/qq_38591756/article/details/82958333&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;centos中docker的安装&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/av47715282/?p=34&#34;&gt;https://www.bilibili.com/video/av47715282/?p=34&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;环境搭建&#34;&gt;环境搭建&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;centos的httpd服务配置&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/oyudabajiao/article/details/79769094&#34;&gt;https://blog.csdn.net/oyudabajiao/article/details/79769094&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;花里胡哨&#34;&gt;花里胡哨&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;基于Hexo的博客搭建&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.bilibili.com/video/av44544186?from=search&amp;amp;seid=3873921690217774838&#34;&gt;https://www.bilibili.com/video/av44544186?from=search&amp;amp;seid=3873921690217774838&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.simon96.online/2018/10/12/hexo-tutorial/2&#34;&gt;https://www.simon96.online/2018/10/12/hexo-tutorial/2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Hexo主题Next的相关配置&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.jianshu.com/p/9f0e90cc32c2&#34;&gt;https://www.jianshu.com/p/9f0e90cc32c2&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;centos的ssh链接掉线&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://blog.csdn.net/libaineu2004/article/details/83857779&#34;&gt;https://blog.csdn.net/libaineu2004/article/details/83857779&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;hellip;&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To Be Continue👀&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Hello World</title>
       <link>https://blog.aeinrw.com/posts/hello-world/</link>
       <pubDate>Fri, 05 Jul 2019 22:12:26 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/hello-world/</guid>
       <description>&lt;h1 id=&#34;你好-世界&#34;&gt;你好 世界&lt;/h1&gt;
 &lt;p&gt;想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.&lt;/p&gt;
-&lt;p&gt;其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.&lt;/p&gt;</description>
+&lt;p&gt;其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;16年高考, 奈何分数擦线, 没能被计算机收下, 来到当时听着还不错的&amp;quot;高分子材料与工程&amp;rdquo;, 其实这个专业是我自己填的&amp;hellip;&amp;hellip;一是收到曾经贵州大学校长郑强的影响, 听过他的几次演讲, 就对高分子这个东西产生了一点兴趣.&lt;/p&gt;
+&lt;p&gt;擦线进安大的我, 其实能被录取就感觉很幸运了, 所以也没有心生转专业的想法, 主要还是大一的我太羞涩&amp;hellip;不太敢跨出那一步吧, 而且成绩好像还不错的说, 说不定还能保个研, 岂不是美滋滋? 到大二, 随着对自己专业的进一步了解和几次去工厂见习, 开始有点劝退我了, 于是开始真正去了解这个专业, 以及以后的发展方向, 主要途径就是知乎😂, 于是我就被知乎劝退了. 开始辅修, 开始去折腾计算机, 尝试各种HelloWorld的写法😂😂, 其实我是乐在其中的.&lt;/p&gt;
+&lt;p&gt;辅修的一些课, 比如数据结构, 汇编, C++, 我都是半个学期就学完了整本书, 跟着B站的视频, 加上自己的自学, 本专业课划水, 期末复习, 偶尔还能拿个90+. 打着自己的小算盘, 一边辅修一边维持绩点准备保研, 但结果可想而知, 绩点降了挺多的, 现在我的在保研名额的分界线徘徊, 加上大二基本没有参加大创实验, 确实没什么拿出手的成绩和经历. 路越走越窄, 保研应该是没有希望了, 只剩下跨考了.&lt;/p&gt;
+&lt;p&gt;希望我不会后悔.&lt;/p&gt;</description>
     </item>
     
   </channel>
