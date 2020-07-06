@@ -123,23 +123,36 @@
 <p>通过<code>l.PushFront()</code>和<code>l.PushBack()</code>向链表的头和尾插入新节点, 可以当作栈和队列使用.</p>
 <p>其他方法都见名知意.</p>
 <h1 id="遍历方法">遍历方法</h1>
-<ol>
-<li>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="k">for</span> <span class="nx">e</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">.</span><span class="nf">Front</span><span class="p">()</span> <span class="p">;</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">;</span> <span class="nx">e</span> <span class="p">=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
 <span class="ln">2</span>    <span class="o">...</span>
 <span class="ln">3</span><span class="p">}</span>
 </code></pre></div><p>因为头节点的<code>Value</code>为<code>nil</code>, 可以通过它进行循环结束的判断.</p>
-</li>
-<li>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="k">for</span> <span class="nx">i</span><span class="p">,</span><span class="nx">e</span> <span class="o">:=</span> <span class="nx">l</span><span class="p">.</span><span class="nf">Len</span><span class="p">(),</span><span class="nx">l</span><span class="p">.</span><span class="nf">Front</span><span class="p">()</span> <span class="p">;</span> <span class="nx">i</span><span class="p">&gt;</span><span class="mi">0</span> <span class="p">;</span> <span class="nx">i</span><span class="p">,</span><span class="nx">e</span> <span class="p">=</span> <span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="nx">e</span><span class="p">.</span><span class="nf">Next</span><span class="p">()</span> <span class="p">{</span>
 <span class="ln">2</span>    <span class="o">...</span>
 <span class="ln">3</span><span class="p">}</span>
 </code></pre></div><p>这种写法是源码中的写法, 如果链表中存在<code>nil</code>元素, 可以通过这种写法进行遍历.</p>
-</li>
-</ol>
 </div>
     <hr>
     
+<span id="/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/" class="leancloud_visitors" data-flag-title="golang标准库(一): container/list">
+    <span class="post-meta-item-text">总访问量 </span>
+    <span class="leancloud-visitors-count">1000000</span>
+</span>
+<div id="vcomments"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
+        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
+        notify:  false ,
+        verify:  false ,
+        avatar: 'mm',
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+</script>
 
 
     
