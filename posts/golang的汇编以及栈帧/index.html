@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+    <title>golang的汇编以及栈帧</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="golang的汇编 在go语言中, 函数的参数和返回值都是通过栈来传递的, 函数调用时会有自己的栈帧, 并引入了几个寄存器来定位栈帧的大小和值的调用">
+    <meta name="author" content="">
+
+
+    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="https://blog.aeinrw.com/image/favicon.ico">
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
+
+
+    <meta name="generator" content="Hugo 0.72.0" />
+
+    <script>
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
+
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
+            } else {
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+            }
+        }
+        function switchTheme() {
+            if (localStorage.getItem('isDark') == "true") {
+                localStorage.setItem('isDark', "false");
+                document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
+            }
+        }
+    </script>
+</head><body class="single"><script>
+    setTheme();
+</script>
+<header class="header">
+    <nav class="nav">
+        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <ul class="menu">
+            <li>
+                <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
+            </li>
+            <li>
+                <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
+            </li>
+            <li>
+                <a href="/categories/"><i class="iconfont icon-categories menuicon"></i></a>
+            </li>
+            <li>
+                <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
+            </li>
+        </ul>
+    </nav>
+</header><main class="main">
+
+<article class="post-single">
+    <header class="post-header">
+        <h1 class="post-title">golang的汇编以及栈帧</h1>
+        <div class="post-meta">July 21, 2020</div>
+        <ul class="post-tags">
+            <li><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
+            <li><a href="https://blog.aeinrw.com/tags/%E5%BA%95%E5%B1%82">底层</a></li>
+        </ul>
+    </header>
+    <div class="post-content"><h1 id="golang的汇编">golang的汇编</h1>
+<p>在go语言中, 函数的参数和返回值都是通过栈来传递的, 函数调用时会有自己的<strong>栈帧</strong>, 并引入了几个寄存器来定位栈帧的大小和值的调用.</p>
+<ul>
+<li><strong>BP</strong>(base pointer): 基址指针寄存器, 也叫帧指针, 表示函数栈开始的地方.</li>
+<li><strong>SP</strong>(stack pointer): 栈指针寄存器, 表示函数栈空间的栈顶, 函数栈结束的地方.</li>
+</ul>
+<blockquote>
+<p>由于栈在内存中是由高地址往低地址扩张, 所以BP在高地址, 而SP在低地址.</p>
+</blockquote>
+<p>BP和SP都是硬件寄存器, 在golang的汇编Plan9中, 还引入了一些<u>伪寄存器</u>.</p>
+<ul>
+<li><strong>FP</strong>(frame pointer): 伪FP寄存器, 指向调用函数的栈顶, 用于操作参数和返回值.</li>
+<li><strong>SP</strong>(pseudo stack pointer): 伪SP寄存器, 其实就是BP寄存器, 也指向栈底, 用来操作局部变量.</li>
+</ul>
+<p>伪FP和伪SP不是硬件寄存器, 只是方便对参数, 返回值, 和局部变量的控制. 可以通过偏移量和SP进行联系, 转为机器指令.</p>
+<h1 id="调用实例分析">调用实例分析</h1>
+<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="ln"> 1</span><span class="kn">package</span> <span class="nx">main</span>
+<span class="ln"> 2</span>
+<span class="ln"> 3</span><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<span class="ln"> 4</span>	<span class="nx">a</span> <span class="o">:=</span> <span class="mi">3</span>
+<span class="ln"> 5</span>	<span class="nx">b</span> <span class="o">:=</span> <span class="mi">2</span>
+<span class="ln"> 6</span>	<span class="nf">sum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+<span class="ln"> 7</span><span class="p">}</span>
+<span class="ln"> 8</span>
+<span class="ln"> 9</span><span class="kd">func</span> <span class="nf">sum</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+<span class="ln">10</span>	<span class="nx">result</span> <span class="o">:=</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+<span class="ln">11</span>	<span class="k">return</span> <span class="nx">result</span>
+<span class="ln">12</span><span class="p">}</span>
+</code></pre></div><p>这是演示的代码, 非常的简单, 一个<code>main</code>函数和一个<code>sum</code>函数, 对两个整形进行相加.</p>
+<p>通过go自带的命令可以输出编译后的汇编指令.</p>
+<div class="highlight"><pre class="chroma"><code class="language-powershell" data-lang="powershell"><span class="ln">1</span><span class="n">go</span> <span class="n">tool</span> <span class="n">compile</span> <span class="n">-S</span> <span class="n">-N</span> <span class="n">-l</span> <span class="n">test</span><span class="p">.</span><span class="n">go</span> 
+</code></pre></div><p>以下为输出的结果, 已经删去了一些与程序主体无关的指令.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln"> 1</span><span class="s2">&#34;&#34;</span>.main STEXT <span class="nv">size</span><span class="o">=</span><span class="m">94</span> <span class="nv">args</span><span class="o">=</span>0x0 <span class="nv">locals</span><span class="o">=</span>0x30
+<span class="ln"> 2</span>        0x0000 <span class="m">00000</span> <span class="o">(</span>test.go:3<span class="o">)</span>        TEXT    <span class="s2">&#34;&#34;</span>.main<span class="o">(</span>SB<span class="o">)</span>, ABIInternal, <span class="nv">$48</span>-0
+<span class="ln"> 3</span>		......
+<span class="ln"> 4</span>        0x0016 <span class="m">00022</span> <span class="o">(</span>test.go:3<span class="o">)</span>        SUBQ    <span class="nv">$48</span>, SP //分配栈帧
+<span class="ln"> 5</span>        0x001a <span class="m">00026</span> <span class="o">(</span>test.go:3<span class="o">)</span>        MOVQ    BP, 40<span class="o">(</span>SP<span class="o">)</span> //保存旧的BP
+<span class="ln"> 6</span>        0x001f <span class="m">00031</span> <span class="o">(</span>test.go:3<span class="o">)</span>        LEAQ    40<span class="o">(</span>SP<span class="o">)</span>, BP //分配新的BP
+<span class="ln"> 7</span>		......
+<span class="ln"> 8</span>        0x0024 <span class="m">00036</span> <span class="o">(</span>test.go:4<span class="o">)</span>        MOVQ    <span class="nv">$3</span>, <span class="s2">&#34;&#34;</span>.a+32<span class="o">(</span>SP<span class="o">)</span> //为局部变量a赋值
+<span class="ln"> 9</span>        0x002d <span class="m">00045</span> <span class="o">(</span>test.go:5<span class="o">)</span>        MOVQ    <span class="nv">$2</span>, <span class="s2">&#34;&#34;</span>.b+24<span class="o">(</span>SP<span class="o">)</span> //为局部变量b赋值
+<span class="ln">10</span>        0x0036 <span class="m">00054</span> <span class="o">(</span>test.go:6<span class="o">)</span>        MOVQ    <span class="s2">&#34;&#34;</span>.a+32<span class="o">(</span>SP<span class="o">)</span>, AX //把a的值赋给AX寄存器
+<span class="ln">11</span>        0x003b <span class="m">00059</span> <span class="o">(</span>test.go:6<span class="o">)</span>        MOVQ    AX, <span class="o">(</span>SP<span class="o">)</span> //传入参数a
+<span class="ln">12</span>        0x003f <span class="m">00063</span> <span class="o">(</span>test.go:6<span class="o">)</span>        MOVQ    <span class="nv">$2</span>, 8<span class="o">(</span>SP<span class="o">)</span> //传入参数b
+<span class="ln">13</span>        
+<span class="ln">14</span>        0x0048 <span class="m">00072</span> <span class="o">(</span>test.go:6<span class="o">)</span>        CALL    <span class="s2">&#34;&#34;</span>.sum<span class="o">(</span>SB<span class="o">)</span> //调用sum函数
+<span class="ln">15</span>        
+<span class="ln">16</span>        0x004d <span class="m">00077</span> <span class="o">(</span>test.go:7<span class="o">)</span>        MOVQ    40<span class="o">(</span>SP<span class="o">)</span>, BP //把旧BP的值赋给BP寄存器
+<span class="ln">17</span>        0x0052 <span class="m">00082</span> <span class="o">(</span>test.go:7<span class="o">)</span>        ADDQ    <span class="nv">$48</span>, SP //释放main函数栈帧空间
+<span class="ln">18</span>        0x0056 <span class="m">00086</span> <span class="o">(</span>test.go:7<span class="o">)</span>        RET //main函数返回,执行结束
+<span class="ln">19</span>		......
+<span class="ln">20</span>
+<span class="ln">21</span><span class="s2">&#34;&#34;</span>.sum STEXT nosplit <span class="nv">size</span><span class="o">=</span><span class="m">52</span> <span class="nv">args</span><span class="o">=</span>0x18 <span class="nv">locals</span><span class="o">=</span>0x10
+<span class="ln">22</span>        0x0000 <span class="m">00000</span> <span class="o">(</span>test.go:9<span class="o">)</span>        TEXT    <span class="s2">&#34;&#34;</span>.sum<span class="o">(</span>SB<span class="o">)</span>, NOSPLIT<span class="p">|</span>ABIInternal, <span class="nv">$16</span>-24
+<span class="ln">23</span>        0x0000 <span class="m">00000</span> <span class="o">(</span>test.go:9<span class="o">)</span>        SUBQ    <span class="nv">$16</span>, SP //分配栈帧
+<span class="ln">24</span>        0x0004 <span class="m">00004</span> <span class="o">(</span>test.go:9<span class="o">)</span>        MOVQ    BP, 8<span class="o">(</span>SP<span class="o">)</span> //保存main函数的BP
+<span class="ln">25</span>        0x0009 <span class="m">00009</span> <span class="o">(</span>test.go:9<span class="o">)</span>        LEAQ    8<span class="o">(</span>SP<span class="o">)</span>, BP //分配新的BP
+<span class="ln">26</span>		......
+<span class="ln">27</span>        0x000e <span class="m">00014</span> <span class="o">(</span>test.go:9<span class="o">)</span>        MOVQ    <span class="nv">$0</span>, <span class="s2">&#34;&#34;</span>.~r2+40<span class="o">(</span>SP<span class="o">)</span> //把返回值置为0
+<span class="ln">28</span>        0x0017 <span class="m">00023</span> <span class="o">(</span>test.go:10<span class="o">)</span>       MOVQ    <span class="s2">&#34;&#34;</span>.a+24<span class="o">(</span>SP<span class="o">)</span>, AX //把参数a的值赋给AX寄存器
+<span class="ln">29</span>        0x001c <span class="m">00028</span> <span class="o">(</span>test.go:10<span class="o">)</span>       ADDQ    <span class="s2">&#34;&#34;</span>.b+32<span class="o">(</span>SP<span class="o">)</span>, AX //执行a+b
+<span class="ln">30</span>        0x0021 <span class="m">00033</span> <span class="o">(</span>test.go:10<span class="o">)</span>       MOVQ    AX, <span class="s2">&#34;&#34;</span>.result<span class="o">(</span>SP<span class="o">)</span> //把a+b的结果赋给局部变量result
+<span class="ln">31</span>        0x0025 <span class="m">00037</span> <span class="o">(</span>test.go:11<span class="o">)</span>       MOVQ    AX, <span class="s2">&#34;&#34;</span>.~r2+40<span class="o">(</span>SP<span class="o">)</span> //把a+b的结果赋给返回值
+<span class="ln">32</span>        
+<span class="ln">33</span>        0x002a <span class="m">00042</span> <span class="o">(</span>test.go:11<span class="o">)</span>       MOVQ    8<span class="o">(</span>SP<span class="o">)</span>, BP //把main函数的BP值赋给BP寄存器
+<span class="ln">34</span>        0x002f <span class="m">00047</span> <span class="o">(</span>test.go:11<span class="o">)</span>       ADDQ    <span class="nv">$16</span>, SP //释放sum函数栈帧空间
+<span class="ln">35</span>        0x0033 <span class="m">00051</span> <span class="o">(</span>test.go:11<span class="o">)</span>       RET //sum函数返回
+</code></pre></div><h2 id="main函数的执行分析"><code>main</code>函数的执行分析</h2>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x0000 <span class="m">00000</span> <span class="o">(</span>test.go:3<span class="o">)</span>        TEXT    <span class="s2">&#34;&#34;</span>.main<span class="o">(</span>SB<span class="o">)</span>, ABIInternal, <span class="nv">$48</span>-0
+</code></pre></div><p><code>TEXT</code>表示这是一段可执行指令, 是代码段, <code>&quot;&quot;.main(SB)</code>表示函数名, SB也是一个伪寄存器, 可以理解为用来表示不同的标识符. <code>ABIInternal</code>是Plan9中的标志, 不用去理.</p>
+<p>最后的<code>$48-0</code>表示了函数栈帧的大小以及参数,返回值的大小. <code>main</code>函数中定义了<u>两个整形局部变量</u><code>a</code>和<code>b</code>, 并调用了<code>sum</code>函数, 则在栈帧中需要有<u>两个整形参数和一个整形返回值</u>. 也就是5个整形变量, 共5*8=40个字节. 另外, 还需要<u>8个字节保存调用者的BP值</u>, 对<code>main</code>函数来说没有调用者, 但也需要保存BP, 所以总共就是48个字节. <code>main</code>函数没有参数和返回值, 为0.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x0016 <span class="m">00022</span> <span class="o">(</span>test.go:3<span class="o">)</span>        SUBQ    <span class="nv">$48</span>, SP //分配栈帧
+<span class="ln">2</span>0x001a <span class="m">00026</span> <span class="o">(</span>test.go:3<span class="o">)</span>        MOVQ    BP, 40<span class="o">(</span>SP<span class="o">)</span> //保存旧的BP
+<span class="ln">3</span>0x001f <span class="m">00031</span> <span class="o">(</span>test.go:3<span class="o">)</span>        LEAQ    40<span class="o">(</span>SP<span class="o">)</span>, BP //分配新的BP
+</code></pre></div><p>之后开始真正的指令.</p>
+<ol>
+<li>首先把SP减少48, 相当于分配了48字节的栈帧空间.</li>
+<li>在保存之前的BP寄存器的值.</li>
+<li>最后让BP指向当前栈帧的底部.</li>
+</ol>
+<p><strong>这三条指令是每个函数调用都需要执行的: 分配栈帧空间, 保存就BP, 分配新BP</strong></p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x0024 <span class="m">00036</span> <span class="o">(</span>test.go:4<span class="o">)</span>        MOVQ    <span class="nv">$3</span>, <span class="s2">&#34;&#34;</span>.a+32<span class="o">(</span>SP<span class="o">)</span> //为局部变量a赋值
+<span class="ln">2</span>0x002d <span class="m">00045</span> <span class="o">(</span>test.go:5<span class="o">)</span>        MOVQ    <span class="nv">$2</span>, <span class="s2">&#34;&#34;</span>.b+24<span class="o">(</span>SP<span class="o">)</span> //为局部变量b赋值
+<span class="ln">3</span>0x0036 <span class="m">00054</span> <span class="o">(</span>test.go:6<span class="o">)</span>        MOVQ    <span class="s2">&#34;&#34;</span>.a+32<span class="o">(</span>SP<span class="o">)</span>, AX //把a的值赋给AX寄存器
+<span class="ln">4</span>0x003b <span class="m">00059</span> <span class="o">(</span>test.go:6<span class="o">)</span>        MOVQ    AX, <span class="o">(</span>SP<span class="o">)</span> //传入参数a
+<span class="ln">5</span>0x003f <span class="m">00063</span> <span class="o">(</span>test.go:6<span class="o">)</span>        MOVQ    <span class="nv">$2</span>, 8<span class="o">(</span>SP<span class="o">)</span> //传入参数b
+</code></pre></div><p>接着为局部变量赋值, 并传递参数. 可以参照下图进行理解.</p>
+<p><img src="https://i.loli.net/2020/07/21/TIdqAHinUupVhNG.png" alt="stackframe1.png"></p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x0048 <span class="m">00072</span> <span class="o">(</span>test.go:6<span class="o">)</span>        CALL    <span class="s2">&#34;&#34;</span>.sum<span class="o">(</span>SB<span class="o">)</span> //调用sum函数
+</code></pre></div><p>之后用<code>CALL</code>指令调用<code>sum</code>函数, <code>CALL</code>指令其实是可以分解为两条命令.</p>
+<ul>
+<li><code>SUBQ $8, SP</code></li>
+<li><code>MOVQ IP, (SP)</code></li>
+</ul>
+<p>首先让栈帧扩大8个字节, 并把<code>main</code>的<code>CALL</code>指令地址送入刚扩的空间中, 便于函数返回时继续执行指令.</p>
+<p><img src="https://i.loli.net/2020/07/21/UPwoVKStnFEfLbd.png" alt="stackframe2.png"></p>
+<h2 id="sum函数执行分析"><code>sum</code>函数执行分析</h2>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x0000 <span class="m">00000</span> <span class="o">(</span>test.go:9<span class="o">)</span>        TEXT    <span class="s2">&#34;&#34;</span>.sum<span class="o">(</span>SB<span class="o">)</span>, NOSPLIT<span class="p">|</span>ABIInternal, <span class="nv">$16</span>-24
+</code></pre></div><p>和<code>main</code>函数一样, <code>sum</code>也有自己的栈帧, 为16个字节, 包括保存<code>main</code>的BP和一个局部整形变量<code>result</code>.</p>
+<p>另外, <code>sum</code>函数是个有参数和返回值的函数, 三个整形变量共24个字节.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x0000 <span class="m">00000</span> <span class="o">(</span>test.go:9<span class="o">)</span>        SUBQ    <span class="nv">$16</span>, SP //分配栈帧
+<span class="ln">2</span>0x0004 <span class="m">00004</span> <span class="o">(</span>test.go:9<span class="o">)</span>        MOVQ    BP, 8<span class="o">(</span>SP<span class="o">)</span> //保存main函数的BP
+<span class="ln">3</span>0x0009 <span class="m">00009</span> <span class="o">(</span>test.go:9<span class="o">)</span>        LEAQ    8<span class="o">(</span>SP<span class="o">)</span>, BP //分配新的BP
+</code></pre></div><p>这三条指令和<code>main</code>一样.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x000e <span class="m">00014</span> <span class="o">(</span>test.go:9<span class="o">)</span>        MOVQ    <span class="nv">$0</span>, <span class="s2">&#34;&#34;</span>.~r2+40<span class="o">(</span>SP<span class="o">)</span> //把返回值置为0
+<span class="ln">2</span>0x0017 <span class="m">00023</span> <span class="o">(</span>test.go:10<span class="o">)</span>       MOVQ    <span class="s2">&#34;&#34;</span>.a+24<span class="o">(</span>SP<span class="o">)</span>, AX //把参数a的值赋给AX寄存器
+<span class="ln">3</span>0x001c <span class="m">00028</span> <span class="o">(</span>test.go:10<span class="o">)</span>       ADDQ    <span class="s2">&#34;&#34;</span>.b+32<span class="o">(</span>SP<span class="o">)</span>, AX //执行a+b
+<span class="ln">4</span>0x0021 <span class="m">00033</span> <span class="o">(</span>test.go:10<span class="o">)</span>       MOVQ    AX, <span class="s2">&#34;&#34;</span>.result<span class="o">(</span>SP<span class="o">)</span> //把a+b的结果赋给局部变量result
+<span class="ln">5</span>0x0025 <span class="m">00037</span> <span class="o">(</span>test.go:11<span class="o">)</span>       MOVQ    AX, <span class="s2">&#34;&#34;</span>.~r2+40<span class="o">(</span>SP<span class="o">)</span> //把a+b的结果赋给返回值
+</code></pre></div><p>把<code>a</code>和<code>b</code>相加送入<code>&quot;&quot;.~r2+40(SP)</code>, 也就是给<code>main</code>函数传递返回值.</p>
+<p><img src="https://i.loli.net/2020/07/21/P6xrZG73Xq8fOYp.png" alt="stackframe3.png"></p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x002a <span class="m">00042</span> <span class="o">(</span>test.go:11<span class="o">)</span>       MOVQ    8<span class="o">(</span>SP<span class="o">)</span>, BP //把main函数的BP值赋给BP寄存器
+<span class="ln">2</span>0x002f <span class="m">00047</span> <span class="o">(</span>test.go:11<span class="o">)</span>       ADDQ    <span class="nv">$16</span>, SP //释放sum函数栈帧空间
+<span class="ln">3</span>0x0033 <span class="m">00051</span> <span class="o">(</span>test.go:11<span class="o">)</span>       RET //sum函数返回
+</code></pre></div><p>返回值传递结束后, 需要回收栈帧.</p>
+<ol>
+<li>把调用者的BP赋值给BP寄存器.</li>
+<li>SP指针增大, 指向调用者栈帧顶部</li>
+<li>调用<code>RET</code>指令, 返回调用函数.</li>
+</ol>
+<p>同<code>CALL</code>指令一样, <code>RET</code>指令也可以分解为两步执行.</p>
+<ul>
+<li><code>LEAQ (SP), IP</code></li>
+<li><code>ADDQ $8, SP</code></li>
+</ul>
+<p><img src="https://i.loli.net/2020/07/21/QFdXqUAItkWMJih.png" alt="stackframe4.png"></p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="ln">1</span>0x004d <span class="m">00077</span> <span class="o">(</span>test.go:7<span class="o">)</span>        MOVQ    40<span class="o">(</span>SP<span class="o">)</span>, BP //把旧BP的值赋给BP寄存器
+<span class="ln">2</span>0x0052 <span class="m">00082</span> <span class="o">(</span>test.go:7<span class="o">)</span>        ADDQ    <span class="nv">$48</span>, SP //释放main函数栈帧空间
+<span class="ln">3</span>0x0056 <span class="m">00086</span> <span class="o">(</span>test.go:7<span class="o">)</span>        RET //main函数返回,执行结束
+</code></pre></div><p>最后再执行<code>main</code>的退栈和返回过程, 整个程序执行结束.</p>
+<blockquote>
+<p>参考:</p>
+<ol>
+<li><a href="https://dayutalk.cn/2019/11/09/%E8%B5%B0%E8%BF%9BGolang%E4%B9%8B%E8%BF%90%E8%A1%8C%E4%B8%8EPlan9%E6%B1%87%E7%BC%96/">走进Golang之运行与Plan9汇编</a></li>
+<li><a href="https://chai2010.gitbooks.io/advanced-go-programming-book/content/ch3-asm/readme.html">GO高级语言编程 第三章 汇编语言</a></li>
+</ol>
+</blockquote>
+</div>
+    <hr>
+    
+<span id="/posts/golang%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A5%E5%8F%8A%E6%A0%88%E5%B8%A7/" class="leancloud_visitors" data-flag-title="golang的汇编以及栈帧">
+    <span class="post-meta-item-text">总访问量 </span>
+    <span class="leancloud-visitors-count">1000000</span>
+</span>
+<div id="vcomments"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
+        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
+        notify:  false ,
+        verify:  false ,
+        avatar: 'mm',
+        placeholder: '说点什么吧...',
+        visitor:  true 
+    });
+</script>
+
+
+    
+    <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</article>
+
+
+        </main><footer class="footer">
+    
+    
+    
+    
+    <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
+    
+    
+    
+    <span><i class="iconfont icon-anjianfengexian"></i></span>
+    
+    <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+    
+    
+    <br>
+    <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+    <span>&middot;</span>
+    <span><a href="http://www.beian.miit.gov.cn/">皖ICP备 20011881号</a>️</span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+
+</footer></body>
+
+</html>

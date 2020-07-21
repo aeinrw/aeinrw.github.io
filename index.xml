@@ -5,7 +5,7 @@
     <link>https://blog.aeinrw.com/</link>
       <atom:link href="https://blog.aeinrw.com/index.xml" rel="self" type="application/rss+xml" />
     <description>aeinrw</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-CN</language><lastBuildDate>Wed, 01 Jul 2020 21:01:22 +0800</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-CN</language><lastBuildDate>Tue, 21 Jul 2020 15:24:16 +0800</lastBuildDate>
     <item>
       <title>关于我</title>
       <link>https://blog.aeinrw.com/about/</link>
@@ -15,6 +15,151 @@
 &lt;p&gt;我是aeinrw.&lt;/p&gt;
 &lt;p&gt;这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西.&lt;/p&gt;
 &lt;p&gt;😂😘😍😊😁&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>golang的汇编以及栈帧</title>
+      <link>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A5%E5%8F%8A%E6%A0%88%E5%B8%A7/</link>
+      <pubDate>Tue, 21 Jul 2020 15:24:16 +0800</pubDate>
+      <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A5%E5%8F%8A%E6%A0%88%E5%B8%A7/</guid>
+      <description>&lt;h1 id=&#34;golang的汇编&#34;&gt;golang的汇编&lt;/h1&gt;
+&lt;p&gt;在go语言中, 函数的参数和返回值都是通过栈来传递的, 函数调用时会有自己的&lt;strong&gt;栈帧&lt;/strong&gt;, 并引入了几个寄存器来定位栈帧的大小和值的调用.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;BP&lt;/strong&gt;(base pointer): 基址指针寄存器, 也叫帧指针, 表示函数栈开始的地方.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SP&lt;/strong&gt;(stack pointer): 栈指针寄存器, 表示函数栈空间的栈顶, 函数栈结束的地方.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;由于栈在内存中是由高地址往低地址扩张, 所以BP在高地址, 而SP在低地址.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;BP和SP都是硬件寄存器, 在golang的汇编Plan9中, 还引入了一些&lt;u&gt;伪寄存器&lt;/u&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;FP&lt;/strong&gt;(frame pointer): 伪FP寄存器, 指向调用函数的栈顶, 用于操作参数和返回值.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SP&lt;/strong&gt;(pseudo stack pointer): 伪SP寄存器, 其实就是BP寄存器, 也指向栈底, 用来操作局部变量.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;伪FP和伪SP不是硬件寄存器, 只是方便对参数, 返回值, 和局部变量的控制. 可以通过偏移量和SP进行联系, 转为机器指令.&lt;/p&gt;
+&lt;h1 id=&#34;调用实例分析&#34;&gt;调用实例分析&lt;/h1&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;package&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;main&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;	&lt;span class=&#34;nf&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;	&lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;b&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;	&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这是演示的代码, 非常的简单, 一个&lt;code&gt;main&lt;/code&gt;函数和一个&lt;code&gt;sum&lt;/code&gt;函数, 对两个整形进行相加.&lt;/p&gt;
+&lt;p&gt;通过go自带的命令可以输出编译后的汇编指令.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-powershell&#34; data-lang=&#34;powershell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;go&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;tool&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-S&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-N&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;-l&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;test&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;go&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;以下为输出的结果, 已经删去了一些与程序主体无关的指令.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt; 1&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.main STEXT &lt;span class=&#34;nv&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;94&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x0 &lt;span class=&#34;nv&#34;&gt;locals&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x30
+&lt;span class=&#34;ln&#34;&gt; 2&lt;/span&gt;        0x0000 &lt;span class=&#34;m&#34;&gt;00000&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        TEXT    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.main&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, ABIInternal, &lt;span class=&#34;nv&#34;&gt;$48&lt;/span&gt;-0
+&lt;span class=&#34;ln&#34;&gt; 3&lt;/span&gt;		......
+&lt;span class=&#34;ln&#34;&gt; 4&lt;/span&gt;        0x0016 &lt;span class=&#34;m&#34;&gt;00022&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        SUBQ    &lt;span class=&#34;nv&#34;&gt;$48&lt;/span&gt;, SP //分配栈帧
+&lt;span class=&#34;ln&#34;&gt; 5&lt;/span&gt;        0x001a &lt;span class=&#34;m&#34;&gt;00026&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    BP, 40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //保存旧的BP
+&lt;span class=&#34;ln&#34;&gt; 6&lt;/span&gt;        0x001f &lt;span class=&#34;m&#34;&gt;00031&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        LEAQ    40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //分配新的BP
+&lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;		......
+&lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;        0x0024 &lt;span class=&#34;m&#34;&gt;00036&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:4&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$3&lt;/span&gt;, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.a+32&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //为局部变量a赋值
+&lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;        0x002d &lt;span class=&#34;m&#34;&gt;00045&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:5&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.b+24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //为局部变量b赋值
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;        0x0036 &lt;span class=&#34;m&#34;&gt;00054&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.a+32&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, AX //把a的值赋给AX寄存器
+&lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;        0x003b &lt;span class=&#34;m&#34;&gt;00059&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    AX, &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //传入参数a
+&lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;        0x003f &lt;span class=&#34;m&#34;&gt;00063&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;, 8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //传入参数b
+&lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;        
+&lt;span class=&#34;ln&#34;&gt;14&lt;/span&gt;        0x0048 &lt;span class=&#34;m&#34;&gt;00072&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        CALL    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.sum&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //调用sum函数
+&lt;span class=&#34;ln&#34;&gt;15&lt;/span&gt;        
+&lt;span class=&#34;ln&#34;&gt;16&lt;/span&gt;        0x004d &lt;span class=&#34;m&#34;&gt;00077&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:7&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //把旧BP的值赋给BP寄存器
+&lt;span class=&#34;ln&#34;&gt;17&lt;/span&gt;        0x0052 &lt;span class=&#34;m&#34;&gt;00082&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:7&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        ADDQ    &lt;span class=&#34;nv&#34;&gt;$48&lt;/span&gt;, SP //释放main函数栈帧空间
+&lt;span class=&#34;ln&#34;&gt;18&lt;/span&gt;        0x0056 &lt;span class=&#34;m&#34;&gt;00086&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:7&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        RET //main函数返回,执行结束
+&lt;span class=&#34;ln&#34;&gt;19&lt;/span&gt;		......
+&lt;span class=&#34;ln&#34;&gt;20&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.sum STEXT nosplit &lt;span class=&#34;nv&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;52&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x18 &lt;span class=&#34;nv&#34;&gt;locals&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;0x10
+&lt;span class=&#34;ln&#34;&gt;22&lt;/span&gt;        0x0000 &lt;span class=&#34;m&#34;&gt;00000&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        TEXT    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.sum&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, NOSPLIT&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;ABIInternal, &lt;span class=&#34;nv&#34;&gt;$16&lt;/span&gt;-24
+&lt;span class=&#34;ln&#34;&gt;23&lt;/span&gt;        0x0000 &lt;span class=&#34;m&#34;&gt;00000&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        SUBQ    &lt;span class=&#34;nv&#34;&gt;$16&lt;/span&gt;, SP //分配栈帧
+&lt;span class=&#34;ln&#34;&gt;24&lt;/span&gt;        0x0004 &lt;span class=&#34;m&#34;&gt;00004&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    BP, 8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //保存main函数的BP
+&lt;span class=&#34;ln&#34;&gt;25&lt;/span&gt;        0x0009 &lt;span class=&#34;m&#34;&gt;00009&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        LEAQ    8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //分配新的BP
+&lt;span class=&#34;ln&#34;&gt;26&lt;/span&gt;		......
+&lt;span class=&#34;ln&#34;&gt;27&lt;/span&gt;        0x000e &lt;span class=&#34;m&#34;&gt;00014&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.~r2+40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //把返回值置为0
+&lt;span class=&#34;ln&#34;&gt;28&lt;/span&gt;        0x0017 &lt;span class=&#34;m&#34;&gt;00023&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:10&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.a+24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, AX //把参数a的值赋给AX寄存器
+&lt;span class=&#34;ln&#34;&gt;29&lt;/span&gt;        0x001c &lt;span class=&#34;m&#34;&gt;00028&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:10&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       ADDQ    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.b+32&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, AX //执行a+b
+&lt;span class=&#34;ln&#34;&gt;30&lt;/span&gt;        0x0021 &lt;span class=&#34;m&#34;&gt;00033&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:10&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    AX, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.result&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //把a+b的结果赋给局部变量result
+&lt;span class=&#34;ln&#34;&gt;31&lt;/span&gt;        0x0025 &lt;span class=&#34;m&#34;&gt;00037&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    AX, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.~r2+40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //把a+b的结果赋给返回值
+&lt;span class=&#34;ln&#34;&gt;32&lt;/span&gt;        
+&lt;span class=&#34;ln&#34;&gt;33&lt;/span&gt;        0x002a &lt;span class=&#34;m&#34;&gt;00042&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //把main函数的BP值赋给BP寄存器
+&lt;span class=&#34;ln&#34;&gt;34&lt;/span&gt;        0x002f &lt;span class=&#34;m&#34;&gt;00047&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       ADDQ    &lt;span class=&#34;nv&#34;&gt;$16&lt;/span&gt;, SP //释放sum函数栈帧空间
+&lt;span class=&#34;ln&#34;&gt;35&lt;/span&gt;        0x0033 &lt;span class=&#34;m&#34;&gt;00051&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       RET //sum函数返回
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;main函数的执行分析&#34;&gt;&lt;code&gt;main&lt;/code&gt;函数的执行分析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x0000 &lt;span class=&#34;m&#34;&gt;00000&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        TEXT    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.main&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, ABIInternal, &lt;span class=&#34;nv&#34;&gt;$48&lt;/span&gt;-0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;TEXT&lt;/code&gt;表示这是一段可执行指令, 是代码段, &lt;code&gt;&amp;quot;&amp;quot;.main(SB)&lt;/code&gt;表示函数名, SB也是一个伪寄存器, 可以理解为用来表示不同的标识符. &lt;code&gt;ABIInternal&lt;/code&gt;是Plan9中的标志, 不用去理.&lt;/p&gt;
+&lt;p&gt;最后的&lt;code&gt;$48-0&lt;/code&gt;表示了函数栈帧的大小以及参数,返回值的大小. &lt;code&gt;main&lt;/code&gt;函数中定义了&lt;u&gt;两个整形局部变量&lt;/u&gt;&lt;code&gt;a&lt;/code&gt;和&lt;code&gt;b&lt;/code&gt;, 并调用了&lt;code&gt;sum&lt;/code&gt;函数, 则在栈帧中需要有&lt;u&gt;两个整形参数和一个整形返回值&lt;/u&gt;. 也就是5个整形变量, 共5*8=40个字节. 另外, 还需要&lt;u&gt;8个字节保存调用者的BP值&lt;/u&gt;, 对&lt;code&gt;main&lt;/code&gt;函数来说没有调用者, 但也需要保存BP, 所以总共就是48个字节. &lt;code&gt;main&lt;/code&gt;函数没有参数和返回值, 为0.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x0016 &lt;span class=&#34;m&#34;&gt;00022&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        SUBQ    &lt;span class=&#34;nv&#34;&gt;$48&lt;/span&gt;, SP //分配栈帧
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;0x001a &lt;span class=&#34;m&#34;&gt;00026&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    BP, 40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //保存旧的BP
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;0x001f &lt;span class=&#34;m&#34;&gt;00031&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:3&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        LEAQ    40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //分配新的BP
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之后开始真正的指令.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;首先把SP减少48, 相当于分配了48字节的栈帧空间.&lt;/li&gt;
+&lt;li&gt;在保存之前的BP寄存器的值.&lt;/li&gt;
+&lt;li&gt;最后让BP指向当前栈帧的底部.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;这三条指令是每个函数调用都需要执行的: 分配栈帧空间, 保存就BP, 分配新BP&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x0024 &lt;span class=&#34;m&#34;&gt;00036&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:4&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$3&lt;/span&gt;, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.a+32&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //为局部变量a赋值
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;0x002d &lt;span class=&#34;m&#34;&gt;00045&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:5&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.b+24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //为局部变量b赋值
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;0x0036 &lt;span class=&#34;m&#34;&gt;00054&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.a+32&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, AX //把a的值赋给AX寄存器
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;0x003b &lt;span class=&#34;m&#34;&gt;00059&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    AX, &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //传入参数a
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;0x003f &lt;span class=&#34;m&#34;&gt;00063&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$2&lt;/span&gt;, 8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //传入参数b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;接着为局部变量赋值, 并传递参数. 可以参照下图进行理解.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/07/21/TIdqAHinUupVhNG.png&#34; alt=&#34;stackframe1.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x0048 &lt;span class=&#34;m&#34;&gt;00072&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:6&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        CALL    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.sum&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //调用sum函数
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;之后用&lt;code&gt;CALL&lt;/code&gt;指令调用&lt;code&gt;sum&lt;/code&gt;函数, &lt;code&gt;CALL&lt;/code&gt;指令其实是可以分解为两条命令.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SUBQ $8, SP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;MOVQ IP, (SP)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;首先让栈帧扩大8个字节, 并把&lt;code&gt;main&lt;/code&gt;的&lt;code&gt;CALL&lt;/code&gt;指令地址送入刚扩的空间中, 便于函数返回时继续执行指令.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/07/21/UPwoVKStnFEfLbd.png&#34; alt=&#34;stackframe2.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;sum函数执行分析&#34;&gt;&lt;code&gt;sum&lt;/code&gt;函数执行分析&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x0000 &lt;span class=&#34;m&#34;&gt;00000&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        TEXT    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.sum&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SB&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, NOSPLIT&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;ABIInternal, &lt;span class=&#34;nv&#34;&gt;$16&lt;/span&gt;-24
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;和&lt;code&gt;main&lt;/code&gt;函数一样, &lt;code&gt;sum&lt;/code&gt;也有自己的栈帧, 为16个字节, 包括保存&lt;code&gt;main&lt;/code&gt;的BP和一个局部整形变量&lt;code&gt;result&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;另外, &lt;code&gt;sum&lt;/code&gt;函数是个有参数和返回值的函数, 三个整形变量共24个字节.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x0000 &lt;span class=&#34;m&#34;&gt;00000&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        SUBQ    &lt;span class=&#34;nv&#34;&gt;$16&lt;/span&gt;, SP //分配栈帧
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;0x0004 &lt;span class=&#34;m&#34;&gt;00004&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    BP, 8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //保存main函数的BP
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;0x0009 &lt;span class=&#34;m&#34;&gt;00009&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        LEAQ    8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //分配新的BP
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这三条指令和&lt;code&gt;main&lt;/code&gt;一样.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x000e &lt;span class=&#34;m&#34;&gt;00014&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:9&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    &lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.~r2+40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //把返回值置为0
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;0x0017 &lt;span class=&#34;m&#34;&gt;00023&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:10&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.a+24&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, AX //把参数a的值赋给AX寄存器
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;0x001c &lt;span class=&#34;m&#34;&gt;00028&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:10&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       ADDQ    &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.b+32&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, AX //执行a+b
+&lt;span class=&#34;ln&#34;&gt;4&lt;/span&gt;0x0021 &lt;span class=&#34;m&#34;&gt;00033&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:10&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    AX, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.result&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //把a+b的结果赋给局部变量result
+&lt;span class=&#34;ln&#34;&gt;5&lt;/span&gt;0x0025 &lt;span class=&#34;m&#34;&gt;00037&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    AX, &lt;span class=&#34;s2&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;.~r2+40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; //把a+b的结果赋给返回值
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把&lt;code&gt;a&lt;/code&gt;和&lt;code&gt;b&lt;/code&gt;相加送入&lt;code&gt;&amp;quot;&amp;quot;.~r2+40(SP)&lt;/code&gt;, 也就是给&lt;code&gt;main&lt;/code&gt;函数传递返回值.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/07/21/P6xrZG73Xq8fOYp.png&#34; alt=&#34;stackframe3.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x002a &lt;span class=&#34;m&#34;&gt;00042&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       MOVQ    8&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //把main函数的BP值赋给BP寄存器
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;0x002f &lt;span class=&#34;m&#34;&gt;00047&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       ADDQ    &lt;span class=&#34;nv&#34;&gt;$16&lt;/span&gt;, SP //释放sum函数栈帧空间
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;0x0033 &lt;span class=&#34;m&#34;&gt;00051&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:11&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;       RET //sum函数返回
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;返回值传递结束后, 需要回收栈帧.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;把调用者的BP赋值给BP寄存器.&lt;/li&gt;
+&lt;li&gt;SP指针增大, 指向调用者栈帧顶部&lt;/li&gt;
+&lt;li&gt;调用&lt;code&gt;RET&lt;/code&gt;指令, 返回调用函数.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;同&lt;code&gt;CALL&lt;/code&gt;指令一样, &lt;code&gt;RET&lt;/code&gt;指令也可以分解为两步执行.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;LEAQ (SP), IP&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ADDQ $8, SP&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.loli.net/2020/07/21/QFdXqUAItkWMJih.png&#34; alt=&#34;stackframe4.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span class=&#34;ln&#34;&gt;1&lt;/span&gt;0x004d &lt;span class=&#34;m&#34;&gt;00077&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:7&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        MOVQ    40&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;SP&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;, BP //把旧BP的值赋给BP寄存器
+&lt;span class=&#34;ln&#34;&gt;2&lt;/span&gt;0x0052 &lt;span class=&#34;m&#34;&gt;00082&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:7&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        ADDQ    &lt;span class=&#34;nv&#34;&gt;$48&lt;/span&gt;, SP //释放main函数栈帧空间
+&lt;span class=&#34;ln&#34;&gt;3&lt;/span&gt;0x0056 &lt;span class=&#34;m&#34;&gt;00086&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;test.go:7&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;        RET //main函数返回,执行结束
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;最后再执行&lt;code&gt;main&lt;/code&gt;的退栈和返回过程, 整个程序执行结束.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参考:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://dayutalk.cn/2019/11/09/%E8%B5%B0%E8%BF%9BGolang%E4%B9%8B%E8%BF%90%E8%A1%8C%E4%B8%8EPlan9%E6%B1%87%E7%BC%96/&#34;&gt;走进Golang之运行与Plan9汇编&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://chai2010.gitbooks.io/advanced-go-programming-book/content/ch3-asm/readme.html&#34;&gt;GO高级语言编程 第三章 汇编语言&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/blockquote&gt;
 </description>
     </item>
     
