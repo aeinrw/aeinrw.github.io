@@ -14,7 +14,7 @@
   --nav-width: 1024px;
   --main-width: 640px;
   --header-height: 68px;
-  --footer-height: 89px;
+  --footer-height: 119px;
   --radius: 8px;
 
   --theme: #ffffff;
@@ -539,7 +539,7 @@ sup {
   margin-right: auto;
   padding: var(--gap);
   color: var(--secondary);
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
   line-height: 24px;
 }
