@@ -160,12 +160,9 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 <li>容量为3时, 往切片b中添加元素, 会直接在b的底层数组后面添加, 且返回的值就是b本身, 也就是说在循环过程中, c和b是相同的, 两个切片指向同一个底层数组, b和c的区别在于<code>c.len==3</code>而<code>b.len==2</code>, 而<code>c.data == b.data</code>. 这就导致在后面添加过程中, 会不断修改<code>b.data[2]</code>(注意不是<code>b[2]</code>,b的长度只有2,对于b来说,这个元素没有意义), 导致之前的值都发生了改变.</li>
 </ul>
 <p><img src="https://i.loli.net/2020/06/20/H3OvJBILtXS5FgM.png" alt="append2.png"></p></div>
-    <hr>
     
-<span id="/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/" class="leancloud_visitors" data-flag-title="golang中append()的坑">
-    <span class="post-meta-item-text">总访问量 </span>
-    <span class="leancloud-visitors-count">1000000</span>
-</span>
+    
+
 <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
@@ -177,7 +174,7 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
         notify:  false ,
         verify:  false ,
         avatar: 'mm',
-        placeholder: '说点什么吧...',
+        placeholder: '给我留言吧,我会很开心的...',
         visitor:  true 
     });
 </script>
