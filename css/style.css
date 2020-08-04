@@ -9,12 +9,12 @@
 /* Theme
 -------------------------------------------------- */
 :root {
-  --gap: 20px;
+  --gap: 22px;
   --content-gap: 10px;
   --nav-width: 1024px;
   --main-width: 640px;
   --header-height: 68px;
-  --footer-height: 119px;
+  --footer-height: 101px;
   --radius: 8px;
 
   --theme: #ffffff;
@@ -312,7 +312,7 @@ sup {
 /* Post single
 -------------------------------------------------- */
 .post-header {
-  margin-top: 24px;
+  margin-top: var(--gap);
   margin-bottom: var(--content-gap);
 }
 .post-title {
@@ -323,7 +323,7 @@ sup {
 .post-meta {
   color: var(--secondary);
   font-size: 14px;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 .post-content {
   color: var(--content);
@@ -334,23 +334,24 @@ sup {
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  margin-top: 24px;
+  margin-top: 16px;
   margin-bottom: 16px;
+  margin-left: -22px;
 }
 .post-content h1 {
-  font-size: 33px;
+  font-size: 28px;
 }
 .post-content h2 {
-  font-size: 30px;
+  font-size: 26px;
 }
 .post-content h3 {
-  font-size: 27px;
-}
-.post-content h4 {
   font-size: 24px;
 }
+.post-content h4 {
+  font-size: 22px;
+}
 .post-content h5 {
-  font-size: 21px;
+  font-size: 20px;
 }
 .post-content h6 {
   font-size: 18px;
@@ -495,9 +496,10 @@ sup {
   word-break: normal;
 }
 .post-content blockquote {
-  margin: 0 0 0 calc(var(--gap) * -1);
-  padding: 0 0 0 21px;
+  margin: 0 0 0 -10px;
+  padding: 0 0 0 15px;
   border-left: 3px solid var(--primary);
+  font-style: italic;
 }
 .post-content hr {
   height: 1px;
@@ -537,7 +539,7 @@ sup {
   max-width: calc(var(--main-width) + var(--gap) * 2);
   margin-left: auto;
   margin-right: auto;
-  padding: var(--gap);
+  padding: calc(var(--gap)*0.5);
   color: var(--secondary);
   font-size: 13px;
   text-align: center;
@@ -617,36 +619,37 @@ sup {
   /* position: absolute;
   right: 100% ; */
   color: var(--secondary);
-  font-size: 15px;
+  font-size: 10px;
   font-weight: bold;
+  padding: 3px;
 }
 
 .post-content h1::before {
-  content: 'h1.';
+  content: 'H1';
 
 }
 
 .post-content h2::before {
-  content: 'h2.';
+  content: 'H2';
 
 }
 
 .post-content h3::before {
-  content: 'h3.';
+  content: 'H3';
 
 }
 
 .post-content h4::before {
-  content: 'h4.';
+  content: 'H4';
 
 }
 
 .post-content h5::before {
-  content: 'h5.';
+  content: 'H5';
 }
 
 .post-content h6::before {
-  content: 'h6.';
+  content: 'H6';
 }
 
 .menuicon {
