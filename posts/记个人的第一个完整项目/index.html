@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
-    <meta name="generator" content="Hugo 0.72.0" />
+    <meta name="generator" content="Hugo 0.79.0" />
 
     <script>
         function setTheme() {
@@ -234,7 +234,7 @@
 <span class="ln"> 7</span><span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&#34;http://xxx.xxx.xxx.xxx:xxxx/search?date=&#34;</span> <span class="o">+</span> <span class="nx">year</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="nx">month</span> <span class="o">+</span> <span class="s2">&#34;/&#34;</span> <span class="o">+</span> <span class="nx">date</span>
 <span class="ln"> 8</span>
 <span class="ln"> 9</span><span class="kr">const</span> <span class="nx">req</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Request</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-<span class="ln">10</span><span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">req</span><span class="p">.</span><span class="nx">loadJSON</span><span class="p">()</span>
+<span class="ln">10</span><span class="kr">const</span> <span class="nx">json</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">req</span><span class="p">.</span><span class="nx">loadJSON</span><span class="p">()</span>
 <span class="ln">11</span><span class="kr">const</span> <span class="nx">courses</span> <span class="o">=</span> <span class="nx">json</span><span class="p">.</span><span class="nx">courses</span>
 <span class="ln">12</span>
 <span class="ln">13</span>

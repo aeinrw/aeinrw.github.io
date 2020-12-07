@@ -5,7 +5,7 @@
     <link>https://blog.aeinrw.com/</link>
       <atom:link href="https://blog.aeinrw.com/index.xml" rel="self" type="application/rss+xml" />
     <description>aeinrw</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-CN</language><lastBuildDate>Tue, 22 Sep 2020 20:01:52 +0800</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-CN</language><lastBuildDate>Mon, 07 Dec 2020 21:11:04 +0800</lastBuildDate>
     <item>
       <title>关于我</title>
       <link>https://blog.aeinrw.com/about/</link>
@@ -15,6 +15,113 @@
 &lt;p&gt;我是aeinrw.&lt;/p&gt;
 &lt;p&gt;这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西.&lt;/p&gt;
 &lt;p&gt;😂😘😍😊😁&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>交叉熵损失函数的梯度</title>
+      <link>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</link>
+      <pubDate>Mon, 07 Dec 2020 21:11:04 +0800</pubDate>
+      <guid>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</guid>
+      <description>&lt;h1 id=&#34;交叉熵梯度的推导&#34;&gt;交叉熵梯度的推导&lt;/h1&gt;
+&lt;h2 id=&#34;交叉熵损失函数&#34;&gt;交叉熵损失函数&lt;/h2&gt;
+&lt;p&gt;$$
+L(\theta) = -[y^{T}ln(h_{\theta}(X))+(1-y^{T})ln(1-h_{\theta}(X))]
+$$&lt;/p&gt;
+&lt;p&gt;$x$为单个样本&lt;/p&gt;
+&lt;p&gt;$$
+x_{n \times 1} = \begin{pmatrix}
+x_{1}\\&lt;br&gt;
+&amp;hellip;\\&lt;br&gt;
+x_{n}
+\end{pmatrix}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+h_{\theta}(x)_{1 \times 1} = \frac{1}{1+e^{-x^{T}\theta}}
+$$&lt;/p&gt;
+&lt;p&gt;$X$为全部样本&lt;/p&gt;
+&lt;p&gt;$$
+X_{m\times n} = \begin{pmatrix}
+x^{(1)}_{1} &amp;amp; &amp;hellip; &amp;amp; x^{(1)}_{n}\\&lt;br&gt;
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip;\\&lt;br&gt;
+x^{(m)}_{1} &amp;amp; &amp;hellip; &amp;amp; x^{(m)}_{n}
+\end{pmatrix}_{m\times n}
+$$&lt;/p&gt;
+&lt;p&gt;$$
+h_{\theta}(X)_{m\times 1} = \frac{1}{1+e^{-X\theta}}
+$$&lt;/p&gt;
+&lt;h2 id=&#34;求导工具&#34;&gt;求导工具&lt;/h2&gt;
+&lt;p&gt;函数的依赖关系
+$$
+L_{1\times 1} = 1_{m\times1}^{T}\times z \\&lt;br&gt;
+z_{m\times 1} = f(y) \\&lt;br&gt;
+y_{m\times 1} = g(x) \\&lt;br&gt;
+x_{m\times 1} = A_{m\times n}\theta_{n\times 1} + b \\&lt;br&gt;
+L_{1\times 1} \longleftarrow z_{m\times 1} \longleftarrow y_{m\times 1} \longleftarrow x_{m\times 1} \longleftarrow \theta_{n\times 1}
+$$
+求导&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;$$
+\frac{\partial y}{\partial x} = \begin{pmatrix}
+\frac{\partial y_{1}}{\partial x_{1}} &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0\\&lt;br&gt;
+0 &amp;amp;  \frac{\partial y_{2}}{\partial x_{2}} &amp;amp; 0 &amp;amp; 0\\&lt;br&gt;
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip;\\&lt;br&gt;
+0 &amp;amp; 0 &amp;amp; 0 &amp;amp; \frac{\partial y_{m}}{\partial x_{m}}
+\end{pmatrix}_{m\times m} = \begin{pmatrix}
+g&#39;(x_{1}) &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0\\&lt;br&gt;
+0 &amp;amp; g&#39;(x_{2})  &amp;amp; 0 &amp;amp; 0\\&lt;br&gt;
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip;\\&lt;br&gt;
+0 &amp;amp; 0 &amp;amp; 0 &amp;amp; g&#39;(x_{m})
+\end{pmatrix}_{m\times m} = \Sigma(g&#39;(x)) \\&lt;br&gt;
+g&#39;(x) = \begin{pmatrix}
+g&#39;(x_{1})\\&lt;br&gt;
+&amp;hellip; \\&lt;br&gt;
+g&#39;(x_{m})
+\end{pmatrix}
+$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;$$
+\begin{align}
+\frac{\partial L}{\partial \theta}  &amp;amp;= (\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}\frac{\partial x}{\partial \theta})^{T}\frac{\partial L}{\partial z} \\&lt;br&gt;
+&amp;amp;= [\Sigma(f&#39;(y))\times \Sigma(g&#39;(x))\times A]^{T}\times 1_{m\times1} \\&lt;br&gt;
+&amp;amp;= A^{T}\times[\Sigma(f&#39;(y))\times \Sigma(g&#39;(x))\times1_{m\times1}] \\&lt;br&gt;
+&amp;amp;= A^{T}\times[\Sigma(f&#39;(y)g&#39;(x))\times1_{m\times1}] \\&lt;br&gt;
+&amp;amp;= A^{T}\times\begin{pmatrix}
+f&#39;(y_{1})g&#39;(x_{1}) &amp;amp; 0 &amp;amp; &amp;hellip; &amp;amp; 0\\&lt;br&gt;
+0 &amp;amp; f&#39;(y_{2})g&#39;(x_{2})  &amp;amp; 0 &amp;amp; 0\\&lt;br&gt;
+&amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip;\\&lt;br&gt;
+0 &amp;amp; 0 &amp;amp; 0 &amp;amp; f&#39;(y_{m})g&#39;(x_{m})
+\end{pmatrix}\begin{pmatrix}
+1\\&lt;br&gt;
+1\\&lt;br&gt;
+&amp;hellip;\\&lt;br&gt;
+1
+\end{pmatrix} \\&lt;br&gt;
+&amp;amp;= A^{T} \times\begin{pmatrix}
+f&#39;(y_{1})g&#39;(x_{1})\\&lt;br&gt;
+f&#39;(y_{2})g&#39;(x_{2})\\&lt;br&gt;
+&amp;hellip;\\&lt;br&gt;
+f&#39;(y_{m})g&#39;(x_{m})
+\end{pmatrix}\\&lt;br&gt;
+&amp;amp;=A^{T}\times f&#39;(y)g&#39;(x)
+\end{align}
+$$&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;求导&#34;&gt;求导&lt;/h2&gt;
+&lt;p&gt;$$
+\begin{align}
+\frac{\partial L}{\partial \theta} &amp;amp;= \frac{\partial }{\partial \theta}(-[y^{T}ln\frac{1}{1+e^{-X\theta}}+(1^{T}-y^{T})ln\frac{e^{-X\theta}}{1+e^{-X\theta}}]) \\&lt;br&gt;
+&amp;amp;= \frac{\partial}{\partial \theta}(-[-y^{T}ln(1+e^{-X\theta})+(1^{T}-y^{T})(-X\theta)-(1^{T}-y^{T})ln(1+e^{-X\theta})])\\&lt;br&gt;
+&amp;amp;= \frac{\partial}{\partial \theta}((1^{T}-y^{T})X\theta+1^T\times ln(1+e^{-X\theta}))\\&lt;br&gt;
+&amp;amp;= X^{T}(1-y)+(-X^{T})\frac{1}{1+e^{-X\theta}}e^{-X\theta}\\&lt;br&gt;
+&amp;amp;= X^{T}(1-y-\frac{e^{-X\theta}}{1+e^{-X\theta}})\\&lt;br&gt;
+&amp;amp;= X^{T}(\frac{1}{1+e^{-X\theta}}-y)\\&lt;br&gt;
+&amp;amp;= X^{T}(h_{\theta}(X)-y)
+\end{align}
+$$&lt;/p&gt;
 </description>
     </item>
     
@@ -172,7 +279,7 @@
 &lt;span class=&#34;ln&#34;&gt; 7&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;http://xxx.xxx.xxx.xxx:xxxx/search?date=&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;year&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;month&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;/&amp;#34;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;date&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt; 8&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt; 9&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Request&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;await&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;loadJSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;ln&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;await&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;req&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;loadJSON&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;const&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;courses&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;json&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;courses&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt;12&lt;/span&gt;
 &lt;span class=&#34;ln&#34;&gt;13&lt;/span&gt;
@@ -747,30 +854,30 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th align=&#34;center&#34;&gt;选项&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;HEAD&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;暂存区&lt;/th&gt;
-&lt;th align=&#34;center&#34;&gt;工作区&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;选项&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;HEAD&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;暂存区&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;工作区&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&amp;ndash;soft&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;不变&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;不变&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&amp;ndash;soft&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变化&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;不变&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;不变&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&amp;ndash;mix&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;不变&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&amp;ndash;mix&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变化&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变化&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;不变&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align=&#34;center&#34;&gt;&amp;ndash;hard&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
-&lt;td align=&#34;center&#34;&gt;变化&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;&amp;ndash;hard&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变化&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变化&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;变化&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;</description>
@@ -907,7 +1014,7 @@
 &lt;p&gt;新建并启动容器&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;docker run [OPTION] IMAGE [COMMAND][ARG&amp;hellip;]&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&amp;ndash;name=&amp;quot;容器新名字&amp;rdquo;&lt;/strong&gt; : 为容器指定一个名称&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;name=&amp;ldquo;容器新名字&amp;rdquo;&lt;/strong&gt; : 为容器指定一个名称&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;-d&lt;/strong&gt; : 后台运行容器,并返回容器ID,即启动&lt;em&gt;守护式容器&lt;/em&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;-i&lt;/strong&gt; : 以交互模式运行容器,通常与 &lt;strong&gt;-t&lt;/strong&gt; 同时使用&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;-t&lt;/strong&gt; : 为容器重新分配一个伪输入终端&lt;/li&gt;
@@ -1027,7 +1134,7 @@
 &lt;p&gt;想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.&lt;/p&gt;
 &lt;p&gt;其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;16年高考, 奈何分数擦线, 没能被计算机收下, 来到当时听着还不错的&amp;quot;高分子材料与工程&amp;rdquo;, 其实这个专业是我自己填的&amp;hellip;&amp;hellip;一是收到曾经贵州大学校长郑强的影响, 听过他的几次演讲, 就对高分子这个东西产生了一点兴趣.&lt;/p&gt;
+&lt;p&gt;16年高考, 奈何分数擦线, 没能被计算机收下, 来到当时听着还不错的&amp;quot;高分子材料与工程&amp;quot;, 其实这个专业是我自己填的&amp;hellip;&amp;hellip;一是收到曾经贵州大学校长郑强的影响, 听过他的几次演讲, 就对高分子这个东西产生了一点兴趣.&lt;/p&gt;
 &lt;p&gt;擦线进安大的我, 其实能被录取就感觉很幸运了, 所以也没有心生转专业的想法, 主要还是大一的我太羞涩&amp;hellip;不太敢跨出那一步吧, 而且成绩好像还不错的说, 说不定还能保个研, 岂不是美滋滋? 到大二, 随着对自己专业的进一步了解和几次去工厂见习, 开始有点劝退我了, 于是开始真正去了解这个专业, 以及以后的发展方向, 主要途径就是知乎😂, 于是我就被知乎劝退了. 开始辅修, 开始去折腾计算机, 尝试各种HelloWorld的写法😂😂, 其实我是乐在其中的.&lt;/p&gt;
 &lt;p&gt;辅修的一些课, 比如数据结构, 汇编, C++, 我都是半个学期就学完了整本书, 跟着B站的视频, 加上自己的自学, 本专业课划水, 期末复习, 偶尔还能拿个90+. 打着自己的小算盘, 一边辅修一边维持绩点准备保研, 但结果可想而知, 绩点降了挺多的, 现在我的在保研名额的分界线徘徊, 加上大二基本没有参加大创实验, 确实没什么拿出手的成绩和经历. 路越走越窄, 保研应该是没有希望了, 只剩下跨考了.&lt;/p&gt;
 &lt;p&gt;希望我不会后悔.&lt;/p&gt;</description>

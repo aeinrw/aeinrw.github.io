@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
-    <meta name="generator" content="Hugo 0.72.0" />
+    <meta name="generator" content="Hugo 0.79.0" />
 
     <script>
         function setTheme() {
@@ -89,6 +89,18 @@
 </article>
 <article class="post-entry">
     <header class="entry-header">
+        <h2>交叉熵损失函数的梯度</h2>
+    </header>
+    <section class="entry-content">
+        <p>交叉熵梯度的推导 交叉熵损失函数 $$ L(\theta) = -[y^{T}ln(h_{\theta}(X))&#43;(1-y^{T})ln(1-h_{\theta}(X))] $$ $x$为单个样本 $$ x_{n \times 1} = \begin{pmatrix} x_{1}\\ …\\ x_{n} \end{pmatrix} $$ $$ h_{\theta}(x)_{1 \times 1} = \frac{1}{1&#43;e^{-x^{T}\theta}} $$ $X$为全部样本 $$ X_{m\times n} = \begin{pmatrix} x^{(1)}_{1} &amp; … &amp; x^{(1)}_{n}\\ … &amp; … &amp; …\\ x^{(m)}_{1}</p>
+    </section>
+    <footer class="entry-footer">
+        <time>December 07, 2020</time>
+    </footer>
+    <a class="entry-link" href="https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/"></a>
+</article>
+<article class="post-entry">
+    <header class="entry-header">
         <h2>记个人的第一个完整项目</h2>
     </header>
     <section class="entry-content">
@@ -122,18 +134,6 @@
         <time>July 01, 2020</time>
     </footer>
     <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/"></a>
-</article>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>人生第一次删站</h2>
-    </header>
-    <section class="entry-content">
-        <p>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原</p>
-    </section>
-    <footer class="entry-footer">
-        <time>June 28, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/"></a>
 </article>
 <footer class="page-footer">
     <nav class="pagination">

@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head>
-    <title>各种软件安装和环境配置过程</title>
+    <title>交叉熵损失函数的梯度</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="最近在服务器上玩centos,各种玩坏了就重装&hellip;🤯
-安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.">
+    <meta name="description" content="交叉熵梯度的推导 交叉熵损失函数 $$ L(\theta) = -[y^{T}ln(h_{\theta}(X))&#43;(1-y^{T})ln(1-h_{\theta}(X))] $$ $x$为单个样本 $$ x_{n \times 1} = \begin{pmatrix} x_{1}\\ &hellip;\\ x_{n} \end{pmatrix} $$ $$ h_{\theta}(x)_{1 \times 1} = \frac{1}{1&#43;e^{-x^{T}\theta}} $$ $X$为全部样本 $$ X_{m\times n} = \begin{pmatrix} x^{(1)}_{1} &amp; &hellip; &amp; x^{(1)}_{n}\\ &hellip; &amp; &hellip; &amp; &hellip;\\ x^{(m)}_{1}">
     <meta name="author" content="">
 
 
@@ -79,67 +78,113 @@
 
 <article class="post-single">
     <header class="post-header">
-        <h1 class="post-title">各种软件安装和环境配置过程</h1>
-        <div class="post-meta">July 06, 2019</div>
+        <h1 class="post-title">交叉熵损失函数的梯度</h1>
+        <div class="post-meta">December 07, 2020</div>
         <ul class="post-tags">
-            <li><a href="https://blog.aeinrw.com/tags/%E6%8A%98%E8%85%BE">折腾</a></li>
-            <li><a href="https://blog.aeinrw.com/tags/%E6%80%BB%E7%BB%93">总结</a></li>
+            <li><a href="https://blog.aeinrw.com/tags/%E6%95%B0%E5%AD%A6">数学</a></li>
+            <li><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
         </ul>
     </header>
-    <div class="post-content"><p>最近在服务器上玩centos,各种玩坏了就重装&hellip;🤯</p>
-<p>安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.</p>
-<p>可能以后学会了docker就不用这么这么折腾了把🙃.</p>
-<p>其中的过程基本上我都实验过,应该都是亲测可行的,如果有坑会提出来.</p>
-<p><strong>对于以下链接的原作者,非常感谢你们详细的教程,在此谢过了😁!!</strong></p>
-<hr>
-<h1 id="软件安装">软件安装</h1>
-<ol>
+    <div class="post-content"><h1 id="交叉熵梯度的推导">交叉熵梯度的推导</h1>
+<h2 id="交叉熵损失函数">交叉熵损失函数</h2>
+<p>$$
+L(\theta) = -[y^{T}ln(h_{\theta}(X))+(1-y^{T})ln(1-h_{\theta}(X))]
+$$</p>
+<p>$x$为单个样本</p>
+<p>$$
+x_{n \times 1} = \begin{pmatrix}
+x_{1}\\<br>
+&hellip;\\<br>
+x_{n}
+\end{pmatrix}
+$$</p>
+<p>$$
+h_{\theta}(x)_{1 \times 1} = \frac{1}{1+e^{-x^{T}\theta}}
+$$</p>
+<p>$X$为全部样本</p>
+<p>$$
+X_{m\times n} = \begin{pmatrix}
+x^{(1)}_{1} &amp; &hellip; &amp; x^{(1)}_{n}\\<br>
+&hellip; &amp; &hellip; &amp; &hellip;\\<br>
+x^{(m)}_{1} &amp; &hellip; &amp; x^{(m)}_{n}
+\end{pmatrix}_{m\times n}
+$$</p>
+<p>$$
+h_{\theta}(X)_{m\times 1} = \frac{1}{1+e^{-X\theta}}
+$$</p>
+<h2 id="求导工具">求导工具</h2>
+<p>函数的依赖关系
+$$
+L_{1\times 1} = 1_{m\times1}^{T}\times z \\<br>
+z_{m\times 1} = f(y) \\<br>
+y_{m\times 1} = g(x) \\<br>
+x_{m\times 1} = A_{m\times n}\theta_{n\times 1} + b \\<br>
+L_{1\times 1} \longleftarrow z_{m\times 1} \longleftarrow y_{m\times 1} \longleftarrow x_{m\times 1} \longleftarrow \theta_{n\times 1}
+$$
+求导</p>
+<ul>
 <li>
-<p>centos上安装owncloud服务</p>
-<p><a href="https://www.jianshu.com/p/ff296f905f58">https://www.jianshu.com/p/ff296f905f58</a></p>
+<p>$$
+\frac{\partial y}{\partial x} = \begin{pmatrix}
+\frac{\partial y_{1}}{\partial x_{1}} &amp; 0 &amp; &hellip; &amp; 0\\<br>
+0 &amp;  \frac{\partial y_{2}}{\partial x_{2}} &amp; 0 &amp; 0\\<br>
+&hellip; &amp; &hellip; &amp; &hellip; &amp; &hellip;\\<br>
+0 &amp; 0 &amp; 0 &amp; \frac{\partial y_{m}}{\partial x_{m}}
+\end{pmatrix}_{m\times m} = \begin{pmatrix}
+g'(x_{1}) &amp; 0 &amp; &hellip; &amp; 0\\<br>
+0 &amp; g'(x_{2})  &amp; 0 &amp; 0\\<br>
+&hellip; &amp; &hellip; &amp; &hellip; &amp; &hellip;\\<br>
+0 &amp; 0 &amp; 0 &amp; g'(x_{m})
+\end{pmatrix}_{m\times m} = \Sigma(g'(x)) \\<br>
+g'(x) = \begin{pmatrix}
+g'(x_{1})\\<br>
+&hellip; \\<br>
+g'(x_{m})
+\end{pmatrix}
+$$</p>
 </li>
 <li>
-<p>centos上安装mysql8.0</p>
-<p><a href="https://blog.csdn.net/qq_38591756/article/details/82958333">https://blog.csdn.net/qq_38591756/article/details/82958333</a></p>
+<p>$$
+\begin{align}
+\frac{\partial L}{\partial \theta}  &amp;= (\frac{\partial z}{\partial y}\frac{\partial y}{\partial x}\frac{\partial x}{\partial \theta})^{T}\frac{\partial L}{\partial z} \\<br>
+&amp;= [\Sigma(f'(y))\times \Sigma(g'(x))\times A]^{T}\times 1_{m\times1} \\<br>
+&amp;= A^{T}\times[\Sigma(f'(y))\times \Sigma(g'(x))\times1_{m\times1}] \\<br>
+&amp;= A^{T}\times[\Sigma(f'(y)g'(x))\times1_{m\times1}] \\<br>
+&amp;= A^{T}\times\begin{pmatrix}
+f'(y_{1})g'(x_{1}) &amp; 0 &amp; &hellip; &amp; 0\\<br>
+0 &amp; f'(y_{2})g'(x_{2})  &amp; 0 &amp; 0\\<br>
+&hellip; &amp; &hellip; &amp; &hellip; &amp; &hellip;\\<br>
+0 &amp; 0 &amp; 0 &amp; f'(y_{m})g'(x_{m})
+\end{pmatrix}\begin{pmatrix}
+1\\<br>
+1\\<br>
+&hellip;\\<br>
+1
+\end{pmatrix} \\<br>
+&amp;= A^{T} \times\begin{pmatrix}
+f'(y_{1})g'(x_{1})\\<br>
+f'(y_{2})g'(x_{2})\\<br>
+&hellip;\\<br>
+f'(y_{m})g'(x_{m})
+\end{pmatrix}\\<br>
+&amp;=A^{T}\times f'(y)g'(x)
+\end{align}
+$$</p>
 </li>
-<li>
-<p>centos中docker的安装</p>
-<p><a href="https://www.bilibili.com/video/av47715282/?p=34">https://www.bilibili.com/video/av47715282/?p=34</a></p>
-</li>
-<li>
-<p>&hellip;&hellip;</p>
-</li>
-</ol>
-<h1 id="环境搭建">环境搭建</h1>
-<ol>
-<li>
-<p>centos的httpd服务配置</p>
-<p><a href="https://blog.csdn.net/oyudabajiao/article/details/79769094">https://blog.csdn.net/oyudabajiao/article/details/79769094</a></p>
-</li>
-<li>
-<p>&hellip;&hellip;</p>
-</li>
-</ol>
-<h1 id="花里胡哨">花里胡哨</h1>
-<ol>
-<li>
-<p>基于Hexo的博客搭建</p>
-<p><a href="https://www.bilibili.com/video/av44544186?from=search&amp;seid=3873921690217774838">https://www.bilibili.com/video/av44544186?from=search&amp;seid=3873921690217774838</a></p>
-<p><a href="https://www.simon96.online/2018/10/12/hexo-tutorial/2">https://www.simon96.online/2018/10/12/hexo-tutorial/2</a></p>
-</li>
-<li>
-<p>Hexo主题Next的相关配置</p>
-<p><a href="https://www.jianshu.com/p/9f0e90cc32c2">https://www.jianshu.com/p/9f0e90cc32c2</a></p>
-</li>
-<li>
-<p>centos的ssh链接掉线</p>
-<p><a href="https://blog.csdn.net/libaineu2004/article/details/83857779">https://blog.csdn.net/libaineu2004/article/details/83857779</a></p>
-</li>
-<li>
-<p>&hellip;&hellip;</p>
-</li>
-</ol>
-<p>To Be Continue👀</p></div>
+</ul>
+<h2 id="求导">求导</h2>
+<p>$$
+\begin{align}
+\frac{\partial L}{\partial \theta} &amp;= \frac{\partial }{\partial \theta}(-[y^{T}ln\frac{1}{1+e^{-X\theta}}+(1^{T}-y^{T})ln\frac{e^{-X\theta}}{1+e^{-X\theta}}]) \\<br>
+&amp;= \frac{\partial}{\partial \theta}(-[-y^{T}ln(1+e^{-X\theta})+(1^{T}-y^{T})(-X\theta)-(1^{T}-y^{T})ln(1+e^{-X\theta})])\\<br>
+&amp;= \frac{\partial}{\partial \theta}((1^{T}-y^{T})X\theta+1^T\times ln(1+e^{-X\theta}))\\<br>
+&amp;= X^{T}(1-y)+(-X^{T})\frac{1}{1+e^{-X\theta}}e^{-X\theta}\\<br>
+&amp;= X^{T}(1-y-\frac{e^{-X\theta}}{1+e^{-X\theta}})\\<br>
+&amp;= X^{T}(\frac{1}{1+e^{-X\theta}}-y)\\<br>
+&amp;= X^{T}(h_{\theta}(X)-y)
+\end{align}
+$$</p>
+</div>
     
     
 
@@ -160,7 +205,21 @@
 </script>
 
 
-    
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        jax: ["input/TeX", "output/HTML-CSS"],
+        tex2jax: {
+            inlineMath: [ ['$', '$'] ],
+            displayMath: [ ['$$', '$$']],
+            processEscapes: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        },
+        messageStyle: "none",
+        "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
+    });
+</script>
+<script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 </article>
 
