@@ -5,3 +5,9 @@
     transition: transform .1s;
     transition: transform .1s,-webkit-transform .1s
 }
+
+mjx-container {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+

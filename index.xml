@@ -51,15 +51,17 @@ $$&lt;/p&gt;
 h_{\theta}(X)_{m\times 1} = \frac{1}{1+e^{-X\theta}}
 $$&lt;/p&gt;
 &lt;h2 id=&#34;求导工具&#34;&gt;求导工具&lt;/h2&gt;
-&lt;p&gt;函数的依赖关系
-$$
-L_{1\times 1} = 1_{m\times1}^{T}\times z \\&lt;br&gt;
-z_{m\times 1} = f(y) \\&lt;br&gt;
-y_{m\times 1} = g(x) \\&lt;br&gt;
-x_{m\times 1} = A_{m\times n}\theta_{n\times 1} + b \\&lt;br&gt;
-L_{1\times 1} \longleftarrow z_{m\times 1} \longleftarrow y_{m\times 1} \longleftarrow x_{m\times 1} \longleftarrow \theta_{n\times 1}
-$$
-求导&lt;/p&gt;
+&lt;p&gt;函数的依赖关系&lt;/p&gt;
+&lt;p&gt;$$
+\begin{align}
+L_{1\times 1} &amp;amp; = 1_{m\times1}^{T}\times z \\&lt;br&gt;
+z_{m\times 1} &amp;amp;= f(y) \\&lt;br&gt;
+y_{m\times 1} &amp;amp;= g(x) \\&lt;br&gt;
+x_{m\times 1} &amp;amp;= A_{m\times n}\theta_{n\times 1} + b \\&lt;br&gt;
+L_{1\times 1} \longleftarrow z_{m\times 1} &amp;amp;\longleftarrow y_{m\times 1} \longleftarrow x_{m\times 1} \longleftarrow \theta_{n\times 1}
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;求导&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;$$
@@ -121,8 +123,7 @@ $$&lt;/p&gt;
 &amp;amp;= X^{T}(\frac{1}{1+e^{-X\theta}}-y)\\&lt;br&gt;
 &amp;amp;= X^{T}(h_{\theta}(X)-y)
 \end{align}
-$$&lt;/p&gt;
-</description>
+$$&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -15,7 +15,8 @@
       <pubDate>Mon, 07 Dec 2020 21:11:04 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</guid>
-      <description>交叉熵梯度的推导 交叉熵损失函数 $$ L(\theta) = -[y^{T}ln(h_{\theta}(X))+(1-y^{T})ln(1-h_{\theta}(X))] $$ $x$为单个样本 $$ x_{n \times 1} = \begin{pmatrix} x_{1}\\ &amp;hellip;\\ x_{n} \end{pmatrix} $$ $$ h_{\theta}(x)_{1 \times 1} = \frac{1}{1+e^{-x^{T}\theta}} $$ $X$为全部样本 $$ X_{m\times n} = \begin{pmatrix} x^{(1)}_{1} &amp;amp; &amp;hellip; &amp;amp; x^{(1)}_{n}\\ &amp;hellip; &amp;amp; &amp;hellip; &amp;amp; &amp;hellip;\\ x^{(m)}_{1}</description>
+      <description>&lt;h1 id=&#34;交叉熵梯度的推导&#34;&gt;交叉熵梯度的推导&lt;/h1&gt;
+&lt;h2 id=&#34;交叉熵损失函数&#34;&gt;交叉熵损失函数&lt;/h2&gt;</description>
     </item>
     
     <item>

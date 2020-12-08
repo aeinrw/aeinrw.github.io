@@ -176,21 +176,19 @@
 </script>
 
 
-    <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        jax: ["input/TeX", "output/HTML-CSS"],
-        tex2jax: {
-            inlineMath: [ ['$', '$'] ],
-            displayMath: [ ['$$', '$$']],
-            processEscapes: true,
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    <script>
+    MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
         },
-        messageStyle: "none",
-        "HTML-CSS": { preferredFont: "TeX", availableFonts: ["STIX","TeX"] }
-    });
+        svg: {
+            fontCache: 'global'
+        }
+    };
 </script>
-<script type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
     
 </article>
 
@@ -213,7 +211,7 @@
         
         <span><i class="iconfont icon-anjianfengexian"></i></span>
         
-        <span><a href="mailto:i@aeinrw.com"><i class="iconfont icon-youxiang"></i></a></span>
+        <span><a href="mailto:aeinrw@gmail.com"><i class="iconfont icon-youxiang"></i></a></span>
         
         
         
