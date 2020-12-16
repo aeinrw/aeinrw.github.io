@@ -28,15 +28,6 @@
     </item>
     
     <item>
-      <title>golang标准库(一): container/list</title>
-      <link>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</link>
-      <pubDate>Wed, 01 Jul 2020 21:01:22 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</guid>
-      <description>在golang的标准库中, 封装了双向链表list, 在其源码中没有多余的依赖, 很容易读懂. 结构体定义 1//链表元素 2type Element struct { 3 next, prev *Element 4 list *List 5 Value interface{}</description>
-    </item>
-    
-    <item>
       <title>golang的接口类型</title>
       <link>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B/</link>
       <pubDate>Wed, 24 Jun 2020 20:29:15 +0800</pubDate>

@@ -8,7 +8,26 @@
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Mon, 07 Dec 2020 21:11:04 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Dec 2020 15:24:04 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>向量对矩阵求导</title>
+      <link>https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</link>
+      <pubDate>Wed, 16 Dec 2020 15:24:04 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;设：&lt;/strong&gt;
+$$
+\begin{align}
+L\longleftarrow &amp;amp;y_{m\times 1} \longleftarrow X_{m\times n} \\&lt;br&gt;
+y&amp;amp;=Xa
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;求：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;$$
+\frac{\partial L}{\partial X}
+$$&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>交叉熵损失函数的梯度</title>
       <link>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</link>
@@ -35,15 +54,6 @@
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A5%E5%8F%8A%E6%A0%88%E5%B8%A7/</guid>
       <description>golang的汇编 在go语言中, 函数的参数和返回值都是通过栈来传递的, 函数调用时会有自己的栈帧, 并引入了几个寄存器来定位栈帧的大小和值的调用</description>
-    </item>
-    
-    <item>
-      <title>golang标准库(一): container/list</title>
-      <link>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</link>
-      <pubDate>Wed, 01 Jul 2020 21:01:22 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</guid>
-      <description>在golang的标准库中, 封装了双向链表list, 在其源码中没有多余的依赖, 很容易读懂. 结构体定义 1//链表元素 2type Element struct { 3 next, prev *Element 4 list *List 5 Value interface{}</description>
     </item>
     
     <item>

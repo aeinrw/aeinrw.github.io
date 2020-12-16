@@ -9,26 +9,41 @@
   
   <url>
     <loc>https://blog.aeinrw.com/</loc>
-    <lastmod>2020-12-07T21:11:04+08:00</lastmod>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/categories/</loc>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.aeinrw.com/posts/</loc>
-    <lastmod>2020-12-07T21:11:04+08:00</lastmod>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.aeinrw.com/tags/</loc>
-    <lastmod>2020-12-07T21:11:04+08:00</lastmod>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</loc>
-    <lastmod>2020-12-07T21:11:04+08:00</lastmod>
+    <loc>https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</loc>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.aeinrw.com/tags/%E6%95%B0%E5%AD%A6/</loc>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/categories/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</loc>
+    <lastmod>2020-12-16T15:24:04+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</loc>
     <lastmod>2020-12-07T21:11:04+08:00</lastmod>
   </url>
   
@@ -60,26 +75,6 @@
   <url>
     <loc>https://blog.aeinrw.com/tags/%E5%BA%95%E5%B1%82/</loc>
     <lastmod>2020-07-21T15:24:16+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.aeinrw.com/categories/</loc>
-    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.aeinrw.com/categories/golang%E6%A0%87%E5%87%86%E5%BA%93/</loc>
-    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.aeinrw.com/posts/golang%E7%9A%84list%E6%A0%87%E5%87%86%E5%BA%93/</loc>
-    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.aeinrw.com/tags/%E6%A0%87%E5%87%86%E5%BA%93/</loc>
-    <lastmod>2020-07-01T21:01:22+08:00</lastmod>
   </url>
   
   <url>
