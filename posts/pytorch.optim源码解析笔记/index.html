@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+    <title>Pytorch.optim源码解析</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="torch.optim
+torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。">
+    <meta name="author" content="">
+
+
+    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="https://blog.aeinrw.com/image/favicon.ico">
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
+
+
+    <meta name="generator" content="Hugo 0.79.0" />
+
+    <script>
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
+
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
+            } else {
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+            }
+        }
+        function switchTheme() {
+            if (localStorage.getItem('isDark') == "true") {
+                localStorage.setItem('isDark', "false");
+                document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
+            }
+        }
+    </script>
+</head><body class="single"><script>
+    setTheme();
+</script>
+<header class="header">
+    <nav class="nav">
+        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <ul class="menu">
+            <li>
+                <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
+            </li>
+            <li>
+                <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
+            </li>
+            <li>
+                <a href="/categories/"><i class="iconfont icon-categories menuicon"></i></a>
+            </li>
+            <li>
+                <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
+            </li>
+        </ul>
+    </nav>
+</header><main class="main">
+
+<article class="post-single">
+    <header class="post-header">
+        <h1 class="post-title">Pytorch.optim源码解析</h1>
+        <div class="post-meta">December 17, 2020</div>
+        <ul class="post-tags">
+            <li><a href="https://blog.aeinrw.com/tags/pytorch">pytorch</a></li>
+            <li><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
+            <li><a href="https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81">源码</a></li>
+        </ul>
+    </header>
+    <div class="post-content"><h1 id="torchoptim">torch.optim</h1>
+<p><code>torch.optim</code>是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的<code>Optimizer</code>，其他优化器全部继承于这个类。</p>
+<h1 id="optimizer类"><code>Optimizer</code>类</h1>
+<p><code>Optimizer</code>是所有优化器的base class，定义了三个属性以及若干方法。</p>
+<h2 id="构造函数">构造函数</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">params</span><span class="p">,</span><span class="n">defaults</span><span class="p">):</span>
+<span class="ln">2</span>    <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="n">defaults</span>
+<span class="ln">3</span>    <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+<span class="ln">4</span>    <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ln">5</span>    
+<span class="ln">6</span>    <span class="n">param_groups</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span><span class="nb">list</span><span class="p">(</span><span class="n">params</span><span class="p">)}]</span>
+<span class="ln">7</span>    
+<span class="ln">8</span>    <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">param_groups</span><span class="p">:</span>
+<span class="ln">9</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_param_group</span><span class="p">(</span><span class="n">param_group</span><span class="p">)</span>
+</code></pre></div><p>删去代码中多余的细节，<code>__init__</code>函数一般由子类的构造函数调用，传入两个参数：</p>
+<ul>
+<li><code>param</code>：为模型的参数，一般传入<code>model.parameters()</code>，一般为一个生成器。需要进行先进行列表化，再转化成一个<strong>字典的列表</strong>。这么做是为了兼容下面的<code>add_param_group</code>函数；</li>
+<li><code>defaults</code>：为子类的一些具体参数的字典。</li>
+</ul>
+<p>定义了三个字段：</p>
+<ul>
+<li>
+<p><code>defaults</code>：直接由参数赋值，定义了优化器的具体参数；</p>
+</li>
+<li>
+<p><code>state</code>：为一个<code>defaultdict(dict)</code>，保存了优化过程中的状态值，例如<em>带动量SGD的速度</em>；</p>
+<blockquote>
+<p><code>defaultdict</code>为<code>collection</code>包下的类，当key不在字典中时，不会产生错误，而是返回对应的空值，<code>dict</code>则会返回<code>{}</code>，且传的是引用，对后面的操作会直接影响原字典。</p>
+</blockquote>
+</li>
+<li>
+<p><code>param_groups</code>：为一个字典的列表，每个字典表示一组需要优化的张量及参数。</p>
+</li>
+</ul>
+<p>调用了<code>add_param_group</code>函数，为模型添加第一组张量和优化器参数。</p>
+<p>在此之前，需要传入的是字典，需要把参数<code>params</code>先进行列表化，再变为一个字典，如第6行代码所示。</p>
+<h2 id="add_param_group方法"><code>add_param_group</code>方法</h2>
+<p>这个函数由于为优化器绑定其他张量和优化器参数，也就是说<strong>优化器是可以复用的</strong>，在构造函数中添加了第一组。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">def</span> <span class="nf">add_param_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">param_group</span><span class="p">):</span>
+<span class="ln"> 2</span>    <span class="c1"># 赋值其他优化器属性</span>
+<span class="ln"> 3</span>   	<span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">default</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="ln"> 4</span>        <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="n">required</span> <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">param_group</span><span class="p">:</span> 
+<span class="ln"> 5</span>            <span class="c1"># Error #参数值是必要的且没指定</span>
+<span class="ln"> 6</span>        <span class="k">else</span><span class="p">:</span>
+<span class="ln"> 7</span>            <span class="n">param_group</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">default</span><span class="p">)</span>
+<span class="ln"> 8</span>	
+<span class="ln"> 9</span>    <span class="c1"># 检测一组中有没有重复张量</span>
+<span class="ln">10</span>    <span class="n">params</span> <span class="o">=</span> <span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]</span> <span class="c1">#是张量列表</span>
+<span class="ln">11</span>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">params</span><span class="p">)):</span>
+<span class="ln">12</span>        <span class="c1"># Warning 一组张量中有重复的</span>
+<span class="ln">13</span>    
+<span class="ln">14</span>    <span class="c1"># 检测新组与旧组之间有没有重复张量</span>
+<span class="ln">15</span>   	<span class="n">param_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+<span class="ln">16</span>    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+<span class="ln">17</span>        <span class="n">param_set</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]))</span>
+<span class="ln">18</span>    <span class="k">if</span> <span class="ow">not</span> <span class="n">param_set</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">])):</span>
+<span class="ln">19</span>        <span class="c1"># Error </span>
+<span class="ln">20</span>    
+<span class="ln">21</span>    <span class="c1"># 添加新组</span>
+<span class="ln">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param_group</span><span class="p">)</span>
+</code></pre></div><h2 id="zero_grad方法"><code>zero_grad</code>方法</h2>
+<p>清空优化器绑定的所有张量的梯度。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="nf">zero_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">2</span>    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>	<span class="c1"># 遍历组</span>
+<span class="ln">3</span>        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]:</span>	<span class="c1"># 遍历组中张量</span>
+<span class="ln">4</span>            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+<span class="ln">5</span>            	<span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span> <span class="c1"># 切断联系</span>
+<span class="ln">6</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span> 
+<span class="ln">7</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span> <span class="c1"># 梯度设置为0</span>
+<span class="ln">8</span>                
+</code></pre></div><h2 id="state_dict方法"><code>state_dict</code>方法</h2>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln"> 2</span>    <span class="n">param_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&#39;&#39;张量id：张量&#39;&#39;&#39;</span><span class="p">}</span>
+<span class="ln"> 3</span>    
+<span class="ln"> 4</span>    <span class="k">def</span> <span class="nf">pack_group</span><span class="p">(</span><span class="n">group</span><span class="p">):</span>
+<span class="ln"> 5</span>        <span class="c1"># ...</span>
+<span class="ln"> 6</span>        <span class="k">return</span> <span class="n">packed</span>
+<span class="ln"> 7</span>    
+<span class="ln"> 8</span>    <span class="n">param_groups</span> <span class="o">=</span> <span class="p">[</span><span class="n">pack_group</span><span class="p">(</span><span class="n">g</span><span class="p">)</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">]</span>
+<span class="ln"> 9</span>    <span class="n">packed_state</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&#39;&#39;张量id：张量state&#39;&#39;&#39;</span><span class="p">}</span>
+<span class="ln">10</span>    
+<span class="ln">11</span>    <span class="k">return</span> <span class="p">{</span>
+<span class="ln">12</span>        <span class="s1">&#39;state&#39;</span><span class="p">:</span><span class="n">packed_state</span><span class="p">,</span>
+<span class="ln">13</span>        <span class="s1">&#39;param_groups&#39;</span><span class="p">:</span><span class="n">param_groups</span><span class="p">,</span>
+<span class="ln">14</span>    <span class="p">}</span>
+<span class="ln">15</span>    
+</code></pre></div><p>可参考SGD的调用结果进行理解。</p>
+<h1 id="sgd类"><code>SGD</code>类</h1>
+<p><code>SGD</code>是<code>Optimizer</code>的一个子类，是具体实现。<code>Optimizer</code>的所有子类只实现了<code>step</code>方法。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">required</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dampening</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="ln">2</span>                 <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<span class="ln">3</span>    <span class="n">defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="n">momentum</span><span class="p">,</span> <span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span><span class="p">,</span>
+<span class="ln">4</span>                        <span class="n">weight_decay</span><span class="o">=</span><span class="n">weight_decay</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="n">nesterov</span><span class="p">)</span>
+<span class="ln">5</span>    <span class="nb">super</span><span class="p">(</span><span class="n">SGD</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">params</span><span class="p">,</span><span class="n">defaults</span><span class="p">)</span>
+</code></pre></div><p>对参数打包成字典，和需要优化的张量一起送入父类的构造器。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="nd">@torch.no_grad</span><span class="p">()</span>
+<span class="ln">2</span><span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">3</span>	<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
+<span class="ln">4</span>        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">group</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]:</span>
+<span class="ln">5</span>            <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span><span class="n">alpha</span><span class="o">=-</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">])</span>
+</code></pre></div><p>去掉其他参数的影响，可以看到梯度下降的过程。</p>
+<hr>
+<h1 id="实例">实例</h1>
+<ol>
+<li>
+<p><code>sgd.param_groups</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="p">[{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">Parameter</span> <span class="n">containing</span><span class="p">:</span>
+<span class="ln"> 2</span>   <span class="n">tensor</span><span class="p">([[</span><span class="mf">4.3968</span><span class="p">]],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+<span class="ln"> 3</span>   <span class="n">Parameter</span> <span class="n">containing</span><span class="p">:</span>
+<span class="ln"> 4</span>   <span class="n">tensor</span><span class="p">([</span><span class="mf">1.3773</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span>
+<span class="ln"> 5</span>  <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln"> 6</span>  <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln"> 7</span>  <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln"> 8</span>  <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln"> 9</span>  <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">},</span>
+<span class="ln">10</span> <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">Parameter</span> <span class="n">containing</span><span class="p">:</span>
+<span class="ln">11</span>   <span class="n">tensor</span><span class="p">([[</span><span class="mf">4.3968</span><span class="p">]],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+<span class="ln">12</span>   <span class="n">Parameter</span> <span class="n">containing</span><span class="p">:</span>
+<span class="ln">13</span>   <span class="n">tensor</span><span class="p">([</span><span class="mf">1.3773</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span>
+<span class="ln">14</span>  <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln">15</span>  <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln">16</span>  <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">17</span>  <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">18</span>  <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">},</span>
+<span class="ln">19</span> <span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">Parameter</span> <span class="n">containing</span><span class="p">:</span>
+<span class="ln">20</span>   <span class="n">tensor</span><span class="p">([[</span><span class="mf">4.3968</span><span class="p">]],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+<span class="ln">21</span>   <span class="n">Parameter</span> <span class="n">containing</span><span class="p">:</span>
+<span class="ln">22</span>   <span class="n">tensor</span><span class="p">([</span><span class="mf">1.3773</span><span class="p">],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)],</span>
+<span class="ln">23</span>  <span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln">24</span>  <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln">25</span>  <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">26</span>  <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">27</span>  <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}]</span>
+</code></pre></div><p>手动调用了两次<code>add_params_group</code>方法，得到了三组张量及他们的优化器参数。</p>
+</li>
+<li>
+<p><code>sgd.state_dict()</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="p">{</span><span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;momentum_buffer&#39;</span><span class="p">:</span> <span class="n">tensor</span><span class="p">([[</span><span class="o">-</span><span class="mf">109.9414</span><span class="p">]])},</span>
+<span class="ln"> 2</span>  <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;momentum_buffer&#39;</span><span class="p">:</span> <span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">45.8067</span><span class="p">])}},</span>
+<span class="ln"> 3</span> <span class="s1">&#39;param_groups&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln"> 4</span>   <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln"> 5</span>   <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln"> 6</span>   <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln"> 7</span>   <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+<span class="ln"> 8</span>   <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]},</span>
+<span class="ln"> 9</span>  <span class="p">{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln">10</span>   <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln">11</span>   <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">12</span>   <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">13</span>   <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+<span class="ln">14</span>   <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]},</span>
+<span class="ln">15</span>  <span class="p">{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln">16</span>   <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln">17</span>   <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">18</span>   <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">19</span>   <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+<span class="ln">20</span>   <span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]}]}</span>
+</code></pre></div><p>返回的字典包括两个值：</p>
+<ul>
+<li>一个为当前每个张量的state，是个字典的字典，张量用id标识，没有state的张量不显示；</li>
+<li>另一个为参数组，是字典的列表，张量用id标识。</li>
+</ul>
+</li>
+<li>
+<p><code>sgd.defaults</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="p">{</span><span class="s1">&#39;lr&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+<span class="ln">2</span> <span class="s1">&#39;momentum&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="ln">3</span> <span class="s1">&#39;dampening&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">4</span> <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="ln">5</span> <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
+</code></pre></div></li>
+</ol></div>
+    
+    
+
+<div id="vcomments"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script type="text/javascript">
+    new Valine({
+        el: '#vcomments',
+        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
+        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
+        notify:  false ,
+        verify:  false ,
+        avatar: 'mm',
+        placeholder: '给我留言吧...',
+        visitor:  true 
+    });
+</script>
+
+
+    
+    <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</article>
+
+
+        </main><footer class="footer">
+    
+    <div>
+        
+        
+        
+        <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+        
+        
+        
+        <span><i class="iconfont icon-anjianfengexian"></i></span>
+        
+        <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+        
+        
+        
+        <span><i class="iconfont icon-anjianfengexian"></i></span>
+        
+        <span><a href="mailto:aeinrw@gmail.com"><i class="iconfont icon-youxiang"></i></a></span>
+        
+        
+        
+        <span><i class="iconfont icon-anjianfengexian"></i></span>
+        
+        <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+        
+        
+    </div>
+    <div>
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+        <span>&middot;</span>
+        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
+    </div>
+    <div>
+        <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+        <span>&middot;</span>
+        <span><a href="http://www.beian.miit.gov.cn/">皖ICP备 20011881号</a>️</span>
+        
+    </div>
+</footer></body>
+
+</html>

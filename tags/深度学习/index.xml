@@ -8,7 +8,36 @@
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Mon, 07 Dec 2020 21:11:04 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Dec 2020 11:04:26 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pytorch.optim源码解析</title>
+      <link>https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;h1 id=&#34;torchoptim&#34;&gt;torch.optim&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;torch.optim&lt;/code&gt;是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的&lt;code&gt;Optimizer&lt;/code&gt;，其他优化器全部继承于这个类。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>向量对矩阵求导</title>
+      <link>https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</link>
+      <pubDate>Wed, 16 Dec 2020 15:24:04 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;设：&lt;/strong&gt;
+$$
+\begin{align}
+L\longleftarrow &amp;amp;y_{m\times 1} \longleftarrow X_{m\times n} \\&lt;br&gt;
+y&amp;amp;=Xa
+\end{align}
+$$&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;求：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;$$
+\frac{\partial L}{\partial X}
+$$&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>交叉熵损失函数的梯度</title>
       <link>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</link>

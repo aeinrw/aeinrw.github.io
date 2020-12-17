@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>源码 on aeinrw</title>
+    <link>https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81/</link>
+    <description>Recent content in 源码 on aeinrw</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+    <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
+    <lastBuildDate>Thu, 17 Dec 2020 11:04:26 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pytorch.optim源码解析</title>
+      <link>https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
+      <description>&lt;h1 id=&#34;torchoptim&#34;&gt;torch.optim&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;torch.optim&lt;/code&gt;是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的&lt;code&gt;Optimizer&lt;/code&gt;，其他优化器全部继承于这个类。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

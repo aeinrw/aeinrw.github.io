@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="golang的interface 简介 简单地说, golang中地interface就是一组方法的组合. 任意对象, 只要一点不差的实现了这些方法,">
+    <meta name="description" content="golang的interface
+简介
+简单地说, golang中地interface就是一组方法的组合. 任意对象, 只要一点不差的实现了这些方法, 那就相当于实现了这个接口.">
     <meta name="author" content="">
 
 
@@ -174,8 +176,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">func</span> <span class="nf">Printf</span><span class="p">(</span><span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 <span class="ln">2</span>    <span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="nx">format</span><span class="p">,</span><span class="nx">a</span><span class="p">)</span>
 <span class="ln">3</span><span class="p">}</span>
-</code></pre></div><p><code>fmt.Printf</code>就是调用了前者方法, 只不过传入的参数为<code>os.Stdout</code>, 也就是把字符串输出到控制台.</p>
-</div>
+</code></pre></div><p><code>fmt.Printf</code>就是调用了前者方法, 只不过传入的参数为<code>os.Stdout</code>, 也就是把字符串输出到控制台.</p></div>
     
     
 
