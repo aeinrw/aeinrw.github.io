@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>原理</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,20 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,60 +47,62 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
 <header class="page-header">
     <h1 class="post-title">原理</h1>
 </header>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>golang中append()的坑</h2>
-    </header>
-    <section class="entry-content">
-        <p>slice的结构 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.
-</p>
-    </section>
-    <footer class="entry-footer">
-        <time>June 07, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/"></a>
-</article>
 
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>RSA算法和ssh登录详解</h2>
-    </header>
-    <section class="entry-content">
-        <p>RSA算法 数学原理 费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.
+<article class="page-content">
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>golang中append()的坑</h2>
+        </header>
+        <section class="entry-content">
+            <p>slice的结构 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.
+</p>
+        </section>
+        <footer class="entry-footer">
+            <time>June 07, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/"></a>
+    </div>
+    
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>RSA算法和ssh登录详解</h2>
+        </header>
+        <section class="entry-content">
+            <p>RSA算法 数学原理 费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.
 即$(a^{p}-a)/p$的余数为零, $a^{p}/p$和$a/p$同余, $a^{p} \equiv a (mod\ p)$. 如果a不是p的倍数, 则$a^{p-1}-1$是p的倍数.
 欧拉-费马小定理: 若$a \in Z , n \in Z$, 且a,n互素, 则$a^{\varphi(n)}-1 \equiv 1 (mod\ n)$.
 其中, 若n为质数,$\varphi(n)=n-1$. 若p,q互质, 则$\varphi(pq)=(p-1)(q-1)$.
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>May 29, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/"></a>
-</article>
-
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>git reset命令</h2>
-    </header>
-    <section class="entry-content">
-        <p>1git reset --soft 2git reset --mix 3git reset --hard 在初学git时, git reset命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.
+        </section>
+        <footer class="entry-footer">
+            <time>May 29, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/"></a>
+    </div>
+    
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>git reset命令</h2>
+        </header>
+        <section class="entry-content">
+            <p>1git reset --soft 2git reset --mix 3git reset --hard 在初学git时, git reset命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>May 27, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/"></a>
+        </section>
+        <footer class="entry-footer">
+            <time>May 27, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/"></a>
+    </div>
+    
 </article>
-
 
 
         </main><footer class="footer">
-    
     <div>
         
         

@@ -16,7 +16,7 @@
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
       <description>&lt;h1 id=&#34;torchoptim&#34;&gt;torch.optim&lt;/h1&gt;
-&lt;p&gt;&lt;code&gt;torch.optim&lt;/code&gt;是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的&lt;code&gt;Optimizer&lt;/code&gt;，其他优化器全部继承于这个类。&lt;/p&gt;</description>
+&lt;p&gt;torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。&lt;/p&gt;</description>
     </item>
     
     <item>

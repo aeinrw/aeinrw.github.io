@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>向量对矩阵求导</title>
 
     <meta charset="utf-8">
@@ -25,47 +25,19 @@ $$">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="single"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    single
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -84,17 +56,19 @@ $$">
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
-<article class="post-single">
-    <header class="post-header">
-        <h1 class="post-title">向量对矩阵求导</h1>
-        <div class="post-meta">December 16, 2020</div>
-        <ul class="post-tags">
-            <li><a href="https://blog.aeinrw.com/tags/%E6%95%B0%E5%AD%A6">数学</a></li>
-            <li><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
-        </ul>
-    </header>
+<header class="page-header">
+    <h1 class="post-title">向量对矩阵求导</h1>
+    <div class="post-meta">December 16, 2020</div>
+    <ul class="post-tags">
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E6%95%B0%E5%AD%A6">数学</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
+    </ul>
+    
+</header>
+
+<article class="page-content">
     <div class="post-content"><p><strong>设：</strong>
 $$
 \begin{align}
@@ -157,10 +131,8 @@ $$</p>
 &amp; = \frac{\partial L}{\partial y}\times a^{T}
 \end{align}
 $$</p></div>
-    
-    
 
-<div id="vcomments"></div>
+    <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <script type="text/javascript">
@@ -176,7 +148,6 @@ $$</p></div>
     });
 </script>
 
-
     <script>
     MathJax = {
         tex: {
@@ -190,12 +161,13 @@ $$</p></div>
 
 <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
 </script>
+
     
+
 </article>
 
 
         </main><footer class="footer">
-    
     <div>
         
         

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>Categories</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,20 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,30 +47,34 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
+
 <header class="page-header">
     <h1 class="post-title">Categories</h1>
 </header>
 
-<footer class="post-footer">
+<article class="page-content">
     <ul class="post-tags">
         
-        <li>
-            <a href="/categories/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/" style="background: var(--theme);">矩阵求导
-                <sup> 2</sup></a>
+        <li class="post-tag">
+            <a href="/categories/%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/">
+                矩阵求导
+                <sup>2</sup>
+            </a>
         </li>
         
-        <li>
-            <a href="/categories/pytorch%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" style="background: var(--theme);">pytorch源码解析
-                <sup> 1</sup></a>
+        <li class="post-tag">
+            <a href="/categories/pytorch%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+                pytorch源码解析
+                <sup>1</sup>
+            </a>
         </li>
         
     </ul>
+</article>
 
-</footer>
 
         </main><footer class="footer">
-    
     <div>
         
         

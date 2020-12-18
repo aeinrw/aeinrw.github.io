@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>随笔</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,20 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,44 +47,46 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
 <header class="page-header">
     <h1 class="post-title">随笔</h1>
 </header>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>2019年度总结</h2>
-    </header>
-    <section class="entry-content">
-        <p>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.
-</p>
-    </section>
-    <footer class="entry-footer">
-        <time>December 31, 2019</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"></a>
-</article>
 
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>Hello World</h2>
-    </header>
-    <section class="entry-content">
-        <p>你好 世界 想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.
+<article class="page-content">
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>2019年度总结</h2>
+        </header>
+        <section class="entry-content">
+            <p>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.
+</p>
+        </section>
+        <footer class="entry-footer">
+            <time>December 31, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/"></a>
+    </div>
+    
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>Hello World</h2>
+        </header>
+        <section class="entry-content">
+            <p>你好 世界 想来准备跨考计算机已经快两年了, 从2018年的下半年开始, 可以说是我学习最快的一段时间, 我也终于体会到了以兴趣为导向的学习是多么一件快乐的事情.
 其实很早之前就有写博客的想法, 但是一直没有动手. 今天算是开头了. 我想先聊聊我从安于现状到准备跨考的心路历程.
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>July 05, 2019</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/hello-world/"></a>
+        </section>
+        <footer class="entry-footer">
+            <time>July 05, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/hello-world/"></a>
+    </div>
+    
 </article>
-
 
 
         </main><footer class="footer">
-    
     <div>
         
         

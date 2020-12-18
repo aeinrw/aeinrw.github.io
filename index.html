@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>aeinrw</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,22 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list home"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                    home
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,72 +49,79 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
-<article class="first-entry">
-    <header class="entry-header">
-        <h2>关于我</h2>
-    </header>
-    <section class="entry-content">
-        <p>嗨!感谢你发现我! 我是aeinrw. 这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西. 😂😘😍😊😁</p>
-    </section>
-    <footer class="entry-footer">
-        <time>July 05, 2019</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/about/"></a>
-</article>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>Pytorch.optim源码解析</h2>
-    </header>
-    <section class="entry-content">
-        <p>torch.optim torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。
+</header><main id="content">
+
+
+
+<article class="page-content">
+    <div class="first-entry">
+        <header class="entry-header">
+            <h2>Pytorch.optim源码解析</h2>
+        </header>
+        <section class="entry-content">
+            <p>torch.optim torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>December 17, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/"></a>
-</article>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>向量对矩阵求导</h2>
-    </header>
-    <section class="entry-content">
-        <p>设： $$ \begin{align} L\longleftarrow &amp;y_{m\times 1} \longleftarrow X_{m\times n} \\
+        </section>
+        <footer class="entry-footer">
+            <time>December 17, 2020</time>
+        </footer>
+        <div class="entry-lastest">最新</div>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/"></a>
+    </div>
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>向量对矩阵求导</h2>
+        </header>
+        <section class="entry-content">
+            <p>设： $$ \begin{align} L\longleftarrow &amp;y_{m\times 1} \longleftarrow X_{m\times n} \\
 y&amp;=Xa \end{align} $$
 求：
 $$ \frac{\partial L}{\partial X} $$
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>December 16, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/"></a>
-</article>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>交叉熵损失函数的梯度</h2>
-    </header>
-    <section class="entry-content">
-        <p>交叉熵梯度的推导 交叉熵损失函数</p>
-    </section>
-    <footer class="entry-footer">
-        <time>December 07, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/"></a>
-</article>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>记个人的第一个完整项目</h2>
-    </header>
-    <section class="entry-content">
-        <p>前后端分离的个人课程表 鉴于目前ios上没有让自己满意的课程表应用, 另外在看到@spencerwooo的个人粉丝记录后产生想法. 前后用时一天, 从后端服务器发出json的API, 到ios上基于scriptable的小组件, 也算是自己的第一个前后端分离的完整项目.
+        </section>
+        <footer class="entry-footer">
+            <time>December 16, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/%E5%90%91%E9%87%8F%E5%AF%B9%E7%9F%A9%E9%98%B5%E6%B1%82%E5%AF%BC/"></a>
+    </div>
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>交叉熵损失函数的梯度</h2>
+        </header>
+        <section class="entry-content">
+            <p>交叉熵梯度的推导 交叉熵损失函数</p>
+        </section>
+        <footer class="entry-footer">
+            <time>December 07, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/"></a>
+    </div>
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>记个人的第一个完整项目</h2>
+        </header>
+        <section class="entry-content">
+            <p>前后端分离的个人课程表 鉴于目前ios上没有让自己满意的课程表应用, 另外在看到@spencerwooo的个人粉丝记录后产生想法. 前后用时一天, 从后端服务器发出json的API, 到ios上基于scriptable的小组件, 也算是自己的第一个前后端分离的完整项目.
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>September 22, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/%E8%AE%B0%E4%B8%AA%E4%BA%BA%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E9%A1%B9%E7%9B%AE/"></a>
+        </section>
+        <footer class="entry-footer">
+            <time>September 22, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/%E8%AE%B0%E4%B8%AA%E4%BA%BA%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E9%A1%B9%E7%9B%AE/"></a>
+    </div>
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>golang的汇编以及栈帧</h2>
+        </header>
+        <section class="entry-content">
+            <p>golang的汇编 在go语言中, 函数的参数和返回值都是通过栈来传递的, 函数调用时会有自己的栈帧, 并引入了几个寄存器来定位栈帧的大小和值的调用.
+</p>
+        </section>
+        <footer class="entry-footer">
+            <time>July 21, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A5%E5%8F%8A%E6%A0%88%E5%B8%A7/"></a>
+    </div>
 </article>
 <footer class="page-footer">
     <nav class="pagination">
@@ -149,7 +131,6 @@ $$ \frac{\partial L}{\partial X} $$
 
 
         </main><footer class="footer">
-    
     <div>
         
         

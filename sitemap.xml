@@ -3,11 +3,6 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.aeinrw.com/about/</loc>
-    <lastmod>2019-07-05T12:10:35+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.aeinrw.com/</loc>
     <lastmod>2020-12-17T11:04:26+08:00</lastmod>
   </url>
@@ -180,6 +175,11 @@
   <url>
     <loc>https://blog.aeinrw.com/posts/hello-world/</loc>
     <lastmod>2019-07-05T22:12:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.aeinrw.com/about/</loc>
+    <lastmod>2019-07-05T12:10:35+08:00</lastmod>
   </url>
   
 </urlset>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>golang中append()的坑</title>
 
     <meta charset="utf-8">
@@ -16,47 +16,19 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="single"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    single
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -75,18 +47,20 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
-<article class="post-single">
-    <header class="post-header">
-        <h1 class="post-title">golang中append()的坑</h1>
-        <div class="post-meta">June 07, 2020</div>
-        <ul class="post-tags">
-            <li><a href="https://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91">踩坑</a></li>
-            <li><a href="https://blog.aeinrw.com/tags/%E5%8E%9F%E7%90%86">原理</a></li>
-            <li><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
-        </ul>
-    </header>
+<header class="page-header">
+    <h1 class="post-title">golang中append()的坑</h1>
+    <div class="post-meta">June 07, 2020</div>
+    <ul class="post-tags">
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E8%B8%A9%E5%9D%91">踩坑</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E5%8E%9F%E7%90%86">原理</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
+    </ul>
+    
+</header>
+
+<article class="page-content">
     <div class="post-content"><h1 id="slice的结构">slice的结构</h1>
 <p>slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.</p>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">type</span> <span class="nx">slice</span> <span class="kd">struct</span> <span class="p">{</span>
@@ -160,10 +134,8 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
 <li>容量为3时, 往切片b中添加元素, 会直接在b的底层数组后面添加, 且返回的值就是b本身, 也就是说在循环过程中, c和b是相同的, 两个切片指向同一个底层数组, b和c的区别在于<code>c.len==3</code>而<code>b.len==2</code>, 而<code>c.data == b.data</code>. 这就导致在后面添加过程中, 会不断修改<code>b.data[2]</code>(注意不是<code>b[2]</code>,b的长度只有2,对于b来说,这个元素没有意义), 导致之前的值都发生了改变.</li>
 </ul>
 <p><img src="https://i.loli.net/2020/06/20/H3OvJBILtXS5FgM.png" alt="append2.png"></p></div>
-    
-    
 
-<div id="vcomments"></div>
+    <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <script type="text/javascript">
@@ -179,17 +151,17 @@ slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意�
     });
 </script>
 
-
     
+
     <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
 </script>
+
 </article>
 
 
         </main><footer class="footer">
-    
     <div>
         
         

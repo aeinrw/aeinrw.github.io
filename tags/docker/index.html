@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>docker</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,20 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,30 +47,32 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
 <header class="page-header">
     <h1 class="post-title">docker</h1>
 </header>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>docker学习笔记</h2>
-    </header>
-    <section class="entry-content">
-        <p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.
+
+<article class="page-content">
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>docker学习笔记</h2>
+        </header>
+        <section class="entry-content">
+            <p>早就听说docker很火, 但一直没有linux设备去学. 有了服务器之后, 才发现linux确实香啊, 但也入门了好久.
 这是我学docker时的笔记, 教学视频看的是docker教学视频链接, 讲的很好, 入门很快.
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>July 09, 2019</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+        </section>
+        <footer class="entry-footer">
+            <time>July 09, 2019</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"></a>
+    </div>
+    
 </article>
 
 
-
         </main><footer class="footer">
-    
     <div>
         
         

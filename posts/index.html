@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>Posts</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,20 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,17 +47,16 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
 <header class="page-header">
     <h1 class="post-title">Timeline</h1>
 </header>
 
-
-<article class="timeline">
-    <h2>2020</h2>
-    <article>
-        <ul>
+<article class="page-content">
+    <div class="post-lists">
+        <h2>2020</h2>
+        <ul class="post-list">
             
             <li>
                 <a href="/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/">Pytorch.optim源码解析</a>
@@ -142,13 +114,11 @@
             </li>
             
         </ul>
-    </article>
-</article>
-
-<article class="timeline">
-    <h2>2019</h2>
-    <article>
-        <ul>
+    </div>
+    
+    <div class="post-lists">
+        <h2>2019</h2>
+        <ul class="post-list">
             
             <li>
                 <a href="/posts/2019%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/">2019年度总结</a>
@@ -171,13 +141,12 @@
             </li>
             
         </ul>
-    </article>
+    </div>
+    
 </article>
 
 
-
         </main><footer class="footer">
-    
     <div>
         
         

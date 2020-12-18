@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>关于我</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,19 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="single"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    single
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,22 +46,21 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
-<article class="post-single">
-    <header class="post-header">
-        <h1 class="post-title">关于我</h1>
-        <div class="post-meta">July 05, 2019</div>
-    </header>
+<header class="page-header">
+    <h1 class="post-title">关于我</h1>
+    <div class="post-meta">July 05, 2019</div>
+</header>
+
+<article class="page-content">
     <div class="post-content"><p>嗨!感谢你发现我!</p>
 <p>我是aeinrw.</p>
 <p>这个博客是用来平时写点学习中的感悟和总结的,偶尔也会写点其他东西.</p>
 <p>😂😘😍😊😁</p>
 </div>
-    
-    
 
-<div id="vcomments"></div>
+    <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <script type="text/javascript">
@@ -105,14 +76,14 @@
     });
 </script>
 
+    
 
     
-    
+
 </article>
 
 
         </main><footer class="footer">
-    
     <div>
         
         

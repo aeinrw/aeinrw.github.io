@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>golang中的byte,rune,string</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,19 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="single"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    single
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,16 +46,18 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
-<article class="post-single">
-    <header class="post-header">
-        <h1 class="post-title">golang中的byte,rune,string</h1>
-        <div class="post-meta">June 03, 2020</div>
-        <ul class="post-tags">
-            <li><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
-        </ul>
-    </header>
+<header class="page-header">
+    <h1 class="post-title">golang中的byte,rune,string</h1>
+    <div class="post-meta">June 03, 2020</div>
+    <ul class="post-tags">
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/golang">golang</a></li>
+    </ul>
+    
+</header>
+
+<article class="page-content">
     <div class="post-content"><p>在go语言中, 字符串<code>string</code>被封装. 在学到接口时, <code>io.Writer</code>和<code>io.Reader</code>的参数都是<code>[]byte</code>, 而不是<code>string</code>. 另外, go也支持utf8, 又引入了<code>rune</code>. 初学时让我很困扰, 这篇文章理清了三者之间的关系.</p>
 <h1 id="底层">底层</h1>
 <h2 id="string和byte"><code>string</code>和<code>[]byte</code></h2>
@@ -115,10 +89,8 @@
 <p>而<code>[]rune</code>很显然就是一个<code>int32</code>的切片, 其中保存了每个utf8字符的编号, 连起来就可以表示一个字符串, <strong>一个切片元素表示一个字符</strong>, 和<code>string</code>不一样.</p>
 <h1 id="三者间的转换">三者间的转换</h1>
 <p><img src="https://i.loli.net/2020/06/19/2FOWw14oX3Msv8r.png" alt="stringTrans.png"></p></div>
-    
-    
 
-<div id="vcomments"></div>
+    <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <script type="text/javascript">
@@ -134,17 +106,17 @@
     });
 </script>
 
-
     
+
     <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
 </script>
+
 </article>
 
 
         </main><footer class="footer">
-    
     <div>
         
         

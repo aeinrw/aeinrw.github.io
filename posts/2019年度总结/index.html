@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>2019年度总结</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,19 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="single"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    single
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,16 +46,18 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
-<article class="post-single">
-    <header class="post-header">
-        <h1 class="post-title">2019年度总结</h1>
-        <div class="post-meta">December 31, 2019</div>
-        <ul class="post-tags">
-            <li><a href="https://blog.aeinrw.com/tags/%E9%9A%8F%E7%AC%94">随笔</a></li>
-        </ul>
-    </header>
+<header class="page-header">
+    <h1 class="post-title">2019年度总结</h1>
+    <div class="post-meta">December 31, 2019</div>
+    <ul class="post-tags">
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E9%9A%8F%E7%AC%94">随笔</a></li>
+    </ul>
+    
+</header>
+
+<article class="page-content">
     <div class="post-content"><p><em>现在是2019年12月31日23时44分,还有15分钟就要2020年了.赶着在2020年到来之前,提交2019年最后一次commit.</em></p>
 <h1 id="学习">学习</h1>
 <p>2019年, 对我来说最重要的一件事情就是考研了, 我先梳理一下这一年来的复习历程.</p>
@@ -151,10 +125,8 @@
 </li>
 </ol>
 <p>其实想写的还有很多, 对2019我有太多的话想说了, 可让我表达出来, 却还真不知道该怎么说, 等成绩下来我在好好聊聊吧.</p></div>
-    
-    
 
-<div id="vcomments"></div>
+    <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <script type="text/javascript">
@@ -170,14 +142,14 @@
     });
 </script>
 
+    
 
     
-    
+
 </article>
 
 
         </main><footer class="footer">
-    
     <div>
         
         

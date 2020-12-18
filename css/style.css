@@ -1,21 +1,13 @@
-/*
- * Paper
- * A simple, clean, flexible Hugo theme
- * https://github.com/nanxiaobei/hugo-paper
- * Designed by MR.LEE (https://mrlee.me/)
- * Updated in 2020.5.15
- */
-
 /* Theme
 -------------------------------------------------- */
 :root {
-  --gap: 22px;
-  --content-gap: 10px;
-  --nav-width: 1024px;
-  --main-width: 1024px;
-  --header-height: 68px;
-  --footer-height: 101px;
-  --radius: 8px;
+  --gap:22px;
+  --content-gap:10px;
+  --header-width:1024px;
+  --main-width:800px;
+  --header-height:68px;
+  --footer-height:101px;
+  --radius:8px;
 
   --theme: #ffffff;
   --entry: #ffffff;
@@ -46,6 +38,7 @@
 .dark.list {
   background: #1a1a1a;
 }
+
 /* Reset
 -------------------------------------------------- */
 *,
@@ -149,7 +142,7 @@ sup {
   font-size: 15px;
   font-weight: 400;
 }
-.main hr {
+.content hr {
   height: 1px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -157,6 +150,7 @@ sup {
   border-top: 0;
   border-bottom: 0;
 }
+
 /* Header
 -------------------------------------------------- */
 #avatar {
@@ -172,7 +166,7 @@ sup {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  max-width: calc(var(--nav-width) + var(--gap) * 2);
+  max-width: calc(var(--header-width) + var(--gap) * 2);
   margin-left: auto;
   margin-right: auto;
 }
@@ -202,12 +196,13 @@ sup {
 .menu a:before {
   font-size: 20px;
 }
-/* .delimiter {
-  border-left: 1.5px solid #161209;
-} */
+.menuicon {
+    font-size: 20px;
+}
+
 /* Main
 -------------------------------------------------- */
-.main {
+#content {
   position: relative;
   min-height: calc(100vh - var(--header-height) - var(--footer-height) - 5px);
   max-width: var(--main-width);
@@ -240,6 +235,7 @@ sup {
   padding-left: 18px;
   padding-right: 16px;
 }
+
 /* Post entry
 -------------------------------------------------- */
 .first-entry {
@@ -309,6 +305,18 @@ sup {
   top: 0;
   bottom: 0;
 }
+
+.entry-lastest {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.88);
+  color: #fff;
+  border-radius: 0 10px;
+  font-size: 10px;
+  padding: 5px 10px;
+}
+
 /* Post single
 -------------------------------------------------- */
 .post-header {
@@ -336,7 +344,6 @@ sup {
 .post-content h6 {
   margin-top: 16px;
   margin-bottom: 16px;
-  margin-left: -22px;
 }
 .post-content h1 {
   font-size: 28px;
@@ -534,6 +541,7 @@ sup {
 .post-tags a:hover {
   background: var(--border);
 }
+
 /* Footer
 -------------------------------------------------- */
 .footer {
@@ -557,12 +565,13 @@ sup {
   color: var(--primary);
   border-bottom: 1px solid var(--primary);
 }
+
 /* timeline
 -------------------------------------------------- */
-.timeline {
+.post-lists {
   margin: 20px 0px;
 }
-.timeline h2 {
+.post-lists h2 {
   display: block;
   padding-left: 14px;
   padding-right: 14px;
@@ -572,7 +581,7 @@ sup {
   margin: 4px 0px 4px 0px;
   line-height: 1.4;
 }
-.timeline li {
+.post-lists li {
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -580,28 +589,30 @@ sup {
   box-sizing: border-box;
   margin: 0.25rem 0.5rem;
 }
-.timeline a {
+.post-lists a {
   display: table-cell;
   color: var(--secondary);
   font-size: 17px;
 }
-.timeline div {
+.post-lists div {
   text-align: right;
   color: var(--secondary);
   font-size: 17px;
 }
-/* 404
--------------------------------------------------- */
-.not-found {
-  position: absolute;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80%;
-  font-size: 160px;
-  font-weight: 700;
+
+/*custom
+********************************/
+.main .post-entry:active {
+        -webkit-transform: scale(.96);
+    transform: scale(.96);
+    transition: -webkit-transform .1s;
+    transition: transform .1s;
+    transition: transform .1s,-webkit-transform .1s
+}
+
+mjx-container {
+    overflow-y: hidden;
+    overflow-x: scroll;
 }
 
 .ln {
@@ -625,37 +636,6 @@ sup {
   padding: 3px;
 }
 
-.post-content h1::before {
-  content: 'H1';
-
-}
-
-.post-content h2::before {
-  content: 'H2';
-
-}
-
-.post-content h3::before {
-  content: 'H3';
-
-}
-
-.post-content h4::before {
-  content: 'H4';
-
-}
-
-.post-content h5::before {
-  content: 'H5';
-}
-
-.post-content h6::before {
-  content: 'H6';
-}
-
-.menuicon {
-  font-size: 20px;
-}
 
 ::-webkit-scrollbar {
   width: .5rem;
@@ -667,3 +647,4 @@ sup {
   background-color: var(--code-bg);
   border-radius: 5px;
 }
+

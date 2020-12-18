@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>踩坑</title>
 
     <meta charset="utf-8">
@@ -15,47 +15,20 @@
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="list"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    list
+                 
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -74,43 +47,45 @@
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
 <header class="page-header">
     <h1 class="post-title">踩坑</h1>
 </header>
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>人生第一次删站</h2>
-    </header>
-    <section class="entry-content">
-        <p>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原状.
-</p>
-    </section>
-    <footer class="entry-footer">
-        <time>June 28, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/"></a>
-</article>
 
-<article class="post-entry">
-    <header class="entry-header">
-        <h2>golang中append()的坑</h2>
-    </header>
-    <section class="entry-content">
-        <p>slice的结构 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.
+<article class="page-content">
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>人生第一次删站</h2>
+        </header>
+        <section class="entry-content">
+            <p>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原状.
 </p>
-    </section>
-    <footer class="entry-footer">
-        <time>June 07, 2020</time>
-    </footer>
-    <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/"></a>
+        </section>
+        <footer class="entry-footer">
+            <time>June 28, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/%E4%BA%BA%E7%94%9F%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%88%A0%E7%AB%99/"></a>
+    </div>
+    
+    <div class="post-entry">
+        <header class="entry-header">
+            <h2>golang中append()的坑</h2>
+        </header>
+        <section class="entry-content">
+            <p>slice的结构 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.
+</p>
+        </section>
+        <footer class="entry-footer">
+            <time>June 07, 2020</time>
+        </footer>
+        <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/"></a>
+    </div>
+    
 </article>
-
 
 
         </main><footer class="footer">
-    
     <div>
         
         

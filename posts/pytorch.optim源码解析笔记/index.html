@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"><head>
+<html><head>
     <title>Pytorch.optim源码解析</title>
 
     <meta charset="utf-8">
@@ -16,47 +16,19 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
-    <link rel="stylesheet" href="https://blog.aeinrw.com/css/custom.css">
+    
     <link rel="stylesheet" href="https://blog.aeinrw.com/css/highlight.css">
 
 
     <meta name="generator" content="Hugo 0.79.0" />
 
-    <script>
-        function setTheme() {
-            const now = (new Date()).getHours();
-            const prev = Number(localStorage.getItem('oldHour'));
-
-            if (prev !== now) {
-                localStorage.setItem('oldHour', now);
-                if (now > 7 && now < 18) {
-                    localStorage.setItem("isDark", "false");
-                    document.body.classList.remove('dark');
-                } else {
-                    localStorage.setItem("isDark", "true");
-                    document.body.classList.add('dark');
-                }
-            } else {
-                if (localStorage.getItem('isDark') == "true") {
-                    document.body.classList.add('dark');
-                } else {
-                    document.body.classList.remove('dark');
-                }
-            }
-        }
-        function switchTheme() {
-            if (localStorage.getItem('isDark') == "true") {
-                localStorage.setItem('isDark', "false");
-                document.body.classList.remove('dark');
-            } else {
-                localStorage.setItem('isDark', "true");
-                document.body.classList.add('dark');
-            }
-        }
-    </script>
-</head><body class="single"><script>
+    <script src="https://blog.aeinrw.com/js/theme.js"></script>
+</head><body class="
+                    single
+                 "><script>
     setTheme();
 </script>
+
 <header class="header">
     <nav class="nav">
         <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
@@ -75,21 +47,23 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
             </li>
         </ul>
     </nav>
-</header><main class="main">
+</header><main id="content">
 
-<article class="post-single">
-    <header class="post-header">
-        <h1 class="post-title">Pytorch.optim源码解析</h1>
-        <div class="post-meta">December 17, 2020</div>
-        <ul class="post-tags">
-            <li><a href="https://blog.aeinrw.com/tags/pytorch">pytorch</a></li>
-            <li><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
-            <li><a href="https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81">源码</a></li>
-        </ul>
-    </header>
+<header class="page-header">
+    <h1 class="post-title">Pytorch.optim源码解析</h1>
+    <div class="post-meta">December 17, 2020</div>
+    <ul class="post-tags">
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/pytorch">pytorch</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81">源码</a></li>
+    </ul>
+    
+</header>
+
+<article class="page-content">
     <div class="post-content"><h1 id="torchoptim">torch.optim</h1>
-<p><code>torch.optim</code>是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的<code>Optimizer</code>，其他优化器全部继承于这个类。</p>
-<h1 id="optimizer类"><code>Optimizer</code>类</h1>
+<p>torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。</p>
+<h1 id="optimizer类">Optimizer类</h1>
 <p><code>Optimizer</code>是所有优化器的base class，定义了三个属性以及若干方法。</p>
 <h2 id="构造函数">构造函数</h2>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">params</span><span class="p">,</span><span class="n">defaults</span><span class="p">):</span>
@@ -103,7 +77,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">9</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_param_group</span><span class="p">(</span><span class="n">param_group</span><span class="p">)</span>
 </code></pre></div><p>删去代码中多余的细节，<code>__init__</code>函数一般由子类的构造函数调用，传入两个参数：</p>
 <ul>
-<li><code>param</code>：为模型的参数，一般传入<code>model.parameters()</code>，一般为一个生成器。需要进行先进行列表化，再转化成一个<strong>字典的列表</strong>。这么做是为了兼容下面的<code>add_param_group</code>函数；</li>
+<li><code>param</code>：为模型的参数，一般传入model.parameters()，一般为一个生成器。需要进行先进行列表化，再转化成一个<strong>字典的列表</strong>。这么做是为了兼容下面的add_param_grou函数；</li>
 <li><code>defaults</code>：为子类的一些具体参数的字典。</li>
 </ul>
 <p>定义了三个字段：</p>
@@ -114,7 +88,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <li>
 <p><code>state</code>：为一个<code>defaultdict(dict)</code>，保存了优化过程中的状态值，例如<em>带动量SGD的速度</em>；</p>
 <blockquote>
-<p><code>defaultdict</code>为<code>collection</code>包下的类，当key不在字典中时，不会产生错误，而是返回对应的空值，<code>dict</code>则会返回<code>{}</code>，且传的是引用，对后面的操作会直接影响原字典。</p>
+<p>defaultdict为collection包下的类，当key不在字典中时，不会产生错误，而是返回对应的空值，dict则会返回{}，且传的是引用，对后面的操作会直接影响原字典。</p>
 </blockquote>
 </li>
 <li>
@@ -155,8 +129,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">4</span>            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
 <span class="ln">5</span>            	<span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span> <span class="c1"># 切断联系</span>
 <span class="ln">6</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span> 
-<span class="ln">7</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span> <span class="c1"># 梯度设置为0</span>
-<span class="ln">8</span>                
+<span class="ln">7</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span> <span class="c1"># 梯度设置为0       </span>
 </code></pre></div><h2 id="state_dict方法"><code>state_dict</code>方法</h2>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="ln"> 2</span>    <span class="n">param_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&#39;&#39;张量id：张量&#39;&#39;&#39;</span><span class="p">}</span>
@@ -172,7 +145,6 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">12</span>        <span class="s1">&#39;state&#39;</span><span class="p">:</span><span class="n">packed_state</span><span class="p">,</span>
 <span class="ln">13</span>        <span class="s1">&#39;param_groups&#39;</span><span class="p">:</span><span class="n">param_groups</span><span class="p">,</span>
 <span class="ln">14</span>    <span class="p">}</span>
-<span class="ln">15</span>    
 </code></pre></div><p>可参考SGD的调用结果进行理解。</p>
 <h1 id="sgd类"><code>SGD</code>类</h1>
 <p><code>SGD</code>是<code>Optimizer</code>的一个子类，是具体实现。<code>Optimizer</code>的所有子类只实现了<code>step</code>方法。</p>
@@ -259,10 +231,8 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">5</span> <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
 </code></pre></div></li>
 </ol></div>
-    
-    
 
-<div id="vcomments"></div>
+    <div id="vcomments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
 <script type="text/javascript">
@@ -278,17 +248,17 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
     });
 </script>
 
-
     
+
     <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
 <script>
     hljs.initHighlightingOnLoad();
 </script>
+
 </article>
 
 
         </main><footer class="footer">
-    
     <div>
         
         
