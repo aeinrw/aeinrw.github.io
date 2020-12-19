@@ -57,8 +57,8 @@
     
 </header>
 
-<article class="page-content">
-    <div class="post-content"><p>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原状.</p>
+<article class="post-content">
+    <p>2020.6.28日, 我由于一个没想到的bug, 导致了一次删站事件! 虽然没有源文件, 但是根据记忆和生成的html文件还是在三个小时候回复了原状.</p>
 <h1 id="起因">起因</h1>
 <p>hugo在每次进行发布时, 需要执行<code>hugo</code>命令在public文件夹生成静态文件, 但不会删除之前的已有的文件, 只会覆盖. 生成后, 还需手动cd到public文件夹中进行<code>git add</code>,<code>git commit</code>,<code>git push</code>.</p>
 <p>操作非常繁琐, 索性我就写了一段shell脚本进行执行.</p>
@@ -77,23 +77,9 @@
 <span class="ln">3</span><span class="nb">cd </span><span class="n">public</span>
 <span class="ln">4</span><span class="p">...</span>
 </code></pre></div><p>换用绝对路径就没事了.</p>
-<p>害,血的教训🤷‍♂️🤷‍♂️🤷‍♂️</p></div>
+<p>害,血的教训🤷‍♂️🤷‍♂️🤷‍♂️</p>
 
-    <div id="vcomments"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script type="text/javascript">
-    new Valine({
-        el: '#vcomments',
-        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
-        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
-        notify:  false ,
-        verify:  false ,
-        avatar: 'mm',
-        placeholder: '给我留言吧...',
-        visitor:  true 
-    });
-</script>
+    
 
     
 
@@ -132,12 +118,7 @@
         
         
     </div>
-    <div>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
-        <span>&middot;</span>
-        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
-    </div>
+    
     <div>
         <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
         <span>&middot;</span>

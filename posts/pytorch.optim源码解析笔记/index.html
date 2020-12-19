@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="torch.optim
+    <meta name="description" content="1. torch.optim
 torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。">
     <meta name="author" content="">
 
@@ -60,12 +60,12 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
     
 </header>
 
-<article class="page-content">
-    <div class="post-content"><h1 id="torchoptim">torch.optim</h1>
-<p>torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。</p>
-<h1 id="optimizer类">Optimizer类</h1>
+<article class="post-content">
+    <h1 id="1-torchoptim">1. torch.optim</h1>
+<p><code>torch.optim</code>是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的<code>Optimizer</code>，其他优化器全部继承于这个类。</p>
+<h1 id="2-optimizer类">2. Optimizer类</h1>
 <p><code>Optimizer</code>是所有优化器的base class，定义了三个属性以及若干方法。</p>
-<h2 id="构造函数">构造函数</h2>
+<h2 id="21-构造函数">2.1. 构造函数</h2>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">params</span><span class="p">,</span><span class="n">defaults</span><span class="p">):</span>
 <span class="ln">2</span>    <span class="bp">self</span><span class="o">.</span><span class="n">defaults</span> <span class="o">=</span> <span class="n">defaults</span>
 <span class="ln">3</span>    <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
@@ -77,7 +77,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">9</span>        <span class="bp">self</span><span class="o">.</span><span class="n">add_param_group</span><span class="p">(</span><span class="n">param_group</span><span class="p">)</span>
 </code></pre></div><p>删去代码中多余的细节，<code>__init__</code>函数一般由子类的构造函数调用，传入两个参数：</p>
 <ul>
-<li><code>param</code>：为模型的参数，一般传入model.parameters()，一般为一个生成器。需要进行先进行列表化，再转化成一个<strong>字典的列表</strong>。这么做是为了兼容下面的add_param_grou函数；</li>
+<li><code>param</code>：为模型的参数，一般传入<code>model.parameters()</code>，一般为一个生成器。需要进行先进行列表化，再转化成一个<strong>字典的列表</strong>。这么做是为了兼容下面的<code>add_param_group</code>函数；</li>
 <li><code>defaults</code>：为子类的一些具体参数的字典。</li>
 </ul>
 <p>定义了三个字段：</p>
@@ -97,7 +97,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 </ul>
 <p>调用了<code>add_param_group</code>函数，为模型添加第一组张量和优化器参数。</p>
 <p>在此之前，需要传入的是字典，需要把参数<code>params</code>先进行列表化，再变为一个字典，如第6行代码所示。</p>
-<h2 id="add_param_group方法"><code>add_param_group</code>方法</h2>
+<h2 id="22-add_param_group方法">2.2. add_param_group方法</h2>
 <p>这个函数由于为优化器绑定其他张量和优化器参数，也就是说<strong>优化器是可以复用的</strong>，在构造函数中添加了第一组。</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">def</span> <span class="nf">add_param_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">param_group</span><span class="p">):</span>
 <span class="ln"> 2</span>    <span class="c1"># 赋值其他优化器属性</span>
@@ -121,7 +121,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">20</span>    
 <span class="ln">21</span>    <span class="c1"># 添加新组</span>
 <span class="ln">22</span>    <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param_group</span><span class="p">)</span>
-</code></pre></div><h2 id="zero_grad方法"><code>zero_grad</code>方法</h2>
+</code></pre></div><h2 id="23-zero_grad方法">2.3. zero_grad方法</h2>
 <p>清空优化器绑定的所有张量的梯度。</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="nf">zero_grad</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="ln">2</span>    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>	<span class="c1"># 遍历组</span>
@@ -130,7 +130,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">5</span>            	<span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">detach_</span><span class="p">()</span> <span class="c1"># 切断联系</span>
 <span class="ln">6</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span> 
 <span class="ln">7</span>                <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">zero_</span><span class="p">()</span> <span class="c1"># 梯度设置为0       </span>
-</code></pre></div><h2 id="state_dict方法"><code>state_dict</code>方法</h2>
+</code></pre></div><h2 id="24-state_dict方法">2.4. state_dict方法</h2>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">def</span> <span class="nf">state_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="ln"> 2</span>    <span class="n">param_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&#39;&#39;张量id：张量&#39;&#39;&#39;</span><span class="p">}</span>
 <span class="ln"> 3</span>    
@@ -146,7 +146,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">13</span>        <span class="s1">&#39;param_groups&#39;</span><span class="p">:</span><span class="n">param_groups</span><span class="p">,</span>
 <span class="ln">14</span>    <span class="p">}</span>
 </code></pre></div><p>可参考SGD的调用结果进行理解。</p>
-<h1 id="sgd类"><code>SGD</code>类</h1>
+<h1 id="3-sgd类">3. SGD类</h1>
 <p><code>SGD</code>是<code>Optimizer</code>的一个子类，是具体实现。<code>Optimizer</code>的所有子类只实现了<code>step</code>方法。</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">required</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">dampening</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
 <span class="ln">2</span>                 <span class="n">weight_decay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nesterov</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
@@ -161,7 +161,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">5</span>            <span class="n">p</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="p">,</span><span class="n">alpha</span><span class="o">=-</span><span class="n">group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">])</span>
 </code></pre></div><p>去掉其他参数的影响，可以看到梯度下降的过程。</p>
 <hr>
-<h1 id="实例">实例</h1>
+<h1 id="4-实例">4. 实例</h1>
 <ol>
 <li>
 <p><code>sgd.param_groups</code></p>
@@ -230,23 +230,9 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
 <span class="ln">4</span> <span class="s1">&#39;weight_decay&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 <span class="ln">5</span> <span class="s1">&#39;nesterov&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">}</span>
 </code></pre></div></li>
-</ol></div>
+</ol>
 
-    <div id="vcomments"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script type="text/javascript">
-    new Valine({
-        el: '#vcomments',
-        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
-        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
-        notify:  false ,
-        verify:  false ,
-        avatar: 'mm',
-        placeholder: '给我留言吧...',
-        visitor:  true 
-    });
-</script>
+    
 
     
 
@@ -285,12 +271,7 @@ torch.optim是实现各种优化算法的包，包含了常见优化器的实现
         
         
     </div>
-    <div>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
-        <span>&middot;</span>
-        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
-    </div>
+    
     <div>
         <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
         <span>&middot;</span>

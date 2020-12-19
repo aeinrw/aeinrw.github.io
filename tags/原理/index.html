@@ -52,54 +52,57 @@
 <header class="page-header">
     <h1 class="post-title">原理</h1>
 </header>
+<article class="post-entry">
 
-<article class="page-content">
-    <div class="post-entry">
-        <header class="entry-header">
-            <h2>golang中append()的坑</h2>
-        </header>
-        <section class="entry-content">
-            <p>slice的结构 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.
+    <header class="entry-header">
+        <h2>golang中append()的坑</h2>
+    </header>
+    <section class="entry-content">
+        <p>slice的结构 slice(切片)是go提供的变长数组, 类似于STL中的vector, 可以随意进行长度扩展.
 </p>
-        </section>
-        <footer class="entry-footer">
-            <time>June 07, 2020</time>
-        </footer>
-        <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/"></a>
-    </div>
-    
-    <div class="post-entry">
-        <header class="entry-header">
-            <h2>RSA算法和ssh登录详解</h2>
-        </header>
-        <section class="entry-content">
-            <p>RSA算法 数学原理 费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.
+    </section>
+    <footer class="entry-footer">
+        <time>June 07, 2020</time>
+    </footer>
+    <a class="entry-link" href="https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/"></a>
+
+</article>
+
+<article class="post-entry">
+
+    <header class="entry-header">
+        <h2>RSA算法和ssh登录详解</h2>
+    </header>
+    <section class="entry-content">
+        <p>RSA算法 数学原理 费马小定理: 若$a \in Z , p \in P$, 则$a^{p}-a$一定是p的倍数.
 即$(a^{p}-a)/p$的余数为零, $a^{p}/p$和$a/p$同余, $a^{p} \equiv a (mod\ p)$. 如果a不是p的倍数, 则$a^{p-1}-1$是p的倍数.
 欧拉-费马小定理: 若$a \in Z , n \in Z$, 且a,n互素, 则$a^{\varphi(n)}-1 \equiv 1 (mod\ n)$.
 其中, 若n为质数,$\varphi(n)=n-1$. 若p,q互质, 则$\varphi(pq)=(p-1)(q-1)$.
 </p>
-        </section>
-        <footer class="entry-footer">
-            <time>May 29, 2020</time>
-        </footer>
-        <a class="entry-link" href="https://blog.aeinrw.com/posts/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/"></a>
-    </div>
-    
-    <div class="post-entry">
-        <header class="entry-header">
-            <h2>git reset命令</h2>
-        </header>
-        <section class="entry-content">
-            <p>1git reset --soft 2git reset --mix 3git reset --hard 在初学git时, git reset命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.
-</p>
-        </section>
-        <footer class="entry-footer">
-            <time>May 27, 2020</time>
-        </footer>
-        <a class="entry-link" href="https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/"></a>
-    </div>
-    
+    </section>
+    <footer class="entry-footer">
+        <time>May 29, 2020</time>
+    </footer>
+    <a class="entry-link" href="https://blog.aeinrw.com/posts/rsa%E7%AE%97%E6%B3%95%E5%92%8Cssh%E7%99%BB%E5%BD%95%E8%AF%A6%E8%A7%A3/"></a>
+
 </article>
+
+<article class="post-entry">
+
+    <header class="entry-header">
+        <h2>git reset命令</h2>
+    </header>
+    <section class="entry-content">
+        <p>1git reset --soft 2git reset --mix 3git reset --hard 在初学git时, git reset命令非常难以理解. 在理解了git的底层数据结构后, 这个命令的使用就比较清楚了.
+</p>
+    </section>
+    <footer class="entry-footer">
+        <time>May 27, 2020</time>
+    </footer>
+    <a class="entry-link" href="https://blog.aeinrw.com/posts/git-reset%E5%91%BD%E4%BB%A4/"></a>
+
+</article>
+
 
 
         </main><footer class="footer">
@@ -129,12 +132,7 @@
         
         
     </div>
-    <div>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
-        <span>&middot;</span>
-        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
-    </div>
+    
     <div>
         <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
         <span>&middot;</span>

@@ -15,8 +15,8 @@
       <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/pytorch.optim%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
-      <description>&lt;h1 id=&#34;torchoptim&#34;&gt;torch.optim&lt;/h1&gt;
-&lt;p&gt;torch.optim是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的Optimizer，其他优化器全部继承于这个类。&lt;/p&gt;</description>
+      <description>&lt;h1 id=&#34;1-torchoptim&#34;&gt;1. torch.optim&lt;/h1&gt;
+&lt;p&gt;&lt;code&gt;torch.optim&lt;/code&gt;是实现各种优化算法的包，包含了常见优化器的实现，包的结构也非常简单，基类为optimizer.py下的&lt;code&gt;Optimizer&lt;/code&gt;，其他优化器全部继承于这个类。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -44,8 +44,8 @@ $$&lt;/p&gt;</description>
       <pubDate>Mon, 07 Dec 2020 21:11:04 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E7%9A%84%E6%A2%AF%E5%BA%A6/</guid>
-      <description>&lt;h1 id=&#34;交叉熵梯度的推导&#34;&gt;交叉熵梯度的推导&lt;/h1&gt;
-&lt;h2 id=&#34;交叉熵损失函数&#34;&gt;交叉熵损失函数&lt;/h2&gt;</description>
+      <description>&lt;h1 id=&#34;1-交叉熵梯度的推导&#34;&gt;1. 交叉熵梯度的推导&lt;/h1&gt;
+&lt;h2 id=&#34;11-交叉熵损失函数&#34;&gt;1.1 交叉熵损失函数&lt;/h2&gt;</description>
     </item>
     
     <item>
@@ -54,7 +54,7 @@ $$&lt;/p&gt;</description>
       <pubDate>Tue, 22 Sep 2020 20:01:52 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/posts/%E8%AE%B0%E4%B8%AA%E4%BA%BA%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E9%A1%B9%E7%9B%AE/</guid>
-      <description>&lt;h1 id=&#34;前后端分离的个人课程表&#34;&gt;前后端分离的个人课程表&lt;/h1&gt;
+      <description>&lt;h1 id=&#34;1-前后端分离的个人课程表&#34;&gt;1. 前后端分离的个人课程表&lt;/h1&gt;
 &lt;p&gt;鉴于目前ios上没有让自己满意的课程表应用, 另外在看到&lt;a href=&#34;https://sspai.com/u/spencerwoo/updates&#34;&gt;@spencerwooo&lt;/a&gt;的&lt;a href=&#34;https://gist.github.com/spencerwooo/7955aefc4ffa5bc8ae7c83d85d05e7a4&#34;&gt;个人粉丝记录&lt;/a&gt;后产生想法. 前后用时一天, 从后端服务器发出json的API, 到ios上基于scriptable的小组件, 也算是自己的第一个前后端分离的完整项目.&lt;/p&gt;</description>
     </item>
     

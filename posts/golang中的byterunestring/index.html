@@ -57,8 +57,8 @@
     
 </header>
 
-<article class="page-content">
-    <div class="post-content"><p>在go语言中, 字符串<code>string</code>被封装. 在学到接口时, <code>io.Writer</code>和<code>io.Reader</code>的参数都是<code>[]byte</code>, 而不是<code>string</code>. 另外, go也支持utf8, 又引入了<code>rune</code>. 初学时让我很困扰, 这篇文章理清了三者之间的关系.</p>
+<article class="post-content">
+    <p>在go语言中, 字符串<code>string</code>被封装. 在学到接口时, <code>io.Writer</code>和<code>io.Reader</code>的参数都是<code>[]byte</code>, 而不是<code>string</code>. 另外, go也支持utf8, 又引入了<code>rune</code>. 初学时让我很困扰, 这篇文章理清了三者之间的关系.</p>
 <h1 id="底层">底层</h1>
 <h2 id="string和byte"><code>string</code>和<code>[]byte</code></h2>
 <p>string是经过golang封装过的数据结构, 即字符串, 然而在底层, 它是一个<code>byte</code>类型的切片, 即<code>[]byte</code>.</p>
@@ -88,23 +88,9 @@
 </code></pre></div><p><code>rune</code>中存的字符就已经去掉标识位, 不表示编码而只表示编号了.</p>
 <p>而<code>[]rune</code>很显然就是一个<code>int32</code>的切片, 其中保存了每个utf8字符的编号, 连起来就可以表示一个字符串, <strong>一个切片元素表示一个字符</strong>, 和<code>string</code>不一样.</p>
 <h1 id="三者间的转换">三者间的转换</h1>
-<p><img src="https://i.loli.net/2020/06/19/2FOWw14oX3Msv8r.png" alt="stringTrans.png"></p></div>
+<p><img src="https://i.loli.net/2020/06/19/2FOWw14oX3Msv8r.png" alt="stringTrans.png"></p>
 
-    <div id="vcomments"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script type="text/javascript">
-    new Valine({
-        el: '#vcomments',
-        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
-        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
-        notify:  false ,
-        verify:  false ,
-        avatar: 'mm',
-        placeholder: '给我留言吧...',
-        visitor:  true 
-    });
-</script>
+    
 
     
 
@@ -143,12 +129,7 @@
         
         
     </div>
-    <div>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
-        <span>&middot;</span>
-        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
-    </div>
+    
     <div>
         <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
         <span>&middot;</span>

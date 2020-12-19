@@ -59,8 +59,8 @@
     
 </header>
 
-<article class="page-content">
-    <div class="post-content"><h1 id="golang的interface">golang的<code>interface</code></h1>
+<article class="post-content">
+    <h1 id="golang的interface">golang的<code>interface</code></h1>
 <h2 id="简介">简介</h2>
 <p>简单地说, golang中地<code>interface</code>就是一组<strong>方法的组合</strong>. 任意对象, 只要一点不差的实现了这些方法, 那就相当于实现了这个接口.</p>
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">type</span> <span class="nx">InterfaceName</span> <span class="kd">interface</span> <span class="p">{</span>
@@ -150,23 +150,9 @@
 <div class="highlight"><pre class="chroma"><code class="language-golang" data-lang="golang"><span class="ln">1</span><span class="kd">func</span> <span class="nf">Printf</span><span class="p">(</span><span class="nx">format</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">a</span> <span class="o">...</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
 <span class="ln">2</span>    <span class="nf">Fprintf</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">Stdout</span><span class="p">,</span><span class="nx">format</span><span class="p">,</span><span class="nx">a</span><span class="p">)</span>
 <span class="ln">3</span><span class="p">}</span>
-</code></pre></div><p><code>fmt.Printf</code>就是调用了前者方法, 只不过传入的参数为<code>os.Stdout</code>, 也就是把字符串输出到控制台.</p></div>
+</code></pre></div><p><code>fmt.Printf</code>就是调用了前者方法, 只不过传入的参数为<code>os.Stdout</code>, 也就是把字符串输出到控制台.</p>
 
-    <div id="vcomments"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script type="text/javascript">
-    new Valine({
-        el: '#vcomments',
-        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
-        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
-        notify:  false ,
-        verify:  false ,
-        avatar: 'mm',
-        placeholder: '给我留言吧...',
-        visitor:  true 
-    });
-</script>
+    
 
     
 
@@ -205,12 +191,7 @@
         
         
     </div>
-    <div>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
-        <span>&middot;</span>
-        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
-    </div>
+    
     <div>
         <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
         <span>&middot;</span>

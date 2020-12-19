@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="前后端分离的个人课程表
+    <meta name="description" content="1. 前后端分离的个人课程表
 鉴于目前ios上没有让自己满意的课程表应用, 另外在看到@spencerwooo的个人粉丝记录后产生想法. 前后用时一天, 从后端服务器发出json的API, 到ios上基于scriptable的小组件, 也算是自己的第一个前后端分离的完整项目.">
     <meta name="author" content="">
 
@@ -59,8 +59,8 @@
     
 </header>
 
-<article class="page-content">
-    <div class="post-content"><h1 id="前后端分离的个人课程表">前后端分离的个人课程表</h1>
+<article class="post-content">
+    <h1 id="1-前后端分离的个人课程表">1. 前后端分离的个人课程表</h1>
 <p>鉴于目前ios上没有让自己满意的课程表应用, 另外在看到<a href="https://sspai.com/u/spencerwoo/updates">@spencerwooo</a>的<a href="https://gist.github.com/spencerwooo/7955aefc4ffa5bc8ae7c83d85d05e7a4">个人粉丝记录</a>后产生想法. 前后用时一天, 从后端服务器发出json的API, 到ios上基于scriptable的小组件, 也算是自己的第一个前后端分离的完整项目.</p>
 <p>现有APP的痛点:</p>
 <ul>
@@ -68,10 +68,10 @@
 <li>大部分不支持设置课程的周数</li>
 <li>丑! (事实上我做出来的更丑……)</li>
 </ul>
-<h2 id="数据库">数据库</h2>
+<h2 id="11-数据库">1.1 数据库</h2>
 <p>因为数据并没有很多, 所以只用了一个表, 手工录入了这学期的课程.</p>
 <p><img src="https://i.loli.net/2020/09/22/TA4vJPEyeCMWLi9.png" alt="课程表数据库.png"></p>
-<h2 id="后端">后端</h2>
+<h2 id="12-后端">1.2 后端</h2>
 <p>后端采用了golang原生的net/http库, API的设计也比较简单.</p>
 <p>请求的格式为<em>http://139.196.30.143:8199/search?date=2020/9/23</em>, <code>date</code>表示当天课程的日期.</p>
 <p>返回的json数据如下</p>
@@ -196,7 +196,7 @@
 <span class="ln">95</span>	<span class="nx">http</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/search&#34;</span><span class="p">,</span> <span class="nx">handler</span><span class="p">)</span>
 <span class="ln">96</span>	<span class="nx">serve</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">()</span>
 <span class="ln">97</span><span class="p">}</span>
-</code></pre></div><h2 id="前端">前端</h2>
+</code></pre></div><h2 id="13-前端">1.3 前端</h2>
 <p>前端平台是ios, 主要是想把信息展示再widget上.</p>
 <p>利用的是scriptable, 这个软件可以自己编程并展示信息, 利用javascript.</p>
 <p>代码如下</p>
@@ -244,23 +244,9 @@
 </code></pre></div><p>最后的结果……</p>
 <p><img src="https://i.loli.net/2020/09/22/HZfN8jGU3PAFTsR.jpg" alt="IMG_1938.jpg"></p>
 <p>挺丑的…</p>
-<p>就酱🤷‍♂️</p></div>
+<p>就酱🤷‍♂️</p>
 
-    <div id="vcomments"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script type="text/javascript">
-    new Valine({
-        el: '#vcomments',
-        appId: 'nU6nQElcmyWpdE0G8diSQQ4H-gzGzoHsz',
-        appKey: 'QipPB7dfjJ3qBSEaQ9w9Frff',
-        notify:  false ,
-        verify:  false ,
-        avatar: 'mm',
-        placeholder: '给我留言吧...',
-        visitor:  true 
-    });
-</script>
+    
 
     
 
@@ -299,12 +285,7 @@
         
         
     </div>
-    <div>
-        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-        <span>本站总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
-        <span>&middot;</span>
-        <span>本站访客数 <span id="busuanzi_value_site_uv"></span> 人次</span>
-    </div>
+    
     <div>
         <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
         <span>&middot;</span>
