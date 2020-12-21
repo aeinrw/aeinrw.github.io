@@ -415,7 +415,6 @@ sup {
   max-width: 100%;
   margin: .625rem 0;
   border-spacing: 0;
-  /* background: var(--code); */
   border-collapse: collapse;
 }
 .post-content table thead {
@@ -498,8 +497,6 @@ sup {
   margin-left: 0;
   margin-right: 0;
   padding: 12px 0px 12px 0px;
-  /* padding: 0px 0px 12px 0px; */
-  /* color: rgb(255, 255, 255); */
   background: transparent;
   border-radius: 0;
   word-break: normal;

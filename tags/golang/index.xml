@@ -30,17 +30,6 @@
     </item>
     
     <item>
-      <title>golang的接口类型</title>
-      <link>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B/</link>
-      <pubDate>Wed, 24 Jun 2020 20:29:15 +0800</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/golang%E7%9A%84%E6%8E%A5%E5%8F%A3%E7%B1%BB%E5%9E%8B/</guid>
-      <description>&lt;h1 id=&#34;golang的interface&#34;&gt;golang的&lt;code&gt;interface&lt;/code&gt;&lt;/h1&gt;
-&lt;h2 id=&#34;简介&#34;&gt;简介&lt;/h2&gt;
-&lt;p&gt;简单地说, golang中地&lt;code&gt;interface&lt;/code&gt;就是一组&lt;strong&gt;方法的组合&lt;/strong&gt;. 任意对象, 只要一点不差的实现了这些方法, 那就相当于实现了这个接口.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>golang中append()的坑</title>
       <link>https://blog.aeinrw.com/posts/golang%E4%B8%ADappend%E7%9A%84%E5%9D%91/</link>
       <pubDate>Sun, 07 Jun 2020 20:40:39 +0800</pubDate>

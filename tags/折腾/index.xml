@@ -19,15 +19,5 @@
 &lt;p&gt;鉴于目前ios上没有让自己满意的课程表应用, 另外在看到&lt;a href=&#34;https://sspai.com/u/spencerwoo/updates&#34;&gt;@spencerwooo&lt;/a&gt;的&lt;a href=&#34;https://gist.github.com/spencerwooo/7955aefc4ffa5bc8ae7c83d85d05e7a4&#34;&gt;个人粉丝记录&lt;/a&gt;后产生想法. 前后用时一天, 从后端服务器发出json的API, 到ios上基于scriptable的小组件, 也算是自己的第一个前后端分离的完整项目.&lt;/p&gt;</description>
     </item>
     
-    <item>
-      <title>各种软件安装和环境配置过程</title>
-      <link>https://blog.aeinrw.com/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</link>
-      <pubDate>Sat, 06 Jul 2019 14:48:17 +0000</pubDate>
-      <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/posts/%E5%90%84%E7%A7%8D%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E5%92%8C%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B/</guid>
-      <description>&lt;p&gt;最近在服务器上玩centos,各种玩坏了就重装&amp;hellip;🤯&lt;/p&gt;
-&lt;p&gt;安装软件和配置环境一直是非常蛋疼的事情,重装之后又要重新去找相关的教程.所以今天就自己曾经参考过的安装和配置教程做一个总结(都是成功的),免得以后重新找.&lt;/p&gt;</description>
-    </item>
-    
   </channel>
 </rss>
