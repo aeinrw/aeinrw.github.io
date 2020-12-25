@@ -8,20 +8,20 @@
     <language>zh-CN</language>
     <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
     <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
-    <lastBuildDate>Thu, 17 Dec 2020 11:04:26 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Dec 2020 11:00:32 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>pytorch</title>
-      <link>https://blog.aeinrw.com/tags/pytorch/</link>
-      <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
+      <title>pytroch</title>
+      <link>https://blog.aeinrw.com/tags/pytroch/</link>
+      <pubDate>Fri, 25 Dec 2020 11:00:32 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
-      <guid>https://blog.aeinrw.com/tags/pytorch/</guid>
+      <guid>https://blog.aeinrw.com/tags/pytroch/</guid>
       <description></description>
     </item>
     
     <item>
       <title>深度学习</title>
       <link>https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
-      <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
+      <pubDate>Fri, 25 Dec 2020 11:00:32 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</guid>
       <description></description>
@@ -30,9 +30,18 @@
     <item>
       <title>源码</title>
       <link>https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81/</link>
-      <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
+      <pubDate>Fri, 25 Dec 2020 11:00:32 +0800</pubDate>
       <author>aeinrw@gmail.com (aeinrw)</author>
       <guid>https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pytorch</title>
+      <link>https://blog.aeinrw.com/tags/pytorch/</link>
+      <pubDate>Thu, 17 Dec 2020 11:04:26 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/tags/pytorch/</guid>
       <description></description>
     </item>
     

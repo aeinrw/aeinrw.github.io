@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html><head>
+    <title>Pytorch.utils.data源码解析</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="1. torch.utils.data torch.utils.data封装了几个关于数据集的类，主要包括Dataset、Samper、DatasetLoader，通过这三个类">
+    <meta name="author" content="">
+
+
+    <link rel="apple-touch-icon" href="https://blog.aeinrw.com/image/apple-touch-icon.png">
+    <link rel="icon" href="https://blog.aeinrw.com/image/favicon.ico">
+
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1907205_qcnyqfdpzc.css">
+    
+    <link rel="stylesheet" href="https://blog.aeinrw.com/css/style.css">
+    
+    
+
+
+    <meta name="generator" content="Hugo 0.79.0" />
+
+    <script>
+        function setTheme() {
+            const now = (new Date()).getHours();
+            const prev = Number(localStorage.getItem('oldHour'));
+
+            if (prev !== now) {
+                localStorage.setItem('oldHour', now);
+                if (now > 7 && now < 18) {
+                    localStorage.setItem("isDark", "false");
+                    document.body.classList.remove('dark');
+                } else {
+                    localStorage.setItem("isDark", "true");
+                    document.body.classList.add('dark');
+                }
+            } else {
+                if (localStorage.getItem('isDark') == "true") {
+                    document.body.classList.add('dark');
+                } else {
+                    document.body.classList.remove('dark');
+                }
+            }
+        }
+        function switchTheme() {
+            if (localStorage.getItem('isDark') == "true") {
+                localStorage.setItem('isDark', "false");
+                document.body.classList.remove('dark');
+            } else {
+                localStorage.setItem('isDark', "true");
+                document.body.classList.add('dark');
+            }
+        }
+    </script>
+</head><body class="
+                    single
+                 "><script>
+    setTheme();
+</script>
+<header class="header">
+    <nav class="nav">
+        <h1 class="logo"><a href="https://blog.aeinrw.com/">aeinrw</a></h1>
+        <ul class="menu">
+            <li>
+                <a href="/posts/"><i class="iconfont icon-timeline menuicon"></i></a>
+            </li>
+            <li>
+                <a href="/tags/"><i class="iconfont icon-tags menuicon"></i></a>
+            </li>
+            <li>
+                <a href="/categories/"><i class="iconfont icon-categories menuicon"></i></a>
+            </li>
+            <li>
+                <a href="javascript:switchTheme%28%29"><i class="iconfont icon-adjust menuicon"></i></a>
+            </li>
+        </ul>
+    </nav>
+</header><main id="content">
+
+<header class="page-header">
+    <h1 class="post-title">Pytorch.utils.data源码解析</h1>
+    <div class="post-meta">December 25, 2020</div>
+    <ul class="post-tags">
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/pytroch">pytroch</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E6%BA%90%E7%A0%81">源码</a></li>
+        <li class="post-tag"><a href="https://blog.aeinrw.com/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
+    </ul>
+    
+</header>
+
+<article class="post-content">
+    <h1 id="1-torchutilsdata">1. torch.utils.data</h1>
+<p><code>torch.utils.data</code>封装了几个关于数据集的类，主要包括<code>Dataset</code>、<code>Samper</code>、<code>DatasetLoader</code>，通过这三个类可以方便的对数据集进行读取。他们的主要的关系如图。</p>
+<p><img src="https://i.loli.net/2020/12/25/hCfwaQzO5qpncRx.png" alt="datasetloader.png"></p>
+<ul>
+<li><code>Dataset</code>类用来封装数据集，需要实现<code>__getitem__</code>方法，用下标获取数据；</li>
+<li><code>Sampler</code>类用来生成索引列表，即具体的下标；</li>
+<li><code>DatasetLoader</code>类中用<code>Sampler</code>生成的索引去<code>Dataset</code>中获取数据，生成迭代器进行数据的批量输出。</li>
+</ul>
+<h1 id="2-datasetpy">2. dataset.py</h1>
+<p>在dataset.py中，定义了6个类：</p>
+<ul>
+<li><code>Dataset</code>：按索引取值；
+<ul>
+<li><code>ConcatDataset</code>：两个<code>Dataset</code>相加；</li>
+<li><code>Subset</code>：子数据集；</li>
+<li><code>TensorDataset</code>：一个具体实现，用于数据是tensor的数据集；</li>
+</ul>
+</li>
+<li><code>IterableDataset</code>：可迭代对象；
+<ul>
+<li><code>ChainDataset</code>：两个<code>IterableDataset</code>相加。</li>
+</ul>
+</li>
+</ul>
+<h2 id="21-dataset">2.1 Dataset</h2>
+<p><code>Dataset</code>是一个抽象类，需要对其进行继承，并实现<code>__init__</code>、<code>__getitem__</code>、<code>__len__</code>方法。</p>
+<p><code>Dataset</code>定义了<code>__add__</code>方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">:</span><span class="s1">&#39;Dataset&#39;</span><span class="p">):</span>
+<span class="ln">2</span>	<span class="k">return</span> <span class="n">ConcatDataset</span><span class="p">([</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">])</span>
+</code></pre></div><p>两个<code>Dataset</code>相加得到一个<code>ConcatDataset</code>对象：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">class</span> <span class="nc">ConcatDataset</span><span class="p">(</span><span class="n">Dataset</span><span class="p">):</span>
+<span class="ln"> 2</span>    <span class="nd">@staticmethod</span>
+<span class="ln"> 3</span>    <span class="k">def</span> <span class="nf">cumsum</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>	<span class="c1"># 用于构造每个dataset累计元素个数</span>
+<span class="ln"> 4</span>        <span class="n">r</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[],</span> <span class="mi">0</span>
+<span class="ln"> 5</span>        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
+<span class="ln"> 6</span>            <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<span class="ln"> 7</span>            <span class="n">r</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">s</span><span class="p">)</span>
+<span class="ln"> 8</span>            <span class="n">s</span> <span class="o">+=</span> <span class="n">l</span>
+<span class="ln"> 9</span>        <span class="k">return</span> <span class="n">r</span>
+<span class="ln">10</span>
+<span class="ln">11</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">datasets</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Dataset</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="ln">12</span>        <span class="nb">super</span><span class="p">(</span><span class="n">ConcatDataset</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<span class="ln">13</span>        <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span>
+<span class="ln">14</span>        <span class="bp">self</span><span class="o">.</span><span class="n">cumulative_sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">)</span>
+<span class="ln">15</span>
+<span class="ln">16</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">17</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumulative_sizes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="ln">18</span>
+<span class="ln">19</span>    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+<span class="ln">20</span>        <span class="k">if</span> <span class="n">idx</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ln">21</span>            <span class="n">idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">+</span> <span class="n">idx</span>
+<span class="ln">22</span>        <span class="n">dataset_idx</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cumulative_sizes</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span> <span class="c1"># 二分查找</span>
+<span class="ln">23</span>        <span class="k">if</span> <span class="n">dataset_idx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="ln">24</span>            <span class="n">sample_idx</span> <span class="o">=</span> <span class="n">idx</span>
+<span class="ln">25</span>        <span class="k">else</span><span class="p">:</span>
+<span class="ln">26</span>            <span class="n">sample_idx</span> <span class="o">=</span> <span class="n">idx</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cumulative_sizes</span><span class="p">[</span><span class="n">dataset_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+<span class="ln">27</span>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">[</span><span class="n">dataset_idx</span><span class="p">][</span><span class="n">sample_idx</span><span class="p">]</span> <span class="c1"># 数据集索引 数据索引</span>
+</code></pre></div><blockquote>
+<p>以[1,2,3,4] + [5,6,7,8,9]两个dataset为例，得到的cumulative_sizes为[4,9]；</p>
+<p>取下标为7的元素，返回的值为datasets[1][3]。</p>
+</blockquote>
+<p>还有一个<code>TensorDataset</code>，是<code>Dataset</code>的一个具体实现，数据集为tensor，它要求所有tensor的第一个维度相等，因为传进来的可能是data和labels。实现了<code>__gititem__</code>方法，返回所有tensor中的第n个数据。</p>
+<h2 id="22-iterabledataset">2.2 IterableDataset</h2>
+<p><code>Dataset</code>需要实现按索引取值，但<code>IterableDataset</code>是一个迭代器（<code>Iterator</code>），获取的值的顺序是固定的。</p>
+<blockquote>
+<p><code>Iterable</code>：可迭代对象，凡是实现了<code>__gititem__</code> 和<code>__iter__</code>都是一个可迭代对象；</p>
+<p><code>Iterator</code>：迭代器，<code>__iter__</code>返回自身，还需实现<code>__next__</code>方法；</p>
+<p><code>Generator</code>：生成器，是一个含有<code>yield</code>的函数；有些类的<code>__iter__</code>方法就返回的是一个生成器；</p>
+</blockquote>
+<p><code>IterableDataset</code>需要实现<code>__iter__</code>方法，返回一个迭代器；</p>
+<p>它类似于<code>Dataset</code>，也有<code>__add__</code>方法，返回<code>ChainDataset</code>对象，其中的<code>__iter__</code>方法返回一个生成器：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">2</span>    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasets</span><span class="p">:</span>
+<span class="ln">3</span>        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+<span class="ln">4</span>            <span class="k">yield</span> <span class="n">x</span>
+</code></pre></div><h1 id="3-samplerpy">3. sampler.py</h1>
+<p>在sampler.py中也定义了几个类：</p>
+<ul>
+<li><code>Sampler</code>
+<ul>
+<li><code>SequentialSampler</code>：顺序获取索引；</li>
+<li><code>RandomSampler</code>：随机获取索引；</li>
+</ul>
+</li>
+<li><code>BatchSampler</code>：获取批量索引。</li>
+</ul>
+<h2 id="31-sampler">3.1 Sampler</h2>
+<p><code>pass</code></p>
+<h2 id="32-batchsampler">3.2 BatchSampler</h2>
+<p><code>pass</code></p>
+<h1 id="4-dataloaderpy">4. dataloader.py</h1>
+<p><code>pass</code></p>
+<h1 id="5-distributedpy">5. distributed.py</h1>
+<p><code>pass</code></p>
+
+
+    
+
+    
+
+    <script src="https://blog.aeinrw.com/js/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+</article>
+
+
+        </main><footer class="footer">
+    <div>
+        
+        
+        
+        <span><a href="https://github.com/aeinrw"><i class="iconfont icon-github"></i></a></span>
+        
+        
+        
+        <span><i class="iconfont icon-anjianfengexian"></i></span>
+        
+        <span><a href="https://www.weibo.com/6064805995/profile"><i class="iconfont icon-tubiaozhizuo-"></i></a></span>
+        
+        
+        
+        <span><i class="iconfont icon-anjianfengexian"></i></span>
+        
+        <span><a href="mailto:aeinrw@gmail.com"><i class="iconfont icon-youxiang"></i></a></span>
+        
+        
+        
+        <span><i class="iconfont icon-anjianfengexian"></i></span>
+        
+        <span><a href="https://www.zhihu.com/people/wei-ran-75-78"><i class="iconfont icon-zhihu"></i></a></span>
+        
+        
+    </div>
+    
+    <div>
+        <span>&copy; 2020 <a href="" ZgotmplZ>aeinrw</a></span>
+        <span>&middot;</span>
+        <span><a href="http://www.beian.miit.gov.cn/">皖ICP备 20011881号</a>️</span>
+        
+    </div>
+</footer></body>
+
+</html>

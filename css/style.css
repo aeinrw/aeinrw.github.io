@@ -481,12 +481,12 @@ sup {
 }
 
 .post-content code {
-  margin-left: 4px;
-  margin-right: 4px;
-  padding: 4px 6px;
+  /* margin-left: 4px;
+  margin-right: 4px; */
+  padding: 3px 3px;
   /* font-family: 'Operator Mono', 'Dank Mono', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; */
   font-family: 'Cascadia Mono' , Consolas;
-  font-size: 1em;
+  font-size: 0.9em;
   line-height: 1.5;
   background: var(--code);
   border-radius: 2px;

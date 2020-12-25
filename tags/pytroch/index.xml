@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pytroch on aeinrw</title>
+    <link>https://blog.aeinrw.com/tags/pytroch/</link>
+    <description>Recent content in pytroch on aeinrw</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <managingEditor>aeinrw@gmail.com (aeinrw)</managingEditor>
+    <webMaster>aeinrw@gmail.com (aeinrw)</webMaster>
+    <lastBuildDate>Fri, 25 Dec 2020 11:00:32 +0800</lastBuildDate><atom:link href="https://blog.aeinrw.com/tags/pytroch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pytorch.utils.data源码解析</title>
+      <link>https://blog.aeinrw.com/posts/pytorch.utils.data%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</link>
+      <pubDate>Fri, 25 Dec 2020 11:00:32 +0800</pubDate>
+      <author>aeinrw@gmail.com (aeinrw)</author>
+      <guid>https://blog.aeinrw.com/posts/pytorch.utils.data%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E7%AC%94%E8%AE%B0/</guid>
+      <description>1. torch.utils.data torch.utils.data封装了几个关于数据集的类，主要包括Dataset、Samper、DatasetLoader，通过这三个类</description>
+    </item>
+    
+  </channel>
+</rss>
