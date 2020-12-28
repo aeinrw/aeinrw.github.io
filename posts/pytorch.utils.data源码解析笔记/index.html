@@ -4,7 +4,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=0.85, shrink-to-fit=no">
     <meta name="description" content="1. torch.utils.data torch.utils.data封装了几个关于数据集的类，主要包括Dataset、Samper、DatasetLoader，通过这三个类">
     <meta name="author" content="">
 
@@ -177,11 +177,71 @@
 <li><code>BatchSampler</code>：获取批量索引。</li>
 </ul>
 <h2 id="31-sampler">3.1 Sampler</h2>
-<p><code>pass</code></p>
+<p><code>Sampler</code>也是一个抽象类，需要对其进行继承，并实现<code>__iter__</code>方法，返回一个迭代器。</p>
+<p><code>Sampler</code>官方实现了两个具体的子类：</p>
+<ul>
+<li>
+<p><code>SequentialSampler</code>：按顺序输出索引，长度为数据集的长度，源码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">class</span> <span class="nc">SequentialSampler</span><span class="p">(</span><span class="n">Sampler</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+<span class="ln">2</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">data_source</span><span class="p">):</span>
+<span class="ln">3</span>        <span class="bp">self</span><span class="o">.</span><span class="n">data_source</span> <span class="o">=</span> <span class="n">data_source</span>
+<span class="ln">4</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">5</span>        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_source</span><span class="p">)))</span>
+<span class="ln">6</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">7</span>        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_source</span><span class="p">)</span>
+</code></pre></div></li>
+<li>
+<p><code>RandomSampler</code>：随机输出所有的索引，核心代码如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln">1</span><span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">2</span>    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_source</span><span class="p">)</span>
+<span class="ln">3</span>    <span class="k">yield</span> <span class="kn">from</span> <span class="nn">torch.randperm</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</code></pre></div></li>
+</ul>
 <h2 id="32-batchsampler">3.2 BatchSampler</h2>
-<p><code>pass</code></p>
-<h1 id="4-dataloaderpy">4. dataloader.py</h1>
-<p><code>pass</code></p>
+<p><code>BatchSampler</code>是对<code>Sampler</code>的进一步封装，可以输出一个batch size的索引：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="ln"> 1</span><span class="k">class</span> <span class="nc">BatchSampler</span><span class="p">(</span><span class="n">Sampler</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]):</span>
+<span class="ln"> 2</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">sampler</span><span class="p">,</span><span class="n">batch_size</span><span class="p">,</span><span class="n">drop_last</span><span class="p">):</span>
+<span class="ln"> 3</span>        <span class="bp">self</span><span class="o">.</span><span class="n">sampler</span> <span class="o">=</span> <span class="n">sampler</span>
+<span class="ln"> 4</span>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+<span class="ln"> 5</span>        <span class="bp">self</span><span class="o">.</span><span class="n">drop_last</span> <span class="o">=</span> <span class="n">drop_last</span>
+<span class="ln"> 6</span>    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln"> 7</span>        <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ln"> 8</span>        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sampler</span><span class="p">:</span>
+<span class="ln"> 9</span>            <span class="n">batch</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span>
+<span class="ln">10</span>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
+<span class="ln">11</span>                <span class="k">yield</span> <span class="n">batch</span>
+<span class="ln">12</span>                <span class="n">batch</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="ln">13</span>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last</span><span class="p">:</span> <span class="c1">#是否丢掉最后几个数据</span>
+<span class="ln">14</span>            <span class="k">yield</span> <span class="n">batch</span>
+<span class="ln">15</span>    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="ln">16</span>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_last</span><span class="p">:</span>
+<span class="ln">17</span>            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sampler</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+<span class="ln">18</span>        <span class="k">else</span><span class="p">:</span>
+<span class="ln">19</span>            <span class="k">return</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sampler</span><span class="p">)</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span>
+</code></pre></div><h1 id="4-dataloaderpy">4. dataloader.py</h1>
+<p><code>DataLoader</code>类组合了<code>Sampler</code>和<code>Dataset</code>，<code>Sampler</code>输出索引，<code>Dataset</code>通过索引找到数据。源代码主要有两块：</p>
+<ul>
+<li>
+<p><code>__init__</code></p>
+<p>生成函数中对参数进行了判断以及赋值。主要的参数有：<code>dataset</code>、<code>batch_size</code>、<code>shuffle</code>、<code>sampler</code>、<code>batch_sampler</code>、<code>num_workers</code>、<code>drop_last</code>。有些参数是互斥的：</p>
+<ol>
+<li>如果是<code>IterableDataset</code>，则数据集的输出顺序是确定的，<code>batch_size</code>、<code>shuffle</code>、<code>sampler</code>不能指定；</li>
+<li>确定了<code>sampler</code>，则<code>shuffle</code>不能指定；</li>
+<li>确定了<code>batch_sampler</code>，则<code>shuffle</code>、<code>sampler</code>不能指定；</li>
+<li>如果没确定<code>sampler</code>：
+<ul>
+<li>如果shuffle，则<code>sampler=RandomSampler(dataset)</code>；</li>
+<li>否则<code>sampler=SequentialSampler(dataset)</code>；</li>
+</ul>
+</li>
+<li>如果确定了<code>batch_size</code>且没指定<code>batch_sampler</code>，则<code>batch_sampler=BatchSampler(sampler,batch_size,drop_last)</code>。</li>
+</ol>
+</li>
+<li>
+<p><code>__iter__</code></p>
+<p>输出一个<code>_BaseDataLoaderIter</code>，<code>self.num_workers==0</code>时为<code>_SingleProcessDataLoaderIter</code>，否则为<code>_MultiProcessingDataLoaderIter</code>。通过他们进行输出数据集，其中还涉及到很多其他的类。</p>
+</li>
+</ul>
 <h1 id="5-distributedpy">5. distributed.py</h1>
 <p><code>pass</code></p>
 
